@@ -10,5 +10,4 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-//TestCommit
-//Test commit
+//Testing
