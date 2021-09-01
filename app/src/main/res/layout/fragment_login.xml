@@ -48,6 +48,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -64,6 +65,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -91,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="40dp"
-                android:layout_toEndOf ="@id/loginButton"
+                android:layout_toEndOf="@id/loginButton"
                 android:text="@string/signup" />
 
         </RelativeLayout>
