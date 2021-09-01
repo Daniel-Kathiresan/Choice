@@ -15,7 +15,7 @@ import androidx.appcompat.content.res.AppCompatResources
  * A simple [Fragment] subclass.
  */
 class LoginFragment : Fragment() {
-    private lateinit var username: EditText
+    private lateinit var email: EditText
     private lateinit var password: EditText
 
 
@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_login, container, false)
 
-        username = view.findViewById(R.id.login_username)
+        email = view.findViewById(R.id.login_email)
         password = view.findViewById(R.id.login_password)
 
         view.findViewById<Button>(R.id.registerButton).setOnClickListener {
@@ -52,19 +52,19 @@ class LoginFragment : Fragment() {
         icon?.setBounds(0, 0,icon.intrinsicWidth,icon.intrinsicHeight)
         //check string user has entered
         when{
-            TextUtils.isEmpty((username.text.toString().trim()))->{
+            TextUtils.isEmpty((email.text.toString().trim()))->{
 
-                username.setError("Please Enter Username",icon)
+                email.setError("Please Enter an Email Address",icon)
             }
             TextUtils.isEmpty((password.text.toString().trim()))->{
 
                 password.setError("Please Enter Password",icon)
             }
 
-            username.text.toString().isNotEmpty() &&
+            email.text.toString().isNotEmpty() &&
                     password.text.toString().isNotEmpty() ->
             {//Currently checking if username is equal to email,will change to email later
-                if (username.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))){
+                if (email.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))){
                     //Correct if matches format, then check password
                     if(password.text.toString().length>=5){
                         //If more than 5 characters check confirm password
@@ -73,7 +73,7 @@ class LoginFragment : Fragment() {
                         password.setError("Please enter at least 5 characters",icon)
                     }
                 }else{
-                    username.setError("Please Enter Valid Email Id",icon)
+                    email.setError("Please Enter Valid Email Id",icon)
                 }
 
             }

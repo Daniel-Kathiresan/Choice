@@ -18,7 +18,7 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical"
         >
-
+        <!-- choice logo -->
         <ImageView
             android:layout_width="70dp"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:contentDescription="@string/choice_logo">
 
         </ImageView>
-
+        <!-- App title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,19 +36,19 @@
             android:textColor="#000"
             android:textSize="15sp"
             android:layout_marginTop="11dp"/>
-
+        <!-- Email field -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/username"
+            android:hint="@string/email_address"
             app:boxBackgroundColor="#ffcc99"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/reg_username"
+                android:id="@+id/reg_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -57,9 +57,42 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/first_name"
+            app:boxBackgroundColor="#ffcc99"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/reg_fname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/last_name_s"
+            app:boxBackgroundColor="#ffcc99"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/reg_lname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <!-- Password field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="@string/password"
             app:boxBackgroundColor="#ffcc99"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             >
@@ -72,13 +105,13 @@
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
-
+        <!-- Confirm password -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/confirm_password"
             app:boxBackgroundColor="#ffcc99"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             >
@@ -91,6 +124,7 @@
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"

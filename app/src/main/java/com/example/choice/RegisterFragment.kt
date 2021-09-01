@@ -16,7 +16,9 @@ import androidx.appcompat.content.res.AppCompatResources
  */
 class RegisterFragment : Fragment() {
     //Init variables
-    private lateinit var username: EditText
+    private lateinit var email: EditText
+    private lateinit var fname : EditText
+    private lateinit var lname : EditText
     private lateinit var password: EditText
     private lateinit var cnfrmPassword: EditText
 
@@ -27,9 +29,12 @@ class RegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_register, container, false)
         //Variables for user info
-        username = view.findViewById(R.id.reg_username)
+        email = view.findViewById(R.id.reg_email)
+        fname = view.findViewById(R.id.reg_fname)
+        lname = view.findViewById(R.id.reg_lname)
         password = view.findViewById(R.id.reg_password)
         cnfrmPassword = view.findViewById(R.id.reg_cnfrm_password)
+        //TODO: Add gender selection spinner (male, female, other), possibly add what gender you are seeking (looking for: male, female, both)
 
         view.findViewById<Button>(R.id.return_login_btn).setOnClickListener {
             var navRegister = activity as FragmentNavigation
@@ -48,15 +53,23 @@ class RegisterFragment : Fragment() {
 
     private fun validateEmptyForm(){
         //Show warning icon (currently placeholder) when a criteria is met
-        val icon = AppCompatResources.getDrawable(requireContext(),
+        val icon = AppCompatResources.getDrawable(requireContext(),//icon from resources
         R.drawable.warningph)
 
         icon?.setBounds(0, 0,icon.intrinsicWidth,icon.intrinsicHeight)
-        //check string user has entered
+        //check string user has entered is not empty
         when{
-            TextUtils.isEmpty((username.text.toString().trim()))->{
+            TextUtils.isEmpty((email.text.toString().trim()))->{
 
-                username.setError("Please Enter Username",icon)
+                email.setError("Please Enter an Email Address",icon)
+            }
+            TextUtils.isEmpty((fname.text.toString().trim()))->{
+
+                email.setError("Please Enter your First Name",icon)
+            }
+            TextUtils.isEmpty((lname.text.toString().trim()))->{
+
+                email.setError("Please Enter your Last Name(s)",icon)
             }
             TextUtils.isEmpty((password.text.toString().trim()))->{
 
@@ -66,31 +79,40 @@ class RegisterFragment : Fragment() {
 
                 cnfrmPassword.setError("Please Confirm Password",icon)
             }
-
-            username.text.toString().isNotEmpty() &&
+            //check if field are empty
+            email.text.toString().isNotEmpty() &&
+                    fname.text.toString().isNotEmpty() &&
+                    lname.text.toString().isNotEmpty() &&
                     password.text.toString().isNotEmpty()&&
-                    cnfrmPassword.text.toString().isNotEmpty() ->
-            {//Currently checking if username is equal to email,will change to email later
-                if (username.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))){
+                    cnfrmPassword.text.toString().isNotEmpty()
+                        ->
+            {//Check if email is valid format
+                if (email.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))){
                     //Correct if matches format, then check password
-                    if(password.text.toString().length>=5){
-                        //If more than 5 characters check confirm password
-                        if(password.text.toString() == cnfrmPassword.text.toString()){
+                        if (fname.text.toString().matches(Regex("[a-zA-Z]+"))){
+                            if (lname.text.toString().matches(Regex("[a-zA-Z]+"))){
+                                if(password.text.toString().length>=5){
+                                    //If more than 5 characters check confirm password
+                                    if(password.text.toString() == cnfrmPassword.text.toString()){
 
-                            Toast.makeText(context,"Account Creation Successful",Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(context,"Account Creation Successful",Toast.LENGTH_SHORT).show()
+                                    }
+                                    else{
+                                        cnfrmPassword.setError("Password Does Not Match",icon)
+                                    }
+                                }else{
+                                    password.setError("Please enter at least 5 characters",icon)
+                                }
+                            }else{
+                                lname.setError("Name can only contain letters",icon)
+                            }
+                        }else{
+                            fname.setError("Name can only contain letters", icon)
                         }
-                        else{
-                            cnfrmPassword.setError("Password Does Not Match",icon)
-                        }
-                    }else{
-                        password.setError("Please enter at least 5 characters",icon)
-                    }
-                }else{
-                    username.setError("Please Enter Valid Email Id",icon)
+                }else {
+                    email.setError("Please Enter Valid Email Address", icon)
                 }
-
-
-            }
+            }//Checks if all fields are valid for registration. Email: Base on format, last and first name: letters only, password: more than 5 chars, confirm password: must match password
         }
     }
 }
