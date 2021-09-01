@@ -1,14 +1,13 @@
 package com.example.choice
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 
 /**
@@ -21,6 +20,7 @@ class RegisterFragment : Fragment() {
     private lateinit var lname : EditText
     private lateinit var password: EditText
     private lateinit var cnfrmPassword: EditText
+    private lateinit var usergndr: Spinner
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +34,21 @@ class RegisterFragment : Fragment() {
         lname = view.findViewById(R.id.reg_lname)
         password = view.findViewById(R.id.reg_password)
         cnfrmPassword = view.findViewById(R.id.reg_cnfrm_password)
-        //TODO: Add gender selection spinner (male, female, other), possibly add what gender you are seeking (looking for: male, female, both)
+        //WIP: Spinner
+        val spinner: Spinner = view.findViewById(R.id.gender_spinner)
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.gender_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
+
+
 
         view.findViewById<Button>(R.id.return_login_btn).setOnClickListener {
             var navRegister = activity as FragmentNavigation
@@ -49,6 +63,18 @@ class RegisterFragment : Fragment() {
 
         return view
 
+    }
+
+    class SpinnerActivity : Activity(), AdapterView.OnItemSelectedListener {
+
+        override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+            // An item was selected. You can retrieve the selected item using
+            parent.getItemAtPosition(pos)
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>) {
+            // Another interface callback
+        }
     }
 
     private fun validateEmptyForm(){

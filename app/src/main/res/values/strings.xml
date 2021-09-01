@@ -21,4 +21,10 @@
     <string name="first_name">First Name</string>
     <string name="last_name_s">Last Name(s)</string>
     <string name="email_address">Email Address</string>
+    <!-- Strings used for picking gender stored in array -->
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
 </resources>
