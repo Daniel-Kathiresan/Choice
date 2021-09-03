@@ -10,6 +10,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 /**
  * A simple [Fragment] subclass.
@@ -17,7 +20,8 @@ import androidx.appcompat.content.res.AppCompatResources
 class LoginFragment : Fragment() {
     private lateinit var email: EditText
     private lateinit var password: EditText
-
+    private lateinit var fAuth: FirebaseAuth
+    private lateinit var logBtn : Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +32,8 @@ class LoginFragment : Fragment() {
 
         email = view.findViewById(R.id.login_email)
         password = view.findViewById(R.id.login_password)
+        fAuth = Firebase.auth
+        logBtn = view.findViewById(R.id.loginButton)
 
         view.findViewById<Button>(R.id.registerButton).setOnClickListener {
             var navRegister = activity as FragmentNavigation
@@ -43,6 +49,22 @@ class LoginFragment : Fragment() {
         return view
     }
 
+
+    private fun firebaseSignIn(){
+        logBtn.isEnabled = false
+        logBtn.alpha = 0.5f
+        fAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
+            task ->
+            if(task.isSuccessful){
+                var navHome = activity as FragmentNavigation
+                navHome.navigateFrag(HomeFragment(), addToStack = true)
+            }else{
+                logBtn.isEnabled = true
+                logBtn.alpha = 1.0f
+                Toast.makeText(context, task.exception?.message,Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     private fun validateForm(){
         //Show warning icon (currently placeholder) when a criteria is met
@@ -69,6 +91,8 @@ class LoginFragment : Fragment() {
                     if(password.text.toString().length>=5){
                         //If more than 5 characters check confirm password
                         Toast.makeText(context,"Login successful", Toast.LENGTH_SHORT).show()
+                        //Login with firebase
+                        firebaseSignIn()
                     }else{
                         password.setError("Please enter at least 5 characters",icon)
                     }
