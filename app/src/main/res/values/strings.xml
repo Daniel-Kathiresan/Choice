@@ -9,4 +9,10 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="User_ID">IDNumber</string>
+    <string name="User_Setting">Setting</string>
+    <string name="User_Intro">Introduction</string>
+    <string name="User_Name">UserName</string>
+    <string name="Edit_profile">Eidt profile</string>
+    <string name="todo">TODO</string>
 </resources>
