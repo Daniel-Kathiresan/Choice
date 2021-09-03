@@ -1,6 +1,5 @@
 package com.example.choice
 
-import android.app.Activity
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -29,7 +28,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_register, container, false)
+        val view = inflater.inflate(R.layout.fragment_register, container, false)
         //Variables for user info
         email = view.findViewById(R.id.reg_email)
         fname = view.findViewById(R.id.reg_fname)
@@ -37,7 +36,7 @@ class RegisterFragment : Fragment() {
         password = view.findViewById(R.id.reg_password)
         cnfrmPassword = view.findViewById(R.id.reg_cnfrm_password)
         fAuth = Firebase.auth
-        regBtn =  view.findViewById<Button>(R.id.create_account_btn)
+        regBtn =  view.findViewById(R.id.create_account_btn)
         //WIP: Spinner
         //val spinner: Spinner = view.findViewById(R.id.gender_spinner)
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -55,7 +54,7 @@ class RegisterFragment : Fragment() {
 
 
         view.findViewById<Button>(R.id.return_login_btn).setOnClickListener {
-            var navRegister = activity as FragmentNavigation
+            val navRegister = activity as FragmentNavigation
             navRegister.navigateFrag(LoginFragment(), false)
         }
         //password validation and error checking
@@ -91,7 +90,7 @@ class RegisterFragment : Fragment() {
                 Toast.makeText(context, "Sign-up Successful",Toast.LENGTH_SHORT).show()
                 //TODO: Make firebase save user info along with email and password
                 //This will navigate
-                var navHome = activity as FragmentNavigation
+                val navHome = activity as FragmentNavigation
                 navHome.navigateFrag(HomeFragment(),addToStack = true)
             }else{
                 Toast.makeText(context,task.exception?.message,Toast.LENGTH_SHORT).show()
