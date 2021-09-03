@@ -57,6 +57,7 @@ class LoginFragment : Fragment() {
             task ->
             if(task.isSuccessful){
                 var navHome = activity as FragmentNavigation
+                //TODO: Change from homescreen to map screen
                 navHome.navigateFrag(HomeFragment(), addToStack = true)
             }else{
                 logBtn.isEnabled = true

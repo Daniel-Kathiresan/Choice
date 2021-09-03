@@ -13,9 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-/**
- * A simple [Fragment] subclass.
- */
 class RegisterFragment : Fragment() {
     //Init variables
     private lateinit var email: EditText
@@ -92,7 +89,7 @@ class RegisterFragment : Fragment() {
             task ->
             if(task.isSuccessful){
                 Toast.makeText(context, "Sign-up Successful",Toast.LENGTH_SHORT).show()
-
+                //TODO: Make firebase save user info along with email and password
                 //This will navigate
                 var navHome = activity as FragmentNavigation
                 navHome.navigateFrag(HomeFragment(),addToStack = true)
