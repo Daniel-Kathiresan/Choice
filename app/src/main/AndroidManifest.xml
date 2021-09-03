@@ -9,19 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Choice">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            />
-
         <activity android:name=".MapScreen" />
         <activity
             android:name=".ChatScreen"
             android:label="@string/title_activity_chat_screen"
             android:theme="@style/Theme.Choice.NoActionBar" />
-        <activity android:name=".SettingsScreen" />
         <activity android:name=".LoginScreen" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        <activity android:name=".SettingsScreen" />
     </application>
 
 </manifest>
