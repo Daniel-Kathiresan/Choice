@@ -10,25 +10,74 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Username"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        tools:layout_editor_absoluteX="165dp"
-        tools:layout_editor_absoluteY="28dp" />
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/User_Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="<"
-        app:backgroundTint="#858383"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_width="59dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/previous"
+        android:textColor="#000000"
+        app:backgroundTint="#818181"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="59dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="330dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/todo"
+        android:textColor="#000000"
+        app:backgroundTint="#818181"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="55dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="676dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:clickable="true"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:layout_editor_absoluteX="4dp"
+        android:contentDescription="@string/menu"
+        android:focusable="true" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="345dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="676dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="349dp"
+            android:layout_height="47dp"
+            android:hint="@string/text"
+            tools:ignore="TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ScrollView
-        android:layout_width="415dp"
-        android:layout_height="587dp"
-        tools:layout_editor_absoluteX="-3dp"
-        tools:layout_editor_absoluteY="65dp">
+        android:layout_width="414dp"
+        android:layout_height="621dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/chatcontent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,38 +85,5 @@
             android:orientation="vertical" />
     </ScrollView>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="692dp">
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="361dp"
-        android:layout_height="42dp"
-        android:hint="hint"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="669dp" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="="
-        app:backgroundTint="#737272"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="17dp" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="45dp"
-        android:layout_height="46dp"
-        android:background="#FFFFFF"
-        android:tint="#555454"
-        app:srcCompat="@android:drawable/ic_menu_gallery"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="665dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
