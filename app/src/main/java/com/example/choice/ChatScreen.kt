@@ -9,4 +9,3 @@ class ChatScreen : AppCompatActivity() {
         setContentView(R.layout.activity_chat_screen)
     }
 }
-:)
