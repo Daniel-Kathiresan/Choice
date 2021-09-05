@@ -3,15 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.38229166666666664" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/drawable/ic_launcher_background.xml" value="0.38229166666666664" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_chat_screen.xml" value="0.2046875" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_login_screen.xml" value="0.2046875" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_main.xml" value="0.2554347826086957" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_map_screen.xml" value="0.2046875" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_settings_screen.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/fragment_login.xml" value="0.2554347826086957" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/fragment_register.xml" value="0.2554347826086957" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_home.xml" value="0.5" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_register.xml" value="0.1" />
       </map>
     </option>
   </component>
