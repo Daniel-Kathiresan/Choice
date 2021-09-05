@@ -15,4 +15,10 @@
     <string name="User_Name">UserName</string>
     <string name="Edit_profile">Eidt profile</string>
     <string name="todo">TODO</string>
+    <string name="choice">choice</string>
+    <string name="choice_logo">logo</string>
+    <string name="email_address">email_address</string>
+    <string name="password">password</string>
+    <string name="login">login</string>
+    <string name="signup">signup</string>
 </resources>

@@ -3,9 +3,9 @@ package com.example.choice
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class ChatScreen : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat_screen)
+        setContentView(R.layout.activity_main)
     }
 }
