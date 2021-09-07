@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsFragment"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="33dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B0C4DE"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/setting_fragment_done_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/Done"
+        android:textColor="#FF0000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/setting_fragment_cancel_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/Cancel"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/setting_fragment_done_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/setting_fragment_done_text_view"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/setting_fragment_account_security_button"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="188dp"
+        android:backgroundTint="#4169E1"
+        android:text="Account Security"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/setting_fragment_general_button"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="236dp"
+        android:backgroundTint="#4169E1"
+        android:text="General"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/setting_fragment_about_us_button"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#4169E1"
+        android:text="About us"
+        app:layout_constraintEnd_toEndOf="@+id/setting_fragment_account_security_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/setting_fragment_account_security_button"
+        app:layout_constraintTop_toBottomOf="@+id/setting_fragment_help_button" />
+
+    <Button
+        android:id="@+id/setting_fragment_switch_account_button"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#4169E1"
+        android:text="Switch account"
+        app:layout_constraintEnd_toEndOf="@+id/setting_fragment_account_security_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/setting_fragment_account_security_button"
+        app:layout_constraintTop_toBottomOf="@+id/setting_fragment_about_us_button" />
+
+    <Button
+        android:id="@+id/setting_fragment_log_out_button"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#4169E1"
+        android:text="Log out"
+        app:layout_constraintEnd_toEndOf="@+id/setting_fragment_account_security_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/setting_fragment_account_security_button"
+        app:layout_constraintTop_toBottomOf="@+id/setting_fragment_switch_account_button" />
+
+    <Button
+        android:id="@+id/setting_fragment_setting_fragment_"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#4169E1"
+        android:text="Privacy"
+        android:textColor="#FAFAFA"
+        app:layout_constraintEnd_toEndOf="@+id/setting_fragment_account_security_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/setting_fragment_account_security_button"
+        app:layout_constraintTop_toBottomOf="@+id/setting_fragment_general_button"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/setting_fragment_help_button"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#4169E1"
+        android:text="Help"
+        android:textColor="#FAFAFA"
+        app:layout_constraintEnd_toEndOf="@+id/setting_fragment_account_security_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/setting_fragment_account_security_button"
+        app:layout_constraintTop_toBottomOf="@+id/setting_fragment_setting_fragment_"
+        tools:ignore="TextContrastCheck,TextContrastCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
