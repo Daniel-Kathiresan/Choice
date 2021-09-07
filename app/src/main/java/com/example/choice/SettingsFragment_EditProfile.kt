@@ -18,12 +18,12 @@ class SettingsFragment_EditProfile : AppCompatActivity() {
         binding = ActivitySettingsFragmentEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val getImage = registerForActivityResult(
-            ActivityResultContracts.GetContent(),
-            ActivityResultCallback {
-                binding.editProfileChangeheadButton.set
-            }
-        )
+//        val getImage = registerForActivityResult(
+//            ActivityResultContracts.GetContent(),
+//            ActivityResultCallback {
+//                binding.editProfileChangeheadButton.set
+//            }
+//        )
 
 
         edit_profile_done_text_view.setOnClickListener {
@@ -36,8 +36,8 @@ class SettingsFragment_EditProfile : AppCompatActivity() {
             startActivity(intent)
         }
 
-        edit_profile_changehead_button.setOnClickListener {
-            getImage.launch("image/*")
-        }
+//        edit_profile_changehead_button.setOnClickListener {
+//            getImage.launch("image/*")
+//        }
     }
 }
