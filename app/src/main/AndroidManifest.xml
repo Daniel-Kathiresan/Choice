@@ -17,12 +17,6 @@
             android:name=".SettingsFragment_EditProfile"
             android:exported="true" />
         <activity
-            android:name=".Settings_EditProfile"
-            android:exported="true" />
-        <activity
-            android:name=".SettingsFragment_Edit_Profile"
-            android:exported="true" />
-        <activity
             android:name=".SettingsFragment"
             android:exported="true" />
         <activity android:name=".MainActivity" />

@@ -21,7 +21,7 @@ class SettingsFragment_EditProfile : AppCompatActivity() {
         val getImage = registerForActivityResult(
             ActivityResultContracts.GetContent(),
             ActivityResultCallback {
-                binding.editProfileChangeheadButton.set
+                binding.imageView.setImageURI(it)
             }
         )
 
