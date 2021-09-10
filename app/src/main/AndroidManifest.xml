@@ -13,17 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Choice"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity
-            android:name=".MainActivity"
-            />
 
-        <activity android:name=".MapScreen" />
-        <activity
-            android:name=".ChatScreen"
-            android:label="@string/title_activity_chat_screen"
-            android:theme="@style/Theme.Choice.NoActionBar" />
-        <activity android:name=".SettingsScreen" />
-        <activity android:name=".LoginScreen"
+        <activity android:name=".MainActivity"
             android:exported="true">
             <!-- ^ Change this later -->
             <!-- Intent filter sets screen as default on launch -->
