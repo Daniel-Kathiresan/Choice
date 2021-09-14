@@ -1,5 +1,6 @@
 package com.example.choice
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -12,8 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
@@ -29,7 +28,7 @@ class RegisterFragment : Fragment() {
     private lateinit var regBtn: Button
     private lateinit var refUsers: DatabaseReference
     private var firebaseUserID : String = ""
-    //private lateinit var usergndr: Spinner
+    private lateinit var usergndr: Spinner
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,9 +44,7 @@ class RegisterFragment : Fragment() {
         cnfrmPassword = view.findViewById(R.id.reg_cnfrm_password)
         fAuth = Firebase.auth
         regBtn = view.findViewById(R.id.create_account_btn)
-        //fStore = FirebaseFirestore.getInstance()
-        //WIP: Spinner
-        //val spinner: Spinner = view.findViewById(R.id.gender_spinner)
+        usergndr = view.findViewById(R.id.gender_spinner)
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -57,7 +54,7 @@ class RegisterFragment : Fragment() {
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
-            //spinner.adapter = adapter
+            usergndr.adapter = adapter
         }
 
 
@@ -76,19 +73,17 @@ class RegisterFragment : Fragment() {
         return view
 
     }
-//TODO: Reinstate spinner
+        class SpinnerActivity : Activity(), AdapterView.OnItemSelectedListener {
 
-    //    class SpinnerActivity : Activity(), AdapterView.OnItemSelectedListener {
-//
-//        override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-//            // An item was selected. You can retrieve the selected item using
-//            parent.getItemAtPosition(pos)
-//        }
-//
-//        override fun onNothingSelected(parent: AdapterView<*>) {
-//            // Another interface callback
-//        }
-//    }
+        override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+            // An item was selected. You can retrieve the selected item using
+            parent.getItemAtPosition(pos)
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>) {
+            // Another interface callback
+        }
+    }
     //Function to provide connectivity and signup to firebase, sends the stored user data
     private fun firebaseSignUp() {
         regBtn.isEnabled = false
@@ -101,6 +96,7 @@ class RegisterFragment : Fragment() {
                     //Save user info as string
                     val firstName = fname.text.toString()
                     val lastName = lname.text.toString()
+                    val gender = usergndr.selectedItem.toString()
 
                     //Get UID, create DB reference with UID, Add to DB
                     firebaseUserID = fAuth.currentUser!!.uid
@@ -110,6 +106,7 @@ class RegisterFragment : Fragment() {
                     userHashMap["uid"] = firebaseUserID
                     userHashMap["first name"] = firstName
                     userHashMap["last name"] = lastName
+                    userHashMap["gender"] = gender
                     userHashMap["profile picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
                     //TODO: Add search value? (value to find user, for matching)
 
