@@ -2,21 +2,44 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.choice">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Choice">
+        <activity
+            android:name=".SettingsFragment_EditProfile"
+            android:exported="true" />
+        <activity
+            android:name=".SettingsFragment"
+            android:exported="true" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".MapScreen" />
         <activity
             android:name=".ChatScreen"
             android:label="@string/title_activity_chat_screen"
             android:theme="@style/Theme.Choice.NoActionBar" />
-        <activity android:name=".LoginScreen" />
+        <activity
+            android:name=".SettingsScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".SettingsScreen" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LoginScreen">
+
+            <!-- ^ Change this later -->
+            <!-- Intent filter sets screen as default on launch -->
+
+        </activity>
     </application>
 
 </manifest>
