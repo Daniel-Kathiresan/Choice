@@ -3,23 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.38229166666666664" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/drawable/ic_launcher_background.xml" value="0.38229166666666664" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/drawable/rounded_button_image.xml" value="0.25" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/drawable/rounded_editedtext_intro.xml" value="0.38229166666666664" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/drawable/rounded_edittext_intro.xml" value="0.38229166666666664" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout-v21/activity_settings_screen.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_chat_screen.xml" value="0.2046875" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_login_screen.xml" value="0.2046875" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_main.xml" value="0.2554347826086957" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_map_screen.xml" value="0.2046875" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_settings_edit_profile.xml" value="0.2046875" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_settings_fragment.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_settings_fragment_edit_profile.xml" value="0.33" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/activity_settings_screen.xml" value="0.33" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/fragment_home.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/fragment_login.xml" value="0.2554347826086957" />
-        <entry key="..\:/Users/Jason/SP/app/src/main/res/layout/fragment_register.xml" value="0.2554347826086957" />
+        <entry key="..\:/Users/Jason/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_settings_fragment_edit_profile.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/Jason/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_settings_screen.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/Jason/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_login.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_chat_screen.xml" value="0.5" />
+        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_login_screen.xml" value="0.490036231884058" />
+        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_main.xml" value="0.490036231884058" />
+        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_map_screen.xml" value="0.490036231884058" />
+        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_settings_screen.xml" value="0.490036231884058" />
+        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/fragment_login.xml" value="0.490036231884058" />
+        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/fragment_register.xml" value="0.490036231884058" />
       </map>
     </option>
   </component>
