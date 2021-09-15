@@ -1,18 +1,24 @@
 package com.example.choice
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
 
 /**
  * A simple [Fragment] subclass.
  */
+
 class HomeFragment : Fragment() {
+
   override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,7 +33,6 @@ class HomeFragment : Fragment() {
             navLogin.navigateFrag(LoginFragment(),addToStack = false)
         }
       return view
-
   }
 
 }

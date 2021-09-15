@@ -3,28 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.5697916666666667" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.5697916666666667" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/drawable/ic_baseline_map_24.xml" value="0.5697916666666667" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/drawable/round_button.xml" value="0.34270833333333334" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/drawable/rounded_button_image.xml" value="0.34270833333333334" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/drawable/rounded_edittext_intro.xml" value="0.34270833333333334" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_bottom_menu.xml" value="0.47282608695652173" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_chat_screen.xml" value="0.5" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_friend_list.xml" value="0.5390625" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_login_screen.xml" value="0.490036231884058" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_main.xml" value="0.490036231884058" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_map_screen.xml" value="0.490036231884058" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_settings_fragment.xml" value="0.3265625" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_settings_fragment_edit_profile.xml" value="0.5" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_settings_screen.xml" value="0.490036231884058" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/fragment_friend.xml" value="0.47282608695652173" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/fragment_home.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/fragment_login.xml" value="0.490036231884058" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/fragment_register.xml" value="0.490036231884058" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/menu/bottom_menu.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/menu/filter.xml" value="0.4046875" />
-        <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/menu/menu.xml" value="0.3265625" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_login_screen.xml" value="0.1" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_map_screen.xml" value="0.1" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_home.xml" value="0.27816091954022987" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_register.xml" value="0.33" />
       </map>
     </option>
   </component>
