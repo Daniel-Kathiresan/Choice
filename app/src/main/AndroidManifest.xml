@@ -22,7 +22,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".MapScreen" />
         <activity
-            android:name=".ChatScreen"
+            android:name=".ChatActivity"
             android:label="@string/title_activity_chat_screen"
             android:theme="@style/Theme.Choice.NoActionBar" />
         <activity
@@ -33,7 +33,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity android:name=".FriendList"/>
         <activity android:name=".LoginScreen">
 
             <!-- ^ Change this later -->
