@@ -1,7 +1,7 @@
 package com.example.choice.`interface`
 
 import com.example.choice.constants.Constants.Companion.SERVER_KEY
-import com.example.choicechat.model.PushNotification
+import com.example.choice.model.PushNotification
 import com.google.firebase.analytics.FirebaseAnalytics.Param.CONTENT
 import okhttp3.ResponseBody
 import retrofit2.Response
