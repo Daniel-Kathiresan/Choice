@@ -31,9 +31,7 @@ class MainActivity : AppCompatActivity(), FragmentNavigation{
                 .add(R.id.container, LoginFragment())
                 .commit()
         }
-        supportFragmentManager.beginTransaction()
-            .add(R.id.container,LoginFragment())
-            .commit()
+
     }
 
     override fun navigateFrag(fragment: Fragment, addToStack: Boolean) {
