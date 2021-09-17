@@ -3,27 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/matchingFragment">
+    app:startDestination="@id/testfragmet">
 
     <fragment
-        android:id="@+id/matchingFragment"
-        android:name="com.example.choice.MatchingFragment"
+        android:id="@+id/home_fragment"
+        android:name="com.example.choice.HomeFragment"
         android:label="fragment_matching"
-        tools:layout="@layout/fragment_matching" />
+        tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/mapsFragment"
-        android:name="com.example.choice.MapsFragment"
-        android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        android:id="@+id/testfragmet"
+        tools:layout="" />
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.example.choice.UserFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/friendFragment"
-        android:name="com.example.choice.FriendFragment"
-        android:label="fragment_friend"
         tools:layout="@layout/fragment_friend" />
 
 </navigation>

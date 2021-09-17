@@ -31,7 +31,6 @@
         <activity
             android:name=".SettingsFragment"
             android:exported="true" />
-        <activity android:name=".MapScreen" />
         <activity
             android:name=".ChatActivity"
             android:label="@string/title_activity_chat_screen"
