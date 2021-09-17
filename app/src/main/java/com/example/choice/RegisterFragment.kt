@@ -108,6 +108,7 @@ class RegisterFragment : Fragment() {
                     userHashMap["last name"] = lastName
                     userHashMap["gender"] = gender
                     userHashMap["profile picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
+                    userHashMap["bio"] = " "
                     //TODO: Add search value? (value to find user, for matching)
 
                     refUsers.updateChildren(userHashMap)

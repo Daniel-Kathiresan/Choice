@@ -46,8 +46,8 @@ class HomeFragment : Fragment() {
                   val fname = it.child("first name").value
                   val lname = it.child("last name").value
                   val gender = it.child("gender").value
-                  view.findViewById<TextView>(R.id.fullnamefield).text = (fname.toString() + " " + lname.toString())
-                  view.findViewById<TextView>(R.id.genderfield).text= (gender.toString())
+                  view.findViewById<TextView>(R.id.name).text = (fname.toString() + " " + lname.toString())
+                  view.findViewById<TextView>(R.id.gender).text= (gender.toString())
               }else{
               }
           }

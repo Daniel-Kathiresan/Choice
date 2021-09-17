@@ -1,35 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    android:orientation="vertical">
+
+
 
     <TextView
-        android:id="@+id/fullnamefield"
-        android:layout_width="match_parent"
+        android:id="@+id/namelabel"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        />
+        android:text="@string/welcome_to_choice"
+        android:textSize="16dp" />
 
     <TextView
-        android:id="@+id/genderfield"
-        android:layout_width="match_parent"
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        />
+        android:text=""
+        android:textStyle ="bold"
+        android:layout_toEndOf = "@id/namelabel" />
+
+    <TextView
+        android:id="@+id/genderlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/you_are_a"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textStyle ="bold"/>
+
+
+
+
+
+
+
+
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/log_out_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:layout_marginStart="42dp"
         android:layout_marginEnd="40dp"
-        android:layout_gravity="bottom"
         android:text="@string/log_out" />
 
-</FrameLayout>
+</LinearLayout>
