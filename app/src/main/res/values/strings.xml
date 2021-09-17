@@ -53,4 +53,6 @@
     <string name="dropped_pin">Pin</string>
     <string name="welcome_to_choice">Welcome To Choice</string>
     <string name="you_are_a">You are a</string>
+    <string name="update_bio">Update Bio:</string>
+    <string name="click_to_update_bio">Click to update bio:</string>
 </resources>
