@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Admin/Desktop/9.17/app/src/main/res/layout/activity_map_screen.xml" value="0.328125" />
+        <entry key="..\:/Users/Admin/Desktop/9.17/app/src/main/res/layout/poi_click_demo.xml" value="0.328125" />
         <entry key="..\:/Users/Jason/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_settings_fragment_edit_profile.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/Jason/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_settings_screen.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/Jason/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_login.xml" value="0.2957427536231884" />
@@ -23,6 +25,7 @@
         <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_settings_screen.xml" value="0.490036231884058" />
         <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/fragment_login.xml" value="0.490036231884058" />
         <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/fragment_register.xml" value="0.490036231884058" />
+        <entry key="..\:/Users/dell/Downloads/Choice/app/src/main/res/layout/poi_click_demo.xml" value="0.36614583333333334" />
       </map>
     </option>
   </component>
