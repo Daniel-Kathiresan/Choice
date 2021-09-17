@@ -60,15 +60,24 @@
             android:gravity="center"
             android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/btnSendPhoto"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/dark_grey"
+                android:src="@drawable/ic_add"
+                android:text="@string/btn_sign_up"
+                android:textColor="@color/dark_grey" />
+
             <EditText
                 android:id="@+id/etMessage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/gilroy_light"
                 android:layout_weight="1"
-                android:inputType="text"
                 android:background="#F5F5F5"
+                android:fontFamily="@font/gilroy_light"
                 android:hint="@string/type_message"
+                android:inputType="text"
                 android:padding="12dp"
                 android:textColor="@color/black" />
 

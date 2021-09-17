@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Choice">
 
         <activity
-            android:name=".FriendList"
+            android:name=".LoginScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -1,5 +1,7 @@
 package com.example.choice
 
+import android.content.Intent
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -44,6 +46,15 @@ class ChatActivity : AppCompatActivity() {
 
         imgBack.setOnClickListener {
             onBackPressed()
+        }
+
+        btnSendPhoto.setOnClickListener {
+
+            var intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 0)
+
+
         }
 
         firebaseUser = FirebaseAuth.getInstance().currentUser
@@ -99,6 +110,18 @@ class ChatActivity : AppCompatActivity() {
         reference!!.child("Chat").push().setValue(hashMap)
 
     }
+
+//    private fun sendPhoto(senderId: String, receiverId: String, photo: Intent) {
+//        var reference: DatabaseReference? = FirebaseDatabase.getInstance().getReference()
+//
+//        var hashMap: HashMap<String, String> = HashMap()
+//        hashMap.put("senderId", senderId)
+//        hashMap.put("receiverId", receiverId)
+//        hashMap.put("photo", photo.toString())
+//
+//        reference!!.child("Chat").push().setValue(hashMap)
+//
+//    }
 
     fun readMessage(senderId: String, receiverId: String) {
         val databaseReference: DatabaseReference =
