@@ -17,5 +17,5 @@
         android:title="Me"
         android:icon="@drawable/ic_baseline_account_circle_24" />
 
-
+    //clear file things
 </menu>

@@ -20,5 +20,5 @@
     <fragment
         android:id="@+id/friendFragment"
         tools:layout="@layout/fragment_friend" />
-
+    //clear file things
 </navigation>

@@ -26,4 +26,6 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/my_nav" />
 
+
+    //clear file things
 </RelativeLayout>
