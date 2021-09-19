@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    tools:context=".HomeFragment">
 
 
     <TextView
@@ -19,9 +19,9 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/namelabel"
         android:text=""
-        android:textStyle ="bold"
-        android:layout_toEndOf = "@id/namelabel" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/genderlabel"
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textStyle ="bold"/>
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/updatebio"
@@ -49,8 +49,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/bio_update"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        />
+        android:layout_height="100dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/log_out_btn"
