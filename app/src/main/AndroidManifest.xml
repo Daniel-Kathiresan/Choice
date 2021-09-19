@@ -16,11 +16,6 @@
         <activity
             android:name=".BottomNavigationBar"
             android:exported="true" />
-        <activity
-            android:name=".BottomNavigationBar"
-            android:exported="true"
-            android:label="@string/title_activity_bottom_navigation_bar"
-            android:theme="@style/Theme.Choice.NoActionBar" />
 
         <service
             android:name=".firebase.FirebaseService"

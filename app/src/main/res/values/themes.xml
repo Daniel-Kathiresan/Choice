@@ -14,14 +14,14 @@
         <!-- Customize your theme here. -->
     </style>
 
-<!--    <style name="Theme.Choice.NoActionBar">-->
-<!--        <item name="windowActionBar">false</item>-->
-<!--        <item name="windowNoTitle">true</item>-->
-<!--    </style>-->
+    <style name="Theme.Choice.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
-<!--    <style name="Theme.Choice.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+    <style name="Theme.Choice.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-<!--    <style name="Theme.Choice.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+    <style name="Theme.Choice.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>
