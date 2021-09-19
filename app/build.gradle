@@ -7,11 +7,10 @@ plugins {
 
 android {
     compileSdkVersion 31
-    buildToolsVersion "31.0.0"
 
     defaultConfig {
         applicationId "com.example.choice"
-        minSdkVersion 19
+        minSdk 21
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
@@ -53,6 +52,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.libraries.places:places:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 
 
     def nav_version = "2.3.5"
