@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_home, container, false)
+
         //Adds logout functionality to app
         fAuth = Firebase.auth
         firebaseUserID = fAuth.currentUser!!.uid
@@ -50,6 +51,7 @@ class HomeFragment : Fragment() {
               Toast.makeText(context,"Bio Update Complete",Toast.LENGTH_SHORT).show()
 
           }
+
 
       }
 
