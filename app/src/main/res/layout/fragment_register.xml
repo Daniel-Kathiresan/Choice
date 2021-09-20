@@ -125,20 +125,19 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-<!--        <Spinner-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:id="@+id/gender_spinner"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content" />-->
+        <Spinner
+            android:layout_marginTop="10dp"
+            android:id="@+id/gender_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp">
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/create_account_btn"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -146,14 +145,15 @@
                 android:layout_marginEnd="40dp"
                 android:text="@string/create_account" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/return_login_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="40dp"
                 android:layout_toEndOf="@id/create_account_btn"
-                android:text="@string/login" />
+                android:text="@string/login"
+                app:backgroundTint="#673AB7" />
 
         </RelativeLayout>
 

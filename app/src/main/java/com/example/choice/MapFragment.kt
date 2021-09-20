@@ -40,7 +40,7 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Places.initialize(this, getString(R.string.google_maps_key))
-        setContentView(R.layout.activity_map_screen)
+        setContentView(R.layout.fragment_map)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager

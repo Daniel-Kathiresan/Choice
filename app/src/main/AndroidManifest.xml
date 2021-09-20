@@ -14,27 +14,45 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Choice">
         <activity
+            android:name=".BottomNavigationBar"
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+        <service
+            android:name=".firebase.FirebaseService"
+            android:exported="false"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <activity
             android:name=".SettingsFragment_EditProfile"
             android:exported="true" />
         <activity
             android:name=".SettingsFragment"
             android:exported="true" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".MapScreen" />
         <activity
-            android:name=".ChatScreen"
+            android:name=".MapScreen"
+            android:exported="true" />
+        <activity
+            android:name=".ChatActivity"
             android:label="@string/title_activity_chat_screen"
             android:theme="@style/Theme.Choice.NoActionBar" />
         <activity
             android:name=".SettingsScreen"
+            android:exported="true" />
+        <activity android:name=".FriendList" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".LoginScreen">
 
             <!-- ^ Change this later -->
             <!-- Intent filter sets screen as default on launch -->

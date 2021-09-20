@@ -91,7 +91,6 @@ class LoginFragment : Fragment() {
                     //Correct if matches format, then check password
                     if(password.text.toString().length>=5){
                         //If more than 5 characters check confirm password
-                        Toast.makeText(context,"Login successful", Toast.LENGTH_SHORT).show()
                         //Login with firebase
                         firebaseSignIn()
                     }else{

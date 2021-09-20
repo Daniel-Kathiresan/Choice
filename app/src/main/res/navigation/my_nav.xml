@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.choice.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <activity
+        android:id="@+id/mapScreen"
+        android:name="com.example.choice.MapScreen"
+        android:label="MapFragment" />
+
+    <activity
+        android:id="@+id/settingsScreen"
+        android:name="com.example.choice.SettingsScreen"
+        android:label="activity_settings_screen"
+        tools:layout="@layout/activity_settings_screen" />
+    <activity
+        android:id="@+id/friendList"
+        android:name="com.example.choice.FriendList"
+        android:label="fragment_friend"
+        tools:layout="@layout/fragment_friend" />
+
+
+</navigation>
