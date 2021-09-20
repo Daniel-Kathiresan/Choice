@@ -12,7 +12,7 @@
     <activity
         android:id="@+id/mapScreen"
         android:name="com.example.choice.MapScreen"
-        android:label="MapScreen" />
+        android:label="MapFragment" />
     <activity
         android:id="@+id/friendList"
         android:name="com.example.choice.FriendList"
@@ -23,4 +23,6 @@
         android:name="com.example.choice.SettingsScreen"
         android:label="activity_settings_screen"
         tools:layout="@layout/activity_settings_screen" />
+
+
 </navigation>
