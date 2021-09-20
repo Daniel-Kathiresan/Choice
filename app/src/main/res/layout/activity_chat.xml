@@ -53,6 +53,15 @@
             android:gravity="center"
             android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/btnPhoto"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:src="@drawable/ic_add"
+                android:text="@string/btn_sign_up"
+                android:textColor="@color/white" />
+
             <EditText
                 android:id="@+id/etMessage"
                 android:layout_width="0dp"

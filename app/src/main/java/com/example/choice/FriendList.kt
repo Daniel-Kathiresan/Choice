@@ -22,6 +22,7 @@ class FriendList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_friend)
 
+
         FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
 
 
