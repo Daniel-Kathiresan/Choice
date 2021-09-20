@@ -15,7 +15,13 @@
         android:theme="@style/Theme.Choice">
         <activity
             android:name=".BottomNavigationBar"
-            android:exported="true" />
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
 
         <service
             android:name=".firebase.FirebaseService"
@@ -34,6 +40,9 @@
             android:name=".SettingsFragment"
             android:exported="true" />
         <activity
+            android:name=".MapScreen"
+            android:exported="true" />
+        <activity
             android:name=".ChatActivity"
             android:label="@string/title_activity_chat_screen"
             android:theme="@style/Theme.Choice.NoActionBar" />
@@ -44,11 +53,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
             <!-- ^ Change this later -->
             <!-- Intent filter sets screen as default on launch -->
