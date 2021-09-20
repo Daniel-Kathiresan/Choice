@@ -109,4 +109,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'
 
     implementation 'com.android.volley:volley:1.2.0'
+
+    //Matching
+    implementation 'com.lorentzos.swipecards:library:1.0.9'
 }

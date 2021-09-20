@@ -55,4 +55,6 @@
     <string name="you_are_a">You are a</string>
     <string name="update_bio">Update Bio:</string>
     <string name="click_to_update_bio">Click to update bio:</string>
+    <string name="nope">nope</string>
+    <string name="like">like</string>
 </resources>
