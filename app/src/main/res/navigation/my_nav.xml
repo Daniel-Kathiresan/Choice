@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/matchFragment">
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.choice.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/matchFragment"
+        android:name="com.example.choice.MatchFragment"
+        android:label="fragment_match"
+        tools:layout="@layout/fragment_match" />
     <activity
         android:id="@+id/mapScreen"
         android:name="com.example.choice.MapScreen"

@@ -4,9 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_bottom_navigation_bar.*
 
 //Following code may be moved
 
@@ -20,11 +24,10 @@ class MainActivity : AppCompatActivity(), FragmentNavigation{
         fAuth = Firebase.auth
 
         //Enables automatic login to app, does not use a checkbox (remember me)
-        //TODO: Decide if we need a remember me checkbox instead of automatic function in our app
         val currentUser = fAuth.currentUser
         if(currentUser != null){
             supportFragmentManager.beginTransaction()
-                .add(R.id.container, HomeFragment()).addToBackStack(null)
+                .add(R.id.container, MatchFragment()).addToBackStack(null)
                 .commit()
         }else {
             supportFragmentManager.beginTransaction()
