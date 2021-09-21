@@ -16,9 +16,9 @@
 
     <activity
         android:id="@+id/settingsScreen"
-        android:name="com.example.choice.SettingsScreen"
+        android:name="com.example.choice.SettingFragment"
         android:label="activity_settings_screen"
-        tools:layout="@layout/activity_settings_screen" />
+        tools:layout="@layout/fragment_setting" />
     <activity
         android:id="@+id/friendList"
         android:name="com.example.choice.FriendList"

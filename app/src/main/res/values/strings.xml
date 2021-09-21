@@ -72,4 +72,6 @@
     <string name="MyBio">My BIO</string>
     <string name="Username">Username :</string>
     <string name="Gender">Gender :</string>
+    <string name="nope">nope</string>
+    <string name="like">like</string>
 </resources>

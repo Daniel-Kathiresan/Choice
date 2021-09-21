@@ -54,8 +54,7 @@ class HomeFragment : Fragment() {
 //              Toast.makeText(context,"Bio Update Complete",Toast.LENGTH_SHORT).show()
 //
 //          }
-          val intent = Intent(activity, BottomNavigationBar::class.java)
-          startActivity(intent)
+
 
 
       }

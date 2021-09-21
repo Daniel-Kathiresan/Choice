@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.choice">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +13,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Choice">
+        android:theme="@style/Theme.Choice"
+        >
         <activity
             android:name=".BottomNavigationBar"
             android:exported="true" />
@@ -29,11 +31,13 @@
         </service>
 
         <activity
-            android:name=".SettingsFragment_EditProfile"
-            android:exported="true" />
+            android:name=".SettingFragment"
+            android:exported="true"
+            tools:ignore="Instantiatable" />
         <activity
-            android:name=".SettingsFragment"
-            android:exported="true" />
+            android:name=".FeedbackFragment"
+            android:exported="true"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".MapScreen"
             android:exported="true" />
@@ -42,8 +46,9 @@
             android:label="@string/title_activity_chat_screen"
             android:theme="@style/Theme.Choice.NoActionBar" />
         <activity
-            android:name=".SettingsScreen"
-            android:exported="true" />
+            android:name=".LogoutFragment"
+            android:exported="true"
+            tools:ignore="Instantiatable" />
         <activity android:name=".FriendList" />
         <activity
             android:name=".MainActivity"

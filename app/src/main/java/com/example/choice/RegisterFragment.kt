@@ -1,6 +1,7 @@
 package com.example.choice
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -116,6 +117,8 @@ class RegisterFragment : Fragment() {
                             if (task.isSuccessful)
                             {
                                 //Navigate to home fragment
+                                val intent = Intent(activity, BottomNavigationBar::class.java)
+                                startActivity(intent)
                                 val navHome = activity as FragmentNavigation
                                 navHome.navigateFrag(MatchFragment(),addToStack = true)
                             }else{

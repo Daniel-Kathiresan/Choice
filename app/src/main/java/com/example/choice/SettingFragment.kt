@@ -1,4 +1,4 @@
-package com.example.choice.utils
+package com.example.choice
 
 import android.app.Activity
 import android.content.Intent

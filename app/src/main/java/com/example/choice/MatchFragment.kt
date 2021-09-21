@@ -1,5 +1,6 @@
 package com.example.choice
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -25,9 +26,12 @@ class MatchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View?  {
         // Inflate the layout for this fragment
+
+
         val view = inflater.inflate(R.layout.fragment_match, container, false)
+
 
         flingAdapterView = view?.findViewById(R.id.swipe)
 
@@ -74,6 +78,7 @@ class MatchFragment : Fragment() {
         var eventListener: ValueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (ds in dataSnapshot.children) {
+
                     val name = ds.child("first name").getValue(String::class.java)
                     Log.d("TAG", name!!)
                     //Warning! Will be error if there is unformatted data

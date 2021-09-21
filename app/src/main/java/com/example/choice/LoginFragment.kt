@@ -1,5 +1,6 @@
 package com.example.choice
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -56,6 +57,8 @@ class LoginFragment : Fragment() {
         fAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
             task ->
             if(task.isSuccessful){
+                val intent = Intent(activity, BottomNavigationBar::class.java)
+                startActivity(intent)
                 var navHome = activity as FragmentNavigation
                 //TODO: Change from homescreen to map screen
                 navHome.navigateFrag(MatchFragment(), addToStack = true)
