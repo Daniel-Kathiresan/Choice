@@ -31,10 +31,17 @@
     </LinearLayout>
 
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/line1"
-        app:rotation_degrees="15.0"/>
+        app:rotation_degrees="15.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/matchph" />
 
 
 </RelativeLayout>

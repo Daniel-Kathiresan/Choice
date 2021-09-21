@@ -30,7 +30,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/userName"
+                android:id="@+id/username_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gilroy_bold"
@@ -45,7 +45,7 @@
                 android:fontFamily="@font/gilroy_bold"
                 android:maxLines="1"
                 android:textSize="14sp"
-                tools:text="Scott" />
+                tools:text="Something..." />
         </LinearLayout>
     </LinearLayout>
 

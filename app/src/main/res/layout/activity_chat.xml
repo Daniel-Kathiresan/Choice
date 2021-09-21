@@ -28,18 +28,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:fontFamily="@font/gilroy_bold"
-            android:text=""
+            android:text="Username"
             android:textSize="15sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/l1"
+        android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
-        android:layout_above="@id/r1"
         android:layout_height="match_parent"
-        android:id="@+id/chatRecyclerView"/>
+        android:layout_above="@id/r1"
+        android:layout_below="@id/l1"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="-1dp" />
 
     <RelativeLayout
         android:id="@+id/r1"
