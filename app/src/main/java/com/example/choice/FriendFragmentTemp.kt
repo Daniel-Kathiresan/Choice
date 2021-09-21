@@ -22,14 +22,14 @@ import kotlinx.android.synthetic.main.fragment_friend.*
 
 
 class FriendFragmentTemp : Fragment() {
-
+    var userList = ArrayList<User>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-
+        //FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
 
 
         // Inflate the layout for this fragment

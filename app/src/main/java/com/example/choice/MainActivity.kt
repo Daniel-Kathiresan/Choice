@@ -20,11 +20,10 @@ class MainActivity : AppCompatActivity(), FragmentNavigation{
         fAuth = Firebase.auth
 
         //Enables automatic login to app, does not use a checkbox (remember me)
-        //TODO: Decide if we need a remember me checkbox instead of automatic function in our app
         val currentUser = fAuth.currentUser
         if(currentUser != null){
             supportFragmentManager.beginTransaction()
-                .add(R.id.container, HomeFragment()).addToBackStack(null)
+                .add(R.id.container, MatchFragment()).addToBackStack(null)
                 .commit()
         }else {
             supportFragmentManager.beginTransaction()
