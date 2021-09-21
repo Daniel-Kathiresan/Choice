@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.choice.utils.SettingFragment
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -44,15 +45,17 @@ class HomeFragment : Fragment() {
             var navLogin = activity as FragmentNavigation
             navLogin.navigateFrag(LoginFragment(),addToStack = false)
         }
+      view.findViewById<Button>(R.id.tosett).setOnClickListener {
+          var navSetting = activity as FragmentNavigation
+          navSetting.navigateFrag(SettingFragment(), false)
+      }
+
       view.findViewById<Button>(R.id.updatebio).setOnClickListener(){
           //TODO: Move to settings screen
           val bioupdate = biofield.text.toString()
           database.child(firebaseUserID).child("bio").setValue(bioupdate).addOnSuccessListener {
               Toast.makeText(context,"Bio Update Complete",Toast.LENGTH_SHORT).show()
-
           }
-
-
       }
 
       if (firebaseUserID != null){
