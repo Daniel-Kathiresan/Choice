@@ -58,13 +58,9 @@ class ChatActivity : AppCompatActivity() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
-//                val user = snapshot.getValue(User::class.java)
-//                tvUserName.text = user!!.userName
-//                if (user.profileImage == "") {
-//                    imgProfile.setImageResource(R.drawable.profile_image)
-//                } else {
-//                    Glide.with(this@ChatActivity).load(user.profileImage).into(imgProfile)
-//                }
+                val user = snapshot.getValue(User::class.java)
+                tvUserName.text = user!!.userName
+
             }
         })
 

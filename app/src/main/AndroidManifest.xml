@@ -15,13 +15,8 @@
         android:theme="@style/Theme.Choice">
         <activity
             android:name=".BottomNavigationBar"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:exported="true" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
 
         <service
             android:name=".firebase.FirebaseService"
@@ -54,8 +49,12 @@
             android:name=".MainActivity"
             android:exported="true">
 
-            <!-- ^ Change this later -->
-            <!-- Intent filter sets screen as default on launch -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        
 
         </activity>
     </application>

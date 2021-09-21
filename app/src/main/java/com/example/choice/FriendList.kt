@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.choice.adapter.UserAdapter
 import com.example.choice.firebase.FirebaseService
 import com.example.choice.model.User
@@ -22,25 +23,14 @@ class FriendList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_friend)
 
-
         FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
 
-
         userRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-
-
 
         imgBack.setOnClickListener {
             onBackPressed()
         }
 
-//        imgProfile.setOnClickListener {
-//            val intent = Intent(
-//                this@FriendList,
-//                ProfileActivity::class.java
-//            )
-//            startActivity(intent)
-//        }
 
         getUsersList()
 
@@ -64,12 +54,6 @@ class FriendList : AppCompatActivity() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 userList.clear()
-//                val currentUser = snapshot.getValue(User::class.java)
-//                if (currentUser!!.profileImage == ""){
-//                    imgProfile.setImageResource(R.drawable.profile_image)
-//                }else{
-//                    Glide.with(this@FriendList).load(currentUser.profileImage).into(imgProfile)
-//                }
 
                 for (dataSnapShot: DataSnapshot in snapshot.children) {
                     val user = dataSnapShot.getValue(User::class.java)
