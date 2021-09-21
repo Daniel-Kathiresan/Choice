@@ -36,7 +36,7 @@ class MatchFragment : Fragment() {
         //add data to array
         getUserData()
 
-        arrayAdapter = ArrayAdapter(this.requireContext(), R.layout.item, R.id.data,
+        arrayAdapter = ArrayAdapter(view.context, R.layout.item, R.id.data,
             data as ArrayList<String>
         )
         flingAdapterView?.adapter = arrayAdapter
