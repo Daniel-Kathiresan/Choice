@@ -58,6 +58,7 @@ class SettingFragment : Fragment() {
                     view.findViewById<TextView>(R.id.username_text_view).text = (fname.toString() + " " + lname.toString())
                     view.findViewById<TextView>(R.id.SettingGender).text= (gender.toString())
                     biofield.setText((bio.toString()))
+
                 }else{
                 }
             }
@@ -101,12 +102,14 @@ class SettingFragment : Fragment() {
         if (selectedPhotoUri == null) return
 
         val filename = UUID.randomUUID().toString()
-        val ref = FirebaseStorage.getInstance().getReference("/Userimage/$filename")
+        val ref = FirebaseStorage.getInstance().getReference("/profile/Userimage/$filename"+ " UID: " + fAuth.currentUser?.uid)
 
         ref.putFile(selectedPhotoUri!!)
             .addOnSuccessListener {
                 Log.d("Setting Fragment", "Successfully uploaded image: ${it.metadata?.path}")
             }
+
+
     }
 
 
