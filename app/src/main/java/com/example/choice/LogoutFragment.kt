@@ -41,6 +41,11 @@ class LogoutFragment : Fragment() {
             navLogout.navigateFrag(LogoutFragment(),addToStack = false)
         }
 
+        view.findViewById<Button>(R.id.Feedback_button).setOnClickListener {
+            var navFeedback = activity as FragmentNavigation
+            navFeedback.navigateFrag(FeedbackFragment(), false)
+        }
+
         view.findViewById<ImageView>(R.id.Goback_image_view).setOnClickListener {
             Log.d("Logout Fragment", "Go to Setting Fragment")
 

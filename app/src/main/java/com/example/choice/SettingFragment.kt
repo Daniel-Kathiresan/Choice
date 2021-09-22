@@ -1,8 +1,9 @@
-package com.example.choice.Fragment
+package com.example.choice
 
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Icon
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,8 +13,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.graphics.drawable.IconCompat
 import com.example.choice.FragmentNavigation
 import com.example.choice.LoginFragment
+import com.example.choice.LogoutFragment
 import com.example.choice.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -25,7 +28,7 @@ import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_setting.*
 import java.util.*
 
-private lateinit var fAuth: FirebaseAuth
+    private lateinit var fAuth: FirebaseAuth
     private var firebaseUserID : String = ""
     private lateinit var database: DatabaseReference
     private lateinit var biofield : EditText

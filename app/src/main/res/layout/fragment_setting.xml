@@ -14,19 +14,19 @@
         android:layout_height="match_parent"
         android:background="#9FC0EC"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-63dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="96dp"
         android:layout_marginEnd="96dp"
         android:text="@string/Username"
         android:textColor="#000000"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintHorizontal_bias="0.763"
         app:layout_constraintStart_toEndOf="@+id/setting_user_head_image"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,15 +39,15 @@
         app:layout_constraintEnd_toEndOf="@+id/background"
         app:layout_constraintStart_toStartOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background"
-        app:layout_constraintVertical_bias="0.806"
+        app:layout_constraintVertical_bias="0.77"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/setting_updatebio_button"
         android:layout_width="194dp"
         android:layout_height="49dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/rounded_button_image"
         android:text="@string/click_to_update_bio"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,13 +57,13 @@
         android:id="@+id/setting_user_head_image"
         android:layout_width="155dp"
         android:layout_height="155dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="32dp"
         android:background="@drawable/rounded_button_image"
         android:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/background"
-        app:layout_constraintVertical_bias="0.13"
+        app:layout_constraintVertical_bias="0.09"
         tools:ignore="ImageContrastCheck,ImageContrastCheck"
         tools:srcCompat="@drawable/choicepfp"
         tools:targetApi="lollipop" />
@@ -91,7 +91,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.443"
+        app:layout_constraintVertical_bias="0.423"
         tools:ignore="TextContrastCheck,TextContrastCheck"
         tools:targetApi="lollipop" />
 
@@ -143,5 +143,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setting_user_head_image"
         tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

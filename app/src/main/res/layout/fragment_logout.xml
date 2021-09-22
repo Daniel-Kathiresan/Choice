@@ -36,7 +36,7 @@
         app:srcCompat="@drawable/quantum_ic_arrow_back_grey600_24" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/Feedback_button"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_marginBottom="172dp"
