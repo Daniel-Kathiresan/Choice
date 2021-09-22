@@ -28,13 +28,6 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
-
-        <activity
-            android:name=".SettingsFragment_EditProfile"
-            android:exported="true" />
-        <activity
-            android:name=".SettingsFragment"
-            android:exported="true" />
         <activity
             android:name=".MapScreen"
             android:exported="true" />
@@ -42,9 +35,6 @@
             android:name=".ChatActivity"
             android:label="@string/title_activity_chat_screen"
             android:theme="@style/Theme.Choice.NoActionBar" />
-        <activity
-            android:name=".SettingsScreen"
-            android:exported="true" />
         <activity android:name=".FriendList" />
         <activity
             android:name=".MainActivity"
