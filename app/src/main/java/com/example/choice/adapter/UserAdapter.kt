@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.choice.ChatActivity
 import com.example.choice.R
 import com.example.choice.model.User
 import de.hdodenhof.circleimageview.CircleImageView
@@ -44,7 +43,7 @@ class UserAdapter(private val context: Context,private val userList:ArrayList<Us
 
     class ViewHolder(view:View):RecyclerView.ViewHolder(view){
 
-        val txtUserName: TextView = view.findViewById(R.id.userName)
+        val txtUserName: TextView = view.findViewById(R.id.username_text_view)
         val txtTemp: TextView = view.findViewById(R.id.temp)
         val imgUser: CircleImageView = view.findViewById(R.id.userImage)
         val layoutUser: LinearLayout = view.findViewById(R.id.layoutUser)

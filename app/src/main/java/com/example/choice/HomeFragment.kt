@@ -1,7 +1,9 @@
 package com.example.choice
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -44,18 +45,18 @@ class HomeFragment : Fragment() {
             Firebase.auth.signOut()
             var navLogin = activity as FragmentNavigation
             navLogin.navigateFrag(LoginFragment(),addToStack = false)
-        }
-      view.findViewById<Button>(R.id.tosett).setOnClickListener {
-          var navSetting = activity as FragmentNavigation
-          navSetting.navigateFrag(SettingFragment(), false)
-      }
 
+        }
       view.findViewById<Button>(R.id.updatebio).setOnClickListener(){
-          //TODO: Move to settings screen
-          val bioupdate = biofield.text.toString()
-          database.child(firebaseUserID).child("bio").setValue(bioupdate).addOnSuccessListener {
-              Toast.makeText(context,"Bio Update Complete",Toast.LENGTH_SHORT).show()
-          }
+//          //TODO: Move to settings screen
+//          val bioupdate = biofield.text.toString()
+//          database.child(firebaseUserID).child("bio").setValue(bioupdate).addOnSuccessListener {
+//              Toast.makeText(context,"Bio Update Complete",Toast.LENGTH_SHORT).show()
+//
+//          }
+
+
+
       }
 
       if (firebaseUserID != null){

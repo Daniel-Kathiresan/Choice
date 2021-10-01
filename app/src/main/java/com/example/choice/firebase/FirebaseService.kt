@@ -12,7 +12,6 @@ import android.graphics.Color
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.example.choice.FriendList
 import com.example.choice.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -20,7 +19,7 @@ import kotlin.random.Random
 
 class FirebaseService : FirebaseMessagingService() {
 
-    val CHANNEL_ID = "my_notification_channel"
+    val CHANNEL_ID = "choice"
     companion object{
         var sharedPref:SharedPreferences? = null
 
@@ -65,9 +64,9 @@ class FirebaseService : FirebaseMessagingService() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager){
 
-        val channelName = "ChannelFirebaseChat"
+        val channelName = "Choice"
         val channel = NotificationChannel(CHANNEL_ID,channelName,IMPORTANCE_HIGH).apply {
-            description="MY FIREBASE CHAT DESCRIPTION"
+            description="Chat Function"
             enableLights(true)
             lightColor = Color.WHITE
         }

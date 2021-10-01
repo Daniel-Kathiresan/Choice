@@ -1,5 +1,6 @@
 package com.example.choice
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import com.google.firebase.auth.FirebaseAuth
@@ -46,6 +48,11 @@ class LoginFragment : Fragment() {
 
         }
 
+        view.findViewById<TextView>(R.id.ForgotPw_text).setOnClickListener {
+            val intent = Intent(activity, ForgotPwActivity::class.java)
+            startActivity(intent)
+        }
+
         return view
     }
 
@@ -56,9 +63,11 @@ class LoginFragment : Fragment() {
         fAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
             task ->
             if(task.isSuccessful){
+                val intent = Intent(activity, BottomNavigationBar::class.java)
+                startActivity(intent)
                 var navHome = activity as FragmentNavigation
                 //TODO: Change from homescreen to map screen
-                navHome.navigateFrag(HomeFragment(), addToStack = true)
+                navHome.navigateFrag(MatchFragment(), addToStack = true)
             }else{
                 logBtn.isEnabled = true
                 logBtn.alpha = 1.0f

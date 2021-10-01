@@ -47,6 +47,27 @@ class SettingFragment : Fragment() {
         Userimage = view.findViewById(R.id.setting_user_head_image)
         database = FirebaseDatabase.getInstance().getReference("Users")
 
+        view.findViewById<Button>(R.id.setting_button).setOnClickListener {
+
+            Log.d("Setting Fragment", "Go to Logout Fragment")
+            val intent = Intent(activity, LogoutActivity::class.java)
+            startActivity(intent)
+        }
+
+        view.findViewById<ImageView>(R.id.setting_user_head_image).setOnClickListener {
+            Log.d("Setting Fragment", "Try to select photo")
+
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type="image/*"
+            startActivityForResult(intent,0)
+        }
+
+        view.findViewById<Button>(R.id.setting_upload_photo).setOnClickListener {
+            Log.d("Setting Fragment", "Upload photo")
+
+            uploadPhotoToFirebase()
+        }
+
         if (firebaseUserID != null){
             database.child(firebaseUserID).get().addOnSuccessListener {
                 if (it.exists()){
@@ -73,28 +94,6 @@ class SettingFragment : Fragment() {
                 Toast.makeText(context,"Bio Update Complete", Toast.LENGTH_SHORT).show()
             }
         }
-
-        view.findViewById<Button>(R.id.setting_button).setOnClickListener {
-
-            Log.d("Setting Fragment", "Go to Logout Fragment")
-            var navLogout = activity as FragmentNavigation
-            navLogout.navigateFrag(LogoutFragment(), false)
-        }
-
-        view.findViewById<ImageView>(R.id.setting_user_head_image).setOnClickListener {
-            Log.d("Setting Fragment", "Try to select photo")
-
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type="image/*"
-            startActivityForResult(intent,0)
-        }
-
-        view.findViewById<Button>(R.id.setting_upload_photo).setOnClickListener {
-            Log.d("Setting Fragment", "Upload photo")
-
-            uploadPhotoToFirebase()
-        }
-
         return view
     }
 
@@ -108,10 +107,7 @@ class SettingFragment : Fragment() {
             .addOnSuccessListener {
                 Log.d("Setting Fragment", "Successfully uploaded image: ${it.metadata?.path}")
             }
-
-
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -125,7 +121,4 @@ class SettingFragment : Fragment() {
 
         }
     }
-
-
-
 }
