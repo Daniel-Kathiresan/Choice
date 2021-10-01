@@ -1,5 +1,6 @@
 package com.example.choice
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -66,6 +67,12 @@ class ChatActivity : AppCompatActivity() {
 //                }
             }
         })
+
+        btnPhoto.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 0)
+        }
 
         btnSendMessage.setOnClickListener {
             var message: String = etMessage.text.toString()

@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_friend.*
 
 
 class FriendFragmentTemp : Fragment() {
+
     var userList = ArrayList<User>()
 
     override fun onCreateView(
@@ -29,12 +30,61 @@ class FriendFragmentTemp : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        //FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+//        FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+//
+//
+//        userRecyclerView.layoutManager = LinearLayoutManager(getActivity(), LinearLayout.VERTICAL, false)
+//
+//
+//        imgBack.setOnClickListener {
+//            onBackPressed()
+//        }
 
 
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_friend_temp, container, false)
+
     }
 
+//    fun getUsersList() {
+//        val firebase: FirebaseUser = FirebaseAuth.getInstance().currentUser!!
+//
+//        var userid = firebase.uid
+//        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$userid")
+//
+//
+//        val databaseReference: DatabaseReference =
+//            FirebaseDatabase.getInstance().getReference("Users")
+//
+//
+//        databaseReference.addValueEventListener(object : ValueEventListener {
+//            override fun onCancelled(error: DatabaseError) {
+//                Toast.makeText(applicationContext, error.message, Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                userList.clear()
+////                val currentUser = snapshot.getValue(User::class.java)
+////                if (currentUser!!.profileImage == ""){
+////                    imgProfile.setImageResource(R.drawable.profile_image)
+////                }else{
+////                    Glide.with(this@FriendList).load(currentUser.profileImage).into(imgProfile)
+////                }
+//
+//                for (dataSnapShot: DataSnapshot in snapshot.children) {
+//                    val user = dataSnapShot.getValue(User::class.java)
+//
+//                    if (!user!!.userId.equals(firebase.uid)) {
+//
+//                        userList.add(user)
+//                    }
+//                }
+//
+//                val userAdapter = getActivity()?.let { UserAdapter(it, userList) }
+//
+//                userRecyclerView.adapter = userAdapter
+//            }
+//
+//        })
+//    }
 
 }
