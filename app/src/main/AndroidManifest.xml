@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Choice">
         <activity
+            android:name=".FeedbackActivity"
+            android:exported="true" />
+        <activity
             android:name=".LogoutActivity"
             android:exported="true"
             android:label="@string/title_activity_logout"

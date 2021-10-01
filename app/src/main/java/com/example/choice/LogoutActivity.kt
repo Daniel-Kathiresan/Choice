@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_logout.*
 
 
 
-class LogoutActivity : AppCompatActivity()/*, FragmentNavigation*/{
+class LogoutActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_logout)
@@ -22,29 +22,16 @@ class LogoutActivity : AppCompatActivity()/*, FragmentNavigation*/{
             finish()
         }
 
+        Feedbacj_button.setOnClickListener {
+            val intent = Intent(this, FeedbackActivity::class.java)
+            startActivity(intent)
+        }
+
         Logout2_button.setOnClickListener {
             Firebase.auth.signOut()
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-
-/*              supportFragmentManager.beginTransaction()
-                .add(R.id.container, LoginFragment())
-                .commit()
-*/
         }
     }
-
-/*    override fun navigateFrag(fragment: Fragment, addToStack: Boolean) {
-        val transaction = supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container,fragment)
-
-        if(addToStack){
-            transaction.addToBackStack(null)
-        }
-
-        transaction.commit()
-    }*/
-
 }
