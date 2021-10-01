@@ -34,10 +34,9 @@ class LoginFragment : Fragment() {
         logBtn = view.findViewById(R.id.loginButton)
 
         view.findViewById<Button>(R.id.registerButton).setOnClickListener {
-//            var navRegister = activity as FragmentNavigation
-//            navRegister.navigateFrag(RegisterFragment(), false)
-            val intent = Intent (activity, MatchActivity::class.java)
-            activity?.startActivity(intent)
+            var navRegister = activity as FragmentNavigation
+            navRegister.navigateFrag(RegisterFragment(), false)
+
         }
 
         view.findViewById<Button>(R.id.loginButton).setOnClickListener {

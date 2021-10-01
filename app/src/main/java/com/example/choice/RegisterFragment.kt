@@ -105,10 +105,10 @@ class RegisterFragment : Fragment() {
 
                     val userHashMap = HashMap<String, Any>()
                     userHashMap["uid"] = firebaseUserID
-                    userHashMap["first name"] = firstName
-                    userHashMap["last name"] = lastName
+                    userHashMap["first_name"] = firstName
+                    userHashMap["last_name"] = lastName
                     userHashMap["gender"] = gender
-                    userHashMap["profile picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
+                    userHashMap["profile_picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
                     userHashMap["bio"] = " "
                     //TODO: Add search value? (value to find user, for matching)
 

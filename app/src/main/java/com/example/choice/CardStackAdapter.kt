@@ -20,13 +20,13 @@ class CardStackAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val spot = spots[position]
-        holder.name.text = "${spot.id}. ${spot.name}"
-        holder.city.text = spot.city
+        holder.name.text = "${spot.first_name} ${spot.last_name}"
+        holder.city.text = spot.bio
         Glide.with(holder.image)
-            .load(spot.url)
+            .load(spot.profile_picture)
             .into(holder.image)
         holder.itemView.setOnClickListener { v ->
-            Toast.makeText(v.context, spot.name, Toast.LENGTH_SHORT).show()
+            Toast.makeText(v.context, spot.first_name, Toast.LENGTH_SHORT).show()
         }
     }
 

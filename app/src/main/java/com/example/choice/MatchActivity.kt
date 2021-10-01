@@ -1,5 +1,6 @@
 package com.example.choice
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -15,11 +16,16 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import com.yuyakaido.android.cardstackview.*
 import java.util.*
 
 class MatchActivity : AppCompatActivity(), CardStackListener {
-
+    private lateinit var fAuth: FirebaseAuth
+    private lateinit var ref: DatabaseReference
     private val drawerLayout by lazy { findViewById<DrawerLayout>(R.id.drawer_layout) }
     private val cardStackView by lazy { findViewById<CardStackView>(R.id.card_stack_view) }
     private val manager by lazy { CardStackLayoutManager(this, this) }
@@ -91,6 +97,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                 R.id.remove_spot_from_last -> removeLast(1)
                 R.id.replace_first_spot -> replace()
                 R.id.swap_first_for_last -> swap()
+                R.id.logout -> logout()
             }
             drawerLayout.closeDrawers()
             true
@@ -263,26 +270,56 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         result.dispatchUpdatesTo(adapter)
     }
 
+    //TEMPORARY
+    //TODO: Remove this once navbar works
+    private fun logout() {
+        Firebase.auth.signOut()
+//        var loginFragment = LoginFragment()
+//        supportFragmentManager.beginTransaction().add(R.id.container, loginFragment)
+//            .commit()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun createSpot(): Spot {
         return Spot(
-            name = "Yasaka Shrine",
-            city = "Kyoto",
-            url = "https://source.unsplash.com/Xq1ntWruZQI/600x800"
+            first_name = "TEST",
+            bio = "TEST BIO : I AM A TEST USER",
+            last_name = "USER",
+            gender = "Male",
+            profile_picture = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711",
+            uid = "testUID"
         )
     }
 
     private fun createSpots(): List<Spot> {
+        //Pull from firebase and add to list
+        //TODO: Add filtering eg:
+        /* If userpref = male,
+        * getinstance("Users")
+        * if gender = male
+        * spots.add(user!!)
+        * else:
+        * return? */
         val spots = ArrayList<Spot>()
-        spots.add(Spot(name = "Yasaka Shrine", city = "Kyoto", url = "https://source.unsplash.com/Xq1ntWruZQI/600x800"))
-        spots.add(Spot(name = "Fushimi Inari Shrine", city = "Kyoto", url = "https://source.unsplash.com/NYyCqdBOKwc/600x800"))
-        spots.add(Spot(name = "Bamboo Forest", city = "Kyoto", url = "https://source.unsplash.com/buF62ewDLcQ/600x800"))
-        spots.add(Spot(name = "Brooklyn Bridge", city = "New York", url = "https://source.unsplash.com/THozNzxEP3g/600x800"))
-        spots.add(Spot(name = "Empire State Building", city = "New York", url = "https://source.unsplash.com/USrZRcRS2Lw/600x800"))
-        spots.add(Spot(name = "The statue of Liberty", city = "New York", url = "https://source.unsplash.com/PeFk7fzxTdk/600x800"))
-        spots.add(Spot(name = "Louvre Museum", city = "Paris", url = "https://source.unsplash.com/LrMWHKqilUw/600x800"))
-        spots.add(Spot(name = "Eiffel Tower", city = "Paris", url = "https://source.unsplash.com/HN-5Z6AmxrM/600x800"))
-        spots.add(Spot(name = "Big Ben", city = "London", url = "https://source.unsplash.com/CdVAUADdqEc/600x800"))
-        spots.add(Spot(name = "Great Wall of China", city = "China", url = "https://source.unsplash.com/AWh9C-QjhE4/600x800"))
+        //WARNING: Will crash if not fully loaded + when loading from auto login the app will crash
+        //Fix: Change way auto login works or add a loading / intermittent screen between login / matching
+        //TODO: add error checking or loading screen
+        //TODO: add check for current user id so that it is filtered from displayed user ID's
+        ref = FirebaseDatabase.getInstance().getReference("Users")
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (userSnapshot in dataSnapshot.children) {
+                    val user = userSnapshot.getValue(Spot::class.java)
+                    spots.add(user!!)
+                }
+                println(spots)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                throw databaseError.toException()
+            }
+        })
         return spots
     }
 
