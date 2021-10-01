@@ -6,9 +6,7 @@
     app:startDestination="@id/matchFragment">
     <fragment
         android:id="@+id/matchFragment"
-        android:name="com.example.choice.MatchFragment"
-        android:label="fragment_match"
-        tools:layout="@layout/fragment_match" />
+        android:label="fragment_match" />
     <activity
         android:id="@+id/mapScreen"
         android:name="com.example.choice.MapScreen"

@@ -57,4 +57,13 @@
     <string name="click_to_update_bio">Click to update bio:</string>
     <string name="nope">nope</string>
     <string name="like">like</string>
+    <string name="reload">reload</string>
+    <string name="add_spot_to_first">add spot to first</string>
+    <string name="add_spot_to_last">add spot to last</string>
+    <string name="remove_spot_from_first">remove spot from first</string>
+    <string name="remove_spot_from_last">remove spot from last</string>
+    <string name="replace_first_spot">replace first spot</string>
+    <string name="swap_first_for_last">swap first for last</string>
+    <string name="open_drawer" />
+    <string name="close_drawer" />
 </resources>

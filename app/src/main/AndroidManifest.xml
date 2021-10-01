@@ -14,10 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Choice">
         <activity
+            android:name=".MatchActivity"
+            android:exported="true" />
+        <activity
             android:name=".BottomNavigationBar"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true"></activity>
 
         <service
             android:name=".firebase.FirebaseService"

@@ -112,5 +112,8 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.0'
 
     //Matching
-    implementation 'com.lorentzos.swipecards:library:1.0.9'
+    implementation 'com.github.yuyakaido:cardstackview:2.3.4'
+
+    //Circle image for matching
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }

@@ -1,6 +1,7 @@
 package com.example.choice
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -116,8 +117,10 @@ class RegisterFragment : Fragment() {
                             if (task.isSuccessful)
                             {
                                 //Navigate to home fragment
-                                val navHome = activity as FragmentNavigation
-                                navHome.navigateFrag(MatchFragment(),addToStack = true)
+//                                val navHome = activity as FragmentNavigation
+//                                navHome.navigateFrag(MatchFragment(),addToStack = true)
+                                val intent = Intent (activity, MatchActivity::class.java)
+                                activity?.startActivity(intent)
                             }else{
                                 Toast.makeText(context,"Unable to save user information",Toast.LENGTH_SHORT).show()
                             }
