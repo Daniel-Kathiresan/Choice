@@ -9,18 +9,18 @@
         android:label="fragment_match" />
     <activity
         android:id="@+id/mapScreen"
-        android:name="com.example.choice.MapScreen"
+        android:name="com.example.choice.ChatsFragment"
         android:label="MapFragment" />
 
     <activity
         android:id="@+id/settingsScreen"
-        android:name="com.example.choice.SettingsScreen"
+        android:name="com.example.choice.SettingFragment"
         android:label="activity_settings_screen"
-        tools:layout="@layout/activity_settings_screen" />
+        tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/usersFragment"
         android:name="com.example.choice.UsersFragment"
-        android:label="fragment_friend_list"
+        android:label="fragment_users"
         tools:layout="@layout/fragment_users" />
 
 
