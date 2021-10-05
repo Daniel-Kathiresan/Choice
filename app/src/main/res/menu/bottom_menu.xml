@@ -12,7 +12,7 @@
     <item
         android:title="Friend"
         android:icon="@drawable/ic_friend"
-        android:id="@+id/friendList"/>
+        android:id="@+id/friendListFragment"/>
     <item
         android:title="Settings"
         android:icon="@drawable/ic_account"

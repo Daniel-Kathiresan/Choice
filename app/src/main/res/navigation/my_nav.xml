@@ -19,11 +19,11 @@
         android:name="com.example.choice.SettingsScreen"
         android:label="activity_settings_screen"
         tools:layout="@layout/activity_settings_screen" />
-    <activity
-        android:id="@+id/friendList"
-        android:name="com.example.choice.FriendList"
-        android:label="fragment_friend"
-        tools:layout="@layout/fragment_friend" />
+    <fragment
+        android:id="@+id/friendListFragment"
+        android:name="com.example.choice.FriendListFragment"
+        android:label="fragment_friend_list"
+        tools:layout="@layout/fragment_friend_list" />
 
 
 </navigation>
