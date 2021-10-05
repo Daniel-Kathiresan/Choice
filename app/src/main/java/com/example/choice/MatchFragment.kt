@@ -80,9 +80,9 @@ class MatchFragment : Fragment() {
                 for (ds in dataSnapshot.children) {
 
                     val name = ds.child("first name").getValue(String::class.java)
-                    Log.d("TAG", name!!)
+                    Log.d("TAG", name.toString())
                     //Warning! Will be error if there is unformatted data
-                    data?.add(name)
+                    data?.add(name.toString())
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {}
