@@ -7,10 +7,6 @@
     <fragment
         android:id="@+id/matchFragment"
         android:label="fragment_match" />
-    <activity
-        android:id="@+id/mapScreen"
-        android:name="com.example.choice.ChatsFragment"
-        android:label="MapFragment" />
 
     <fragment
         android:id="@+id/settingsScreen"
@@ -18,10 +14,15 @@
         android:label="activity_settings_screen"
         tools:layout="@layout/fragment_setting" />
     <fragment
-        android:id="@+id/usersFragment"
-        android:name="com.example.choice.UsersFragment"
-        android:label="fragment_users"
-        tools:layout="@layout/fragment_users" />
+        android:id="@+id/friendListFragment"
+        android:name="com.example.choice.friendListFragment"
+        android:label="fragment_friend_list"
+        tools:layout="@layout/fragment_friend_list" />
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.example.choice.ChatsFragment"
+        android:label="fragment_chats"
+        tools:layout="@layout/fragment_chats" />
 
 
 </navigation>
