@@ -1,6 +1,7 @@
 package com.example.choice
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -104,10 +105,10 @@ class RegisterFragment : Fragment() {
 
                     val userHashMap = HashMap<String, Any>()
                     userHashMap["uid"] = firebaseUserID
-                    userHashMap["first name"] = firstName
-                    userHashMap["last name"] = lastName
+                    userHashMap["first_name"] = firstName
+                    userHashMap["last_name"] = lastName
                     userHashMap["gender"] = gender
-                    userHashMap["profile picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
+                    userHashMap["profile_picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
                     userHashMap["bio"] = " "
                     //TODO: Add search value? (value to find user, for matching)
 
@@ -116,8 +117,10 @@ class RegisterFragment : Fragment() {
                             if (task.isSuccessful)
                             {
                                 //Navigate to home fragment
-                                val navHome = activity as FragmentNavigation
-                                navHome.navigateFrag(HomeFragment(),addToStack = true)
+//                                val navHome = activity as FragmentNavigation
+//                                navHome.navigateFrag(MatchFragment(),addToStack = true)
+                                val intent = Intent (activity, MatchActivity::class.java)
+                                activity?.startActivity(intent)
                             }else{
                                 Toast.makeText(context,"Unable to save user information",Toast.LENGTH_SHORT).show()
                             }

@@ -110,4 +110,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'
 
     implementation 'com.android.volley:volley:1.2.0'
+
+    //Matching
+    implementation 'com.github.yuyakaido:cardstackview:2.3.4'
+
+    //Circle image for matching
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }

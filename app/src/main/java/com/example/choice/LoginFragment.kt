@@ -1,5 +1,6 @@
 package com.example.choice
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -14,9 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-/**
- * A simple [Fragment] subclass.
- */
 class LoginFragment : Fragment() {
     private lateinit var email: EditText
     private lateinit var password: EditText
@@ -38,6 +36,7 @@ class LoginFragment : Fragment() {
         view.findViewById<Button>(R.id.registerButton).setOnClickListener {
             var navRegister = activity as FragmentNavigation
             navRegister.navigateFrag(RegisterFragment(), false)
+
         }
 
         view.findViewById<Button>(R.id.loginButton).setOnClickListener {
@@ -56,9 +55,10 @@ class LoginFragment : Fragment() {
         fAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
             task ->
             if(task.isSuccessful){
-                var navHome = activity as FragmentNavigation
-                //TODO: Change from homescreen to map screen
-                navHome.navigateFrag(HomeFragment(), addToStack = true)
+                val intent = Intent (activity, MatchActivity::class.java)
+                activity?.startActivity(intent)
+//                var navHome = activity as FragmentNavigation
+//                navHome.navigateFrag(MatchFragment(), addToStack = true)
             }else{
                 logBtn.isEnabled = true
                 logBtn.alpha = 1.0f
