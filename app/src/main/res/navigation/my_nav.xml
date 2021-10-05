@@ -18,10 +18,10 @@
         android:label="activity_settings_screen"
         tools:layout="@layout/activity_settings_screen" />
     <fragment
-        android:id="@+id/friendListFragment"
-        android:name="com.example.choice.FriendListFragment"
+        android:id="@+id/usersFragment"
+        android:name="com.example.choice.UsersFragment"
         android:label="fragment_friend_list"
-        tools:layout="@layout/fragment_friend_list" />
+        tools:layout="@layout/fragment_users" />
 
 
 </navigation>
