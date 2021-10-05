@@ -1,8 +1,9 @@
-package com.example.choice.utils
+package com.example.choice
 
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Icon
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,20 +13,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.choice.FragmentNavigation
-import com.example.choice.LoginFragment
-import com.example.choice.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import kotlinx.android.synthetic.main.fragment_setting.*
 import java.util.*
 
-private lateinit var fAuth: FirebaseAuth
+    private lateinit var fAuth: FirebaseAuth
     private var firebaseUserID : String = ""
     private lateinit var database: DatabaseReference
     private lateinit var biofield : EditText
@@ -44,37 +40,11 @@ class SettingFragment : Fragment() {
         Userimage = view.findViewById(R.id.setting_user_head_image)
         database = FirebaseDatabase.getInstance().getReference("Users")
 
-        if (firebaseUserID != null){
-            database.child(firebaseUserID).get().addOnSuccessListener {
-                if (it.exists()){
-                    val fname = it.child("first name").value
-                    val lname = it.child("last name").value
-                    val gender = it.child("gender").value
-                    val bio = it.child("bio").value
-                    val profilepictre = it.child("profile picture").value
-                    view.findViewById<TextView>(R.id.username_text_view).text = (fname.toString() + " " + lname.toString())
-                    view.findViewById<TextView>(R.id.SettingGender).text= (gender.toString())
-                    biofield.setText((bio.toString()))
-                }else{
-                }
-            }
-        }else {
-        }
-
-        view.findViewById<Button>(R.id.setting_updatebio_button).setOnClickListener(){
-            Log.d("Setting Fragment", "Update Bio")
-
-            val settingbioupdate = biofield.text.toString()
-            database.child(firebaseUserID).child("bio").setValue(settingbioupdate).addOnSuccessListener {
-                Toast.makeText(context,"Bio Update Complete", Toast.LENGTH_SHORT).show()
-            }
-        }
-
         view.findViewById<Button>(R.id.setting_button).setOnClickListener {
 
             Log.d("Setting Fragment", "Go to Logout Fragment")
-            var navLogout = activity as FragmentNavigation
-            navLogout.navigateFrag(LogoutFragment(), false)
+            val intent = Intent(activity, LogoutActivity::class.java)
+            startActivity(intent)
         }
 
         view.findViewById<ImageView>(R.id.setting_user_head_image).setOnClickListener {
@@ -91,6 +61,32 @@ class SettingFragment : Fragment() {
             uploadPhotoToFirebase()
         }
 
+        if (firebaseUserID != null){
+            database.child(firebaseUserID).get().addOnSuccessListener {
+                if (it.exists()){
+                    val fname = it.child("first name").value
+                    val lname = it.child("last name").value
+                    val gender = it.child("gender").value
+                    val bio = it.child("bio").value
+                    val profilepictre = it.child("profile picture").value
+                    view.findViewById<TextView>(R.id.username_text_view).text = (fname.toString() + " " + lname.toString())
+                    view.findViewById<TextView>(R.id.SettingGender).text= (gender.toString())
+                    biofield.setText((bio.toString()))
+
+                }else{
+                }
+            }
+        }else {
+        }
+
+        view.findViewById<Button>(R.id.setting_updatebio_button).setOnClickListener(){
+            Log.d("Setting Fragment", "Update Bio")
+
+            val settingbioupdate = biofield.text.toString()
+            database.child(firebaseUserID).child("bio").setValue(settingbioupdate).addOnSuccessListener {
+                Toast.makeText(context,"Bio Update Complete", Toast.LENGTH_SHORT).show()
+            }
+        }
         return view
     }
 
@@ -98,14 +94,13 @@ class SettingFragment : Fragment() {
         if (selectedPhotoUri == null) return
 
         val filename = UUID.randomUUID().toString()
-        val ref = FirebaseStorage.getInstance().getReference("/Userimage/$filename")
+        val ref = FirebaseStorage.getInstance().getReference("/profile/Userimage/$filename"+ " UID: " + fAuth.currentUser?.uid)
 
         ref.putFile(selectedPhotoUri!!)
             .addOnSuccessListener {
                 Log.d("Setting Fragment", "Successfully uploaded image: ${it.metadata?.path}")
             }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -119,7 +114,4 @@ class SettingFragment : Fragment() {
 
         }
     }
-
-
-
 }
