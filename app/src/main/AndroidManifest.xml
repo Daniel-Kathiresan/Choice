@@ -15,14 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Choice"
         >
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
         <activity
             android:name=".BottomNavigationBar"
-            android:exported="true" >
-        </activity>
+            android:exported="true" />
 
 
         <service
@@ -45,9 +40,6 @@
             tools:ignore="Instantiatable" />
         <activity
             android:name=".MapScreen"
-            android:exported="true" />
-        <activity
-            android:name=".NearbyActivity"
             android:exported="true" />
         <activity
             android:name=".ChatActivity"
