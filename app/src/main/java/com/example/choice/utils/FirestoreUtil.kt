@@ -2,7 +2,9 @@ package com.example.choice.utils
 
 import android.content.Context
 import android.util.Log
-import com.example.choice.model.User
+import com.example.choice.model.*
+import com.example.choice.recycleview.ImageMessageItem
+import com.example.choice.recycleview.TextMessageItem
 import com.example.choice.recycleview.UserItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -18,14 +20,14 @@ class FirestoreUtil {
     private val currentUserDocRef: DocumentReference
         get() = firestoreInstance.document("users/${
             FirebaseAuth.getInstance().currentUser?.uid
-            ?: throw NullPointerException("UID is null.")}")
+                ?: throw NullPointerException("UID is null.")}")
 
     private val chatChannelsCollectionRef = firestoreInstance.collection("chatChannels")
 
     fun initCurrentUserIfFirstTime(onComplete: () -> Unit) {
         currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
             if (!documentSnapshot.exists()) {
-                val newUser = User(FirebaseAuth.getInstance().currentUser?.displayName?:"","",null)
+                val newUser = User(FirebaseAuth.getInstance().currentUser?.displayName?:"","",null, mutableListOf())
                 currentUserDocRef.set(newUser).addOnSuccessListener {
                     onComplete()
                 }

@@ -15,19 +15,15 @@ class BottomNav : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_nav)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.dashboardContainer, ChatsFragment()).commit()
-            bottomChip.setItemSelected(R.id.btnChats)
-        }
+        replaceFragment(FriendsFragment())
 
         bottomChip.setOnItemSelectedListener { id ->
             when (id){
                 R.id.btnChats -> {
-                    fragment = ChatsFragment()
+                    replaceFragment(ChatsFragment())
                 }
                 R.id.btnFriends -> {
-                    fragment = FriendsFragment()
+                    replaceFragment(FriendsFragment())
                 }
             }
 
@@ -35,5 +31,10 @@ class BottomNav : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.dashboardContainer, fragment!!).commit()
             }
         }
+    }
+
+
+    private fun replaceFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.dashboardContainer, fragment).commit()
     }
 }

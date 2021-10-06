@@ -4,6 +4,7 @@ import android.content.Context
 import com.bumptech.glide.Glide
 import com.example.choice.R
 import com.example.choice.model.User
+import com.example.choice.utils.StorageUtil
 import com.xwray.groupie.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_user.*
