@@ -73,7 +73,7 @@ class LoginFragment : Fragment() {
             R.drawable.warningph)
 
         icon?.setBounds(0, 0,icon.intrinsicWidth,icon.intrinsicHeight)
-        //check string user has entered
+        //check string User has entered
         when{
             TextUtils.isEmpty((email.text.toString().trim()))->{
 

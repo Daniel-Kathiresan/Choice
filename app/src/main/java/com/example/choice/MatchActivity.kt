@@ -298,14 +298,14 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         /* If userpref = male,
         * getinstance("Users")
         * if gender = male
-        * spots.add(user!!)
+        * spots.add(User!!)
         * else:
         * return? */
         val spots = ArrayList<Spot>()
         //WARNING: Will crash if not fully loaded + when loading from auto login the app will crash
         //Fix: Change way auto login works or add a loading / intermittent screen between login / matching
         //TODO: add error checking or loading screen
-        //TODO: add check for current user id so that it is filtered from displayed user ID's
+        //TODO: add check for current User id so that it is filtered from displayed User ID's
         ref = FirebaseDatabase.getInstance().getReference("Users")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

@@ -8,6 +8,8 @@
         <entry key="..\:/Users/Jason/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_settings_fragment_edit_profile.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/Jason/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_settings_screen.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/Jason/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_login.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/drawable-v21/edittext_background.xml" value="0.4765625" />
+        <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/drawable-v21/ic_info.xml" value="0.4583333333333333" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/drawable-v24/ic_back.xml" value="0.34791666666666665" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/drawable-v24/ic_baseline_account_circle_24.xml" value="0.5697916666666667" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/drawable-v24/ic_baseline_chat_24.xml" value="0.5697916666666667" />
@@ -67,7 +69,7 @@
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_friend.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_friend_list.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_friend_temp.xml" value="0.33" />
-        <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_friends.xml" value="0.160081053698075" />
+        <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_friends.xml" value="0.25" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_gallery.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_home.xml" value="0.33125" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_home_temp.xml" value="0.5536458333333333" />
@@ -81,6 +83,7 @@
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_slideshow.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_users.xml" value="0.33" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_view_page.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/friend_item_layout.xml" value="0.22391084093211752" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/item_left.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/item_right.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/item_spot.xml" value="0.5489583333333333" />
