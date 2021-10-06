@@ -15,14 +15,9 @@
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/friendListFragment"
-        android:name="com.example.choice.friendListFragment"
+        android:name="com.example.choice.FriendListFragment"
         android:label="fragment_friend_list"
         tools:layout="@layout/fragment_friend_list" />
-    <fragment
-        android:id="@+id/chatsFragment"
-        android:name="com.example.choice.ChatsFragment"
-        android:label="fragment_chats"
-        tools:layout="@layout/fragment_chats" />
 
 
 </navigation>

@@ -18,7 +18,6 @@ class BottomNavigationBar : AppCompatActivity() {
     private val matchFragment = MatchFragment()
     private val settingFragment = SettingFragment()
     private val friendListFragment = FriendListFragment()
-    private val chatsFragment = ChatsFragment()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +30,6 @@ class BottomNavigationBar : AppCompatActivity() {
                 R.id.homeFragment -> replaceFragment(matchFragment)
                 R.id.settingsScreen -> replaceFragment(settingFragment)
                 R.id.friendListFragment -> replaceFragment(friendListFragment)
-                R.id.chatsFragment -> replaceFragment(chatsFragment)
             }
             true
         }

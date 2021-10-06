@@ -3,14 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".friendListFragment">
+    tools:context=".FriendListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="567dp"
-        android:text="Friend List Fragment"
-        android:textColor="@color/colorItemRight"
-        android:textSize="34sp" />
-
+        android:layout_height="655dp" />
 </FrameLayout>
