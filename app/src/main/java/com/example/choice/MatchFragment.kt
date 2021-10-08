@@ -1,5 +1,6 @@
 package com.example.choice
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,8 +13,8 @@ class MatchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //TODO: Add navigation to fragment activity that will invoke navbar
-
+        val intent = Intent (activity, MatchActivity::class.java)
+        activity?.startActivity(intent)
         return inflater.inflate(R.layout.fragment_match, container, false)
     }
 }

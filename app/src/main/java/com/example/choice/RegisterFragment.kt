@@ -30,6 +30,7 @@ class RegisterFragment : Fragment() {
     private lateinit var refUsers: DatabaseReference
     private var firebaseUserID : String = ""
     private lateinit var usergndr: Spinner
+    private lateinit var prefgndr: Spinner
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +47,7 @@ class RegisterFragment : Fragment() {
         fAuth = Firebase.auth
         regBtn = view.findViewById(R.id.create_account_btn)
         usergndr = view.findViewById(R.id.gender_spinner)
+        prefgndr = view.findViewById(R.id.preference_spinner)
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -56,6 +58,17 @@ class RegisterFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
             usergndr.adapter = adapter
+        }
+        //Same array adapter but for gender preference
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.preference_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            prefgndr.adapter = adapter
         }
 
 
@@ -98,6 +111,7 @@ class RegisterFragment : Fragment() {
                     val firstName = fname.text.toString()
                     val lastName = lname.text.toString()
                     val gender = usergndr.selectedItem.toString()
+                    val preference = prefgndr.selectedItem.toString()
 
                     //Get UID, create DB reference with UID, Add to DB
                     firebaseUserID = fAuth.currentUser!!.uid
@@ -110,6 +124,7 @@ class RegisterFragment : Fragment() {
                     userHashMap["gender"] = gender
                     userHashMap["profile_picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
                     userHashMap["bio"] = " "
+                    userHashMap["gender_pref"] = preference
                     //TODO: Add search value? (value to find user, for matching)
 
                     refUsers.updateChildren(userHashMap)

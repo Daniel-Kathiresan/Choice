@@ -1,9 +1,8 @@
 package com.example.choice
 
-//Data class for data pulled from firebase
+//Data class for the current users data pulled from firebase
 
-data class Spot(
-    var id: Long? = counter++,
+data class CurrUser(
     var bio: String? = "",
     var first_name: String? = "",
     var gender: String? = "" ,
@@ -11,8 +10,4 @@ data class Spot(
     var last_name: String? = "",
     var profile_picture: String? = "",
     var uid: String? = ""
-) {
-    companion object {
-        private var counter = 0L
-    }
-}
+)

@@ -1,5 +1,6 @@
 package com.example.choice
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -30,10 +31,12 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
     private val cardStackView by lazy { findViewById<CardStackView>(R.id.card_stack_view) }
     private val manager by lazy { CardStackLayoutManager(this, this) }
     private val adapter by lazy { CardStackAdapter(createSpots()) }
+    private var firebaseUserID: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match)
+        fAuth = Firebase.auth
         setupNavigation()
         setupCardStackView()
         setupButton()
@@ -82,7 +85,13 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         setSupportActionBar(toolbar)
 
         // DrawerLayout
-        val actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer)
+        val actionBarDrawerToggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.open_drawer,
+            R.string.close_drawer
+        )
         actionBarDrawerToggle.syncState()
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
 
@@ -287,31 +296,32 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
             bio = "TEST BIO : I AM A TEST USER",
             last_name = "USER",
             gender = "Male",
+            gender_pref = "Female",
             profile_picture = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711",
             uid = "testUID"
         )
     }
 
     private fun createSpots(): List<Spot> {
-        //Pull from firebase and add to list
-        //TODO: Add filtering eg:
-        /* If userpref = male,
-        * getinstance("Users")
-        * if gender = male
-        * spots.add(user!!)
-        * else:
-        * return? */
+        //Create lists for storing user data, uses spot data class
         val spots = ArrayList<Spot>()
+        val currUser  = ArrayList<Spot>()
+
         //WARNING: Will crash if not fully loaded + when loading from auto login the app will crash
         //Fix: Change way auto login works or add a loading / intermittent screen between login / matching
         //TODO: add error checking or loading screen
-        //TODO: add check for current user id so that it is filtered from displayed user ID's
+        //Finds current user first + stores information (used for filtering)
+        firebaseUserID = fAuth.currentUser!!.uid
         ref = FirebaseDatabase.getInstance().getReference("Users")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
-                    val user = userSnapshot.getValue(Spot::class.java)
-                    spots.add(user!!)
+                    val getcurrUser = userSnapshot.getValue(Spot::class.java)
+                    if (getcurrUser!!.uid == firebaseUserID){
+                        currUser.add(getcurrUser!!)
+                        println("Current user $currUser")
+                    }
+
                 }
                 println(spots)
             }
@@ -320,7 +330,47 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                 throw databaseError.toException()
             }
         })
+        //Pulls rest of information to store on cards, checks against current user for filtering
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (userSnapshot in dataSnapshot.children) {
+                    val user = userSnapshot.getValue(Spot::class.java)
+                    //Check matching uid
+                    if (user!!.gender_pref == currUser[0].gender){
+                        println("User gender matches pref")
+                        if (user!!.uid == currUser[0].uid){
+                            println("Matching uid 1 ")
+                        }
+                        else if(currUser[0].gender == user!!.gender_pref) {
+                        //Add to spots, meets criteria
+                         spots.add(user!!)
+                        }
+                    }
+                    else{
+                        if (user!!.uid == currUser[0].uid){
+                            println("Matching uid 2")
+                        }
+                        else if(currUser[0].gender_pref == "Everyone"){
+                            if (user.gender_pref == currUser[0].gender){
+                                println("Everyone criteria met, adding to spots")
+                                spots.add(user!!)
+                            }
+                            else{
+                                println("FINAL ELSE FALLBACK ACTIVE")
+                            }
+                        }
+
+                    }
+
+                }
+                println(spots)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                throw databaseError.toException()
+            }
+        })
+        println("Spots: $spots")
         return spots
     }
-
 }
