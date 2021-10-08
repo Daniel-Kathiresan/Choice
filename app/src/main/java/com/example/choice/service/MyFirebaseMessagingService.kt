@@ -1,28 +1,15 @@
 package com.example.choice.service
 
-import com.example.choice.utils.FirestoreUtil
-import com.google.firebase.auth.FirebaseAuth
+import android.util.Log
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 
-class MyFirebaseInstanceIDService : FirebaseInstanceIdService() {
+open class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-    override fun onTokenRefresh() {
-        val newRegistrationToken = FirebaseInstanceId.getInstance().token
-
-        if (FirebaseAuth.getInstance().currentUser != null)
-            addTokenToFirestore(newRegistrationToken)
-    }
-
-    companion object {
-        fun addTokenToFirestore(newRegistrationToken: String?) {
-            if (newRegistrationToken == null) throw NullPointerException("FCM token is null.")
-
-            FirestoreUtil.getFCMRegistrationTokens { tokens ->
-                if (tokens.contains(newRegistrationToken))
-                    return@getFCMRegistrationTokens
-
-                tokens.add(newRegistrationToken)
-                FirestoreUtil.setFCMRegistrationTokens(tokens)
-            }
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        if (remoteMessage.notification != null) {
+            //TODO: Show notification if we're not online
+            Log.d("FCM", remoteMessage.data.toString())
         }
     }
 }
