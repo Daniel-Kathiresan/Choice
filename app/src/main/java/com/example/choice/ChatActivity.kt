@@ -18,7 +18,7 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.kotlinandroidextensions.Item
-import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+import com.xwray.groupie.viewbinding.GroupieViewHolder
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -102,7 +102,7 @@ class ChatActivity : AppCompatActivity() {
         fun init() {
             recycler_view_messages.apply {
                 layoutManager = LinearLayoutManager(this@ChatActivity)
-                adapter = GroupAdapter<ViewHolder>().apply {
+                adapter = GroupAdapter<com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder>().apply {
                     messagesSection = Section(messages)
                     this.add(messagesSection)
                 }
@@ -117,6 +117,6 @@ class ChatActivity : AppCompatActivity() {
         else
             updateItems()
 
-        recycler_view_messages.scrollToPosition(recycler_view_messages.adapter.itemCount - 1)
+        recycler_view_messages.scrollToPosition(recycler_view_messages.adapter!!.itemCount - 1)
     }
 }

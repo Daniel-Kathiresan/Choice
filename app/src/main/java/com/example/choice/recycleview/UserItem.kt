@@ -5,12 +5,12 @@ import com.bumptech.glide.Glide
 import com.example.choice.R
 import com.example.choice.model.User
 import com.example.choice.utils.StorageUtil
+import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.item_user.*
 
 class UserItem(val user: User, val userId: String, private val context: Context) : com.xwray.groupie.kotlinandroidextensions.Item() {
-    override fun bind(viewHolder: ViewHolder, position: Int) {
+    override fun bind(viewHolder: com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder, position: Int) {
         viewHolder.user_name.text = user.name
         viewHolder.user_bio.text = user.bio
         if(user.profilePicturePath != null)

@@ -7,13 +7,13 @@ import com.example.choice.R
 import com.example.choice.model.TextMessage
 import com.google.firebase.auth.FirebaseAuth
 import com.xwray.groupie.kotlinandroidextensions.Item
-import com.xwray.groupie.kotlinandroidextensions.ViewHolder
+import com.xwray.groupie.viewbinding.GroupieViewHolder
 import kotlinx.android.synthetic.main.item_text_message.*
 import java.text.SimpleDateFormat
 
 class TextMessageItem(val message: TextMessage,
                       val context: Context) : MessageItem(message) {
-    override fun bind(viewHolder: ViewHolder, position: Int) {
+    override fun bind(viewHolder: com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder, position: Int) {
         viewHolder.textView_message_text.text = message.text
         super.bind(viewHolder, position)
     }
@@ -21,7 +21,7 @@ class TextMessageItem(val message: TextMessage,
 
     override fun getLayout() = R.layout.item_text_message
 
-    override fun isSameAs(other: com.xwray.groupie.Item<*>?): Boolean {
+    override fun isSameAs(other: com.xwray.groupie.Item<*>): Boolean {
         if (other !is TextMessageItem)
             return false
         if (this.message != other.message)
@@ -30,7 +30,7 @@ class TextMessageItem(val message: TextMessage,
     }
 
     override fun equals(other: Any?): Boolean {
-        return isSameAs(other as? TextMessageItem)
+        return isSameAs(other as TextMessageItem)
     }
 
     override fun hashCode(): Int {

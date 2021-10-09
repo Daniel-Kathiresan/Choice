@@ -1,5 +1,6 @@
 package com.example.choice
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,8 +13,8 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.Section
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.fragment_friends.*
 
 
@@ -49,7 +50,7 @@ class FriendsFragment : Fragment() {
         fun init(){
             recyclerViewFriends.apply{
                 layoutManager = LinearLayoutManager(this@FriendsFragment.context)
-                adapter = GroupAdapter<ViewHolder>().apply{
+                adapter = GroupAdapter<GroupieViewHolder>().apply{
                     usersSection = Section(items)
                     add(usersSection)
                     setOnItemClickListener(onItemClick)
@@ -71,10 +72,14 @@ class FriendsFragment : Fragment() {
 
     private val onItemClick = OnItemClickListener { item, view ->
         if (item is UserItem) {
-            startActivity<ChatActivity>{
-                AppConstants.USER_NAME to item.user.name,
-                AppConstants.USER_ID to item.userId
-            }
+//            startActivity<ChatActivity>{
+//                AppConstants.USER_NAME to item.user.name,
+//                AppConstants.USER_ID to item.userId
+//            }
+            val i = Intent()
+            i.setClass(requireActivity().applicationContext, ChatActivity::class.java)
+            startActivity(i)
+            requireActivity().finish()
         }
     }
 
