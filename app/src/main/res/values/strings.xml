@@ -74,4 +74,5 @@
     <string name="Gender">Gender :</string>
     <string name="nope">nope</string>
     <string name="like">like</string>
+    <string name="title_activity_logout">LogoutActivity</string>
 </resources>
