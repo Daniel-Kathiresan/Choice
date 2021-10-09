@@ -19,9 +19,6 @@ class BottomNav : AppCompatActivity() {
 
         bottomChip.setOnItemSelectedListener { id ->
             when (id){
-                R.id.btnChats -> {
-                    replaceFragment(ChatsFragment())
-                }
                 R.id.btnFriends -> {
                     replaceFragment(FriendsFragment())
                 }

@@ -13,7 +13,7 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.ktx.Firebase
 import com.xwray.groupie.kotlinandroidextensions.Item
 
-class FirestoreUtil {
+object FirestoreUtil {
 
     private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 

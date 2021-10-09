@@ -30,12 +30,10 @@ class FriendsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        userListenerRegistration = FirestoreUtil.addUsersListener(this.activity!!, this::updateRecyclerView)
-
 
         var view = inflater.inflate(R.layout.fragment_friends, container, false)
 
-
+        userListenerRegistration = FirestoreUtil.addUsersListener(this.requireActivity(), this::updateRecyclerView)
 
         return view
     }
