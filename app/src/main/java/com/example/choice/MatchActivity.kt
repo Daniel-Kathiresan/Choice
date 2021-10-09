@@ -336,32 +336,13 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                 for (userSnapshot in dataSnapshot.children) {
                     val user = userSnapshot.getValue(Spot::class.java)
                     //Check matching uid
-                    if (user!!.gender_pref == currUser[0].gender){
-                        println("User gender matches pref")
-                        if (user!!.uid == currUser[0].uid){
-                            println("Matching uid 1 ")
-                        }
-                        else if(currUser[0].gender == user!!.gender_pref) {
-                        //Add to spots, meets criteria
-                         spots.add(user!!)
-                        }
+                    if (user!!.uid !== currUser[0].uid){
+                        println("uid does not match")
+                        spots.add(user!!)
                     }
                     else{
-                        if (user!!.uid == currUser[0].uid){
-                            println("Matching uid 2")
-                        }
-                        else if(currUser[0].gender_pref == "Everyone"){
-                            if (user.gender_pref == currUser[0].gender){
-                                println("Everyone criteria met, adding to spots")
-                                spots.add(user!!)
-                            }
-                            else{
-                                println("FINAL ELSE FALLBACK ACTIVE")
-                            }
-                        }
 
                     }
-
                 }
                 println(spots)
             }
