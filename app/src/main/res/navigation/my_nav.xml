@@ -14,7 +14,7 @@
         android:name="com.example.choice.MapScreen"
         android:label="MapFragment" />
 
-    <activity
+    <fragment
         android:id="@+id/settingsScreen"
         android:name="com.example.choice.SettingFragment"
         android:label="activity_settings_screen"

@@ -1,6 +1,7 @@
 package com.example.choice
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,6 +25,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_map.*
 import java.util.*
 
 class MapScreen : AppCompatActivity() , OnMapReadyCallback {
@@ -65,6 +67,9 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
                 Log.e(TAG, "An error occurred: $status")
             }
         })
+        btnNearby.setOnClickListener {
+            startActivity(Intent(this, NearbyActivity::class.java))
+        }
     }
 
     /**
