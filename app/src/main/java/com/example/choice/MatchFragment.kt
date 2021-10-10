@@ -32,61 +32,6 @@ class MatchFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_match, container, false)
 
-
-        flingAdapterView = view?.findViewById(R.id.swipe)
-
-        data = ArrayList()
-
-        //add data to array
-        getUserData()
-
-        arrayAdapter = ArrayAdapter(view.context, R.layout.item, R.id.data,
-            data as ArrayList<String>
-        )
-        flingAdapterView?.adapter = arrayAdapter
-        flingAdapterView?.setFlingListener(object : SwipeFlingAdapterView.onFlingListener {
-            override fun removeFirstObjectInAdapter() {
-                (data as ArrayList<String>).removeAt(0)
-                arrayAdapter!!.notifyDataSetChanged()
-            }
-
-            override fun onLeftCardExit(o: Any) {
-                Toast.makeText(context, "dislike", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onRightCardExit(o: Any) {
-                Toast.makeText(context, "like", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onAdapterAboutToEmpty(i: Int) {}
-            override fun onScroll(v: Float) {}
-        })
-        flingAdapterView?.setOnItemClickListener { i, _ ->
-            Toast.makeText(
-                context,
-                "data is " + (data as ArrayList<String>)[i],
-                Toast.LENGTH_SHORT
-            ).show()
-
-
-        }
         return view
-    }
-
-    //Writing function to get users data
-    private fun getUserData(){
-        var eventListener: ValueEventListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (ds in dataSnapshot.children) {
-
-                    val name = ds.child("first name").getValue(String::class.java)
-                    Log.d("TAG", name!!)
-                    //Warning! Will be error if there is unformatted data
-                    data?.add(name)
-                }
-            }
-            override fun onCancelled(databaseError: DatabaseError) {}
-        }
-        usersdRef.addListenerForSingleValueEvent(eventListener)
     }
 }
