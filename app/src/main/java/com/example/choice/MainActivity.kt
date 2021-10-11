@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), FragmentNavigation{
         //Enables automatic login to app, does not use a checkbox (remember me)
         val currentUser = fAuth.currentUser
         if(currentUser != null){
-            val intent = Intent(this, MatchActivity::class.java)
+            val intent = Intent(this, BottomNav::class.java)
             startActivity(intent)
 //            supportFragmentManager.beginTransaction()
 //                .add(R.id.container, MatchFragment()).addToBackStack(null)
