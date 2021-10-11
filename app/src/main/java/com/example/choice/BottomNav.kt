@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.ContentView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_bottom_nav.*
 
 class BottomNav : AppCompatActivity() {
@@ -17,10 +20,21 @@ class BottomNav : AppCompatActivity() {
 
         replaceFragment(FriendsFragment())
 
+
+
         bottomChip.setOnItemSelectedListener { id ->
             when (id){
+                R.id.btnHome -> {
+                    fragment = MatchFragment()
+                }
+                R.id.btnMap -> {
+                    fragment = FriendsFragment()
+                }
                 R.id.btnFriends -> {
-                    replaceFragment(FriendsFragment())
+                    fragment = FriendsFragment()
+                }
+                R.id.btnSettings -> {
+                    fragment = SettingFragment()
                 }
             }
 
