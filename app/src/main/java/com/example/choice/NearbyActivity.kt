@@ -46,8 +46,8 @@ class NearbyActivity : AppCompatActivity(), OnMapReadyCallback {
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
      * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * If Google Play services is not installed on the device, the User will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the User has
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
@@ -110,7 +110,7 @@ class NearbyActivity : AppCompatActivity(), OnMapReadyCallback {
                 // here to request the missing permissions, and then overriding
                 //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
                 //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
+                // to handle the case where the User grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
                 return
             }

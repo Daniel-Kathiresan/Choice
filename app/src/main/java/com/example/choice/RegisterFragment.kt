@@ -37,7 +37,7 @@ class RegisterFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_register, container, false)
-        //Variables for user info
+        //Variables for User info
         email = view.findViewById(R.id.reg_email)
         fname = view.findViewById(R.id.reg_fname)
         lname = view.findViewById(R.id.reg_lname)
@@ -85,7 +85,7 @@ class RegisterFragment : Fragment() {
             // Another interface callback
         }
     }
-    //Function to provide connectivity and signup to firebase, sends the stored user data
+    //Function to provide connectivity and signup to firebase, sends the stored User data
     private fun firebaseSignUp() {
         regBtn.isEnabled = false
         regBtn.alpha = 0.5f
@@ -94,7 +94,7 @@ class RegisterFragment : Fragment() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(context, "Sign-up Successful", Toast.LENGTH_SHORT).show()
-                    //Save user info as string
+                    //Save User info as string
                     val firstName = fname.text.toString()
                     val lastName = lname.text.toString()
                     val gender = usergndr.selectedItem.toString()
@@ -105,24 +105,24 @@ class RegisterFragment : Fragment() {
 
                     val userHashMap = HashMap<String, Any>()
                     userHashMap["uid"] = firebaseUserID
-                    userHashMap["first name"] = firstName
-                    userHashMap["last name"] = lastName
+                    userHashMap["first_name"] = firstName
+                    userHashMap["last_name"] = lastName
                     userHashMap["gender"] = gender
-                    userHashMap["profile picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
+                    userHashMap["profile_picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
                     userHashMap["bio"] = " "
-                    //TODO: Add search value? (value to find user, for matching)
+                    //TODO: Add search value? (value to find User, for matching)
 
                     refUsers.updateChildren(userHashMap)
                         .addOnCompleteListener{ task ->
                             if (task.isSuccessful)
                             {
                                 //Navigate to home fragment
-                                val intent = Intent(activity, BottomNavigationBar::class.java)
-                                startActivity(intent)
-                                val navHome = activity as FragmentNavigation
-                                navHome.navigateFrag(MatchFragment(),addToStack = true)
+//                                val navHome = activity as FragmentNavigation
+//                                navHome.navigateFrag(MatchFragment(),addToStack = true)
+                                val intent = Intent (activity, MatchActivity::class.java)
+                                activity?.startActivity(intent)
                             }else{
-                                Toast.makeText(context,"Unable to save user information",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context,"Unable to save User information",Toast.LENGTH_SHORT).show()
                             }
                         }
 
@@ -142,7 +142,7 @@ class RegisterFragment : Fragment() {
         )
 
         icon?.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
-        //check string user has entered is not empty
+        //check string User has entered is not empty
         when {
             TextUtils.isEmpty((email.text.toString().trim())) -> {
 
@@ -179,7 +179,7 @@ class RegisterFragment : Fragment() {
                                 //If more than 5 characters check confirm password
                                 if (password.text.toString() == cnfrmPassword.text.toString()) {
 
-                                    //Firebase signup to register user
+                                    //Firebase signup to register User
                                     firebaseSignUp()
                                     //Toast.makeText(context,"Account Creation Successful",Toast.LENGTH_SHORT).show()
                                 } else {

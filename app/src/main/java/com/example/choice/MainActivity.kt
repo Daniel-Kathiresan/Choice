@@ -10,7 +10,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_bottom_navigation_bar.*
 
 //Following code may be moved
 
@@ -26,11 +25,12 @@ class MainActivity : AppCompatActivity(), FragmentNavigation{
         //Enables automatic login to app, does not use a checkbox (remember me)
         val currentUser = fAuth.currentUser
         if(currentUser != null){
+            val intent = Intent(this, BottomNav::class.java)
+            startActivity(intent)
 //            supportFragmentManager.beginTransaction()
 //                .add(R.id.container, MatchFragment()).addToBackStack(null)
 //                .commit()
-            startActivity(Intent(this, BottomNavigationBar::class.java))
-            finish()
+
         }else {
             supportFragmentManager.beginTransaction()
                 .add(R.id.container, LoginFragment())
