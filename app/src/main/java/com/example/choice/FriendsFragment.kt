@@ -6,10 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.choice.model.User
 import com.example.choice.recycleview.UserItem
 import com.example.choice.utils.FirestoreUtil
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.messaging.FirebaseMessaging
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.Section
@@ -25,6 +31,7 @@ class FriendsFragment : Fragment() {
     private var shouldInitRecyclerView = true
 
     private lateinit var usersSection: Section
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
