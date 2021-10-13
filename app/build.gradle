@@ -116,4 +116,7 @@ dependencies {
 
     //Circle image for matching
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    //Tinydb for saving information permanently
+    implementation 'com.google.code.gson:gson:2.8.8'
 }

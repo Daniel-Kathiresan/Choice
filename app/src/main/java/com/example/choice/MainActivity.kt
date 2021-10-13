@@ -4,9 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -17,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_bottom_navigation_bar.*
 class MainActivity : AppCompatActivity(), FragmentNavigation{
 
     private lateinit var fAuth: FirebaseAuth
+    var reLog: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +24,16 @@ class MainActivity : AppCompatActivity(), FragmentNavigation{
         //Enables automatic login to app, does not use a checkbox (remember me)
         val currentUser = fAuth.currentUser
         if(currentUser != null){
-            val intent = Intent(this, MatchActivity::class.java)
+            reLog = 1
+            val intent = Intent(this@MainActivity, MatchActivity::class.java)
+            intent.putExtra("reLog", "reLog")
             startActivity(intent)
 //            supportFragmentManager.beginTransaction()
 //                .add(R.id.container, MatchFragment()).addToBackStack(null)
 //                .commit()
 
         }else {
+            reLog = 0
             supportFragmentManager.beginTransaction()
                 .add(R.id.container, LoginFragment())
                 .commit()

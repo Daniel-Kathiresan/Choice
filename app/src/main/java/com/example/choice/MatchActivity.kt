@@ -1,6 +1,5 @@
 package com.example.choice
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -17,12 +16,15 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import com.google.android.material.navigation.NavigationView
+import com.google.common.reflect.TypeToken
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import com.yuyakaido.android.cardstackview.*
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MatchActivity : AppCompatActivity(), CardStackListener {
     private lateinit var fAuth: FirebaseAuth
@@ -41,6 +43,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         setupCardStackView()
         setupButton()
     }
+
 
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -171,6 +174,8 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                 supportsChangeAnimations = false
             }
         }
+        reload()
+
     }
 
     private fun paginate() {
@@ -189,6 +194,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         val result = DiffUtil.calculateDiff(callback)
         adapter.setSpots(new)
         result.dispatchUpdatesTo(adapter)
+        //addLast(1)
     }
 
     private fun addFirst(size: Int) {
@@ -292,66 +298,88 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
 
     private fun createSpot(): Spot {
         return Spot(
-            first_name = "TEST",
-            bio = "TEST BIO : I AM A TEST USER",
-            last_name = "USER",
-            gender = "Male",
-            gender_pref = "Female",
+            first_name = "END",
+            bio = "No more available users!",
+            last_name = "OF LIST",
+            gender = "NULL",
+            gender_pref = "Everyone",
             profile_picture = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711",
-            uid = "testUID"
+            uid = "LASTUSER"
         )
     }
 
     private fun createSpots(): List<Spot> {
         //Create lists for storing user data, uses spot data class
         val spots = ArrayList<Spot>()
-        val currUser  = ArrayList<Spot>()
+//        val currUser = ArrayList<Spot>()
 
         //WARNING: Will crash if not fully loaded + when loading from auto login the app will crash
         //Fix: Change way auto login works or add a loading / intermittent screen between login / matching
         //TODO: add error checking or loading screen
         //Finds current user first + stores information (used for filtering)
-        firebaseUserID = fAuth.currentUser!!.uid
+//        firebaseUserID = fAuth.currentUser!!.uid
         ref = FirebaseDatabase.getInstance().getReference("Users")
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (userSnapshot in dataSnapshot.children) {
-                    val getcurrUser = userSnapshot.getValue(Spot::class.java)
-                    if (getcurrUser!!.uid == firebaseUserID){
-                        currUser.add(getcurrUser!!)
-                        println("Current user $currUser")
-                    }
-
-                }
-                println(spots)
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                throw databaseError.toException()
-            }
-        })
+//        ref.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                for (userSnapshot in dataSnapshot.children) {
+//                    val getcurrUser = userSnapshot.getValue(Spot::class.java)
+//                    if (getcurrUser!!.uid == firebaseUserID) {
+//                        currUser.add(getcurrUser)
+//                        println("CURRENT USER CHECK DETECTED: $currUser")
+//                    }
+//
+//                }
+//                println(spots)
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {
+//                throw databaseError.toException()
+//            }
+//        })
         //Pulls rest of information to store on cards, checks against current user for filtering
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
                     val user = userSnapshot.getValue(Spot::class.java)
                     //Check matching uid
-                    if (user!!.uid !== currUser[0].uid){
-                        println("uid does not match")
-                        spots.add(user!!)
-                    }
-                    else{
-
-                    }
+//                    if (user!!.uid !== currUser[0].uid) {
+//                        spots.add(user!!)
+//                    }
+                    spots.add(user!!)
                 }
-                println(spots)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 throw databaseError.toException()
             }
         })
-        println("Spots: $spots")
+        //Put refreshed spots into list
+//        putListSpot(spots)
+        //TODO: REMOVE AFTER TESTING
+        println("To be returned Spots: $spots")
+        //Return spot array for program
+        //var oldSpots: ArrayList<Spot> = loadListSpot()
+//        println("Spots retrieved from list spots: ${loadListSpot()}")
         return spots
     }
+
+//    private fun putListSpot(spotList: ArrayList<Spot>) {
+//        val preferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
+//        val gson = Gson()
+//        val json = gson.toJson(spotList)
+//        preferences.edit().putString("UserList", json).apply()
+//        preferences.edit().apply()
+//        println("Spots getting put into userlist: $spotList")
+//    }
+//
+//    private fun loadListSpot(): ArrayList<Spot> {
+//        val preferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
+//        val tempSpot: ArrayList<Spot>
+//        val gson = Gson()
+//        val json: String = preferences.getString("UserList", null).toString()
+//        val type = object : TypeToken<ArrayList<Spot?>?>() {}.type
+//        tempSpot = gson.fromJson(json, type)
+//        println("Test Spots:$tempSpot")
+//        return tempSpot
+//    }
 }
