@@ -24,49 +24,10 @@ object FirestoreUtil {
 
     private val chatChannelsCollectionRef = firestoreInstance.collection("chatChannels")
 
-    fun initCurrentUserIfFirstTime(onComplete: () -> Unit) {
-        currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
-            if (!documentSnapshot.exists()) {
-                val newUser = User(FirebaseAuth.getInstance().currentUser?.displayName?:"","","",null, mutableListOf())
-                currentUserDocRef.set(newUser).addOnSuccessListener {
-                    onComplete()
-                }
-            }
-            else
-                onComplete()
-        }
-    }
-
-    fun updateCurrentUser(name: String = "", bio: String = "", profilePicturePath: String? = null) {
-        val userFieldMap = mutableMapOf<String, Any>()
-        if (name.isNotBlank()) userFieldMap["name"] = name
-        if (bio.isNotBlank()) userFieldMap["bio"] = bio
-        if (profilePicturePath != null)
-            userFieldMap["profilePicturePath"] = profilePicturePath
-        currentUserDocRef.update(userFieldMap)
-    }
-
     fun getCurrentUser(onComplete: (User) -> Unit) {
         currentUserDocRef.get()
             .addOnSuccessListener {
                 onComplete(it.toObject(User::class.java)!!)
-            }
-    }
-
-    fun addUsersListener(context: Context, onListen: (List<Item>) -> Unit): ListenerRegistration {
-        return firestoreInstance.collection("Users")
-            .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                if (firebaseFirestoreException != null) {
-                    Log.e("FIRESTORE", "Users listener error.", firebaseFirestoreException)
-                    return@addSnapshotListener
-                }
-
-                val items = mutableListOf<Item>()
-                querySnapshot!!.documents.forEach {
-                    if (it.id != FirebaseAuth.getInstance().currentUser?.uid)
-                        items.add(UserItem(it.toObject(User::class.java)!!, it.id, context))
-                }
-                onListen(items)
             }
     }
 
@@ -128,15 +89,4 @@ object FirestoreUtil {
             .add(message)
     }
 
-    //region FCM
-    fun getFCMRegistrationTokens(onComplete: (tokens: MutableList<String>) -> Unit) {
-        currentUserDocRef.get().addOnSuccessListener {
-            val user = it.toObject(User::class.java)!!
-            onComplete(user.registrationTokens)
-        }
-    }
-
-    fun setFCMRegistrationTokens(registrationTokens: MutableList<String>) {
-        currentUserDocRef.update(mapOf("registrationTokens" to registrationTokens))
-    }
 }

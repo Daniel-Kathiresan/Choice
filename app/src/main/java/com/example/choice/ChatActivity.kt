@@ -59,7 +59,7 @@ class ChatActivity : AppCompatActivity() {
                 val messageToSend =
                     TextMessage(editText_message.text.toString(), Calendar.getInstance().time,
                         FirebaseAuth.getInstance().currentUser!!.uid,
-                        otherUserId, currentUser.fname+currentUser.lname)
+                        otherUserId, currentUser.first_name+currentUser.last_name)
                 editText_message.setText("")
                 FirestoreUtil.sendMessage(messageToSend, channelId)
             }
@@ -92,7 +92,7 @@ class ChatActivity : AppCompatActivity() {
                 val messageToSend =
                     ImageMessage(imagePath, Calendar.getInstance().time,
                         FirebaseAuth.getInstance().currentUser!!.uid,
-                        otherUserId, currentUser.fname+currentUser.lname)
+                        otherUserId, currentUser.first_name+currentUser.last_name)
                 FirestoreUtil.sendMessage(messageToSend, currentChannelId)
             }
         }

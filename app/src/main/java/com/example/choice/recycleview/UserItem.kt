@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_user.*
 
 class UserItem(val user: User, val userId: String, private val context: Context) : com.xwray.groupie.kotlinandroidextensions.Item() {
     override fun bind(viewHolder: com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder, position: Int) {
-        viewHolder.user_name.text = user.fname + user.lname
+        viewHolder.user_name.text = user.first_name + user.last_name
         viewHolder.user_bio.text = user.bio
         if(user.profilePicturePath != null)
             Glide.with(context)

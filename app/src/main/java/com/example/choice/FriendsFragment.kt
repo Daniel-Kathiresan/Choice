@@ -64,7 +64,9 @@ class FriendsFragment : Fragment() {
                 userList.clear()
                 for(postSnapshot in snapshot.children){
                     val currentUser = postSnapshot.getValue(User::class.java)
-                    userList.add(currentUser!!)
+                    if(mAuth.currentUser?.uid != currentUser?.uid){
+                        userList.add(currentUser!!)
+                    }
                 }
                 adapter.notifyDataSetChanged()
             }

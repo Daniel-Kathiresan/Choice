@@ -25,7 +25,7 @@ class UserAdapter(val context: Context, val userList: ArrayList<User>): Recycler
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         var currentUser = userList[position]
-        holder.textName.text = currentUser.fname+currentUser.lname
+        holder.textName.text = currentUser.first_name+currentUser.last_name
         holder.textBio.text = currentUser.bio
     }
 
