@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_bottom_navigation_bar.*
 
 class BottomNavigationBar : AppCompatActivity() {
 
-    private val matchFragment = MatchFragment()
+    //private val matchFragment = MatchFragment()
     private val settingFragment = SettingFragment()
 
 
@@ -21,7 +21,7 @@ class BottomNavigationBar : AppCompatActivity() {
         replaceFragment(settingFragment)
         bottomNav.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.homeFragment -> replaceFragment(matchFragment)
+                //R.id.homeFragment -> replaceFragment(matchFragment)
                 R.id.settingsScreen -> replaceFragment(settingFragment)
             }
             true
