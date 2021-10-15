@@ -82,11 +82,11 @@ class FriendsFragment : Fragment() {
         return view
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        FirestoreUtil.removeListener(userListenerRegistration)
-        shouldInitRecyclerView = true
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        FirestoreUtil.removeListener(userListenerRegistration)
+//        shouldInitRecyclerView = true
+//    }
 
     private fun updateRecyclerView(items: List<Item>){
 

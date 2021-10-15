@@ -1,6 +1,7 @@
 package com.example.choice
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,16 @@ class UserAdapter(val context: Context, val userList: ArrayList<User>): Recycler
         var currentUser = userList[position]
         holder.textName.text = currentUser.first_name+currentUser.last_name
         holder.textBio.text = currentUser.bio
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(context, ChatActivity::class.java)
+
+            intent.putExtra("first_name"+" "+"last_name", currentUser.first_name)
+            intent.putExtra("uid", currentUser.uid)
+
+            context.startActivity(intent)
+
+        }
     }
 
     override fun getItemCount(): Int {

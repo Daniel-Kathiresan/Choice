@@ -14,6 +14,7 @@ import com.example.choice.model.User
 import com.example.choice.utils.FirestoreUtil
 import com.example.choice.utils.StorageUtil
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ListenerRegistration
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section

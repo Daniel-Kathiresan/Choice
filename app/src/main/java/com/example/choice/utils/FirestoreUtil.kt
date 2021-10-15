@@ -25,10 +25,9 @@ object FirestoreUtil {
     private val chatChannelsCollectionRef = firestoreInstance.collection("chatChannels")
 
     fun getCurrentUser(onComplete: (User) -> Unit) {
-        currentUserDocRef.get()
-            .addOnSuccessListener {
+        currentUserDocRef.get().addOnSuccessListener {
                 onComplete(it.toObject(User::class.java)!!)
-            }
+        }
     }
 
     fun removeListener(registration: ListenerRegistration) = registration.remove()
