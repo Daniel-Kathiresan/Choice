@@ -75,7 +75,7 @@ class FriendsFragment : Fragment() {
 
         })
 
-        userListenerRegistration = FirestoreUtil.addUsersListener(this.requireActivity(), this::updateRecyclerView)
+        //userListenerRegistration = FirestoreUtil.addUsersListener(this.requireActivity(), this::updateRecyclerView)
 
         return view
     }
