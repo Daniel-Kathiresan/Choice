@@ -18,7 +18,7 @@ object FirestoreUtil {
     private val firestoreInstance: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     private val currentUserDocRef: DocumentReference
-        get() = firestoreInstance.document("users/${
+        get() = firestoreInstance.document("Users/${
             FirebaseAuth.getInstance().currentUser?.uid
                 ?: throw NullPointerException("UID is null.")}")
 
@@ -54,7 +54,7 @@ object FirestoreUtil {
     }
 
     fun addUsersListener(context: Context, onListen: (List<Item>) -> Unit): ListenerRegistration {
-        return firestoreInstance.collection("users")
+        return firestoreInstance.collection("Users")
             .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if (firebaseFirestoreException != null) {
                     Log.e("FIRESTORE", "Users listener error.", firebaseFirestoreException)

@@ -16,7 +16,7 @@ object StorageUtil {
 
     fun uploadProfilePhoto(imageBytes: ByteArray,
                            onSuccess: (imagePath: String) -> Unit) {
-        val ref = currentUserRef.child("profilePictures/${UUID.nameUUIDFromBytes(imageBytes)}")
+        val ref = currentUserRef.child("profile/${UUID.nameUUIDFromBytes(imageBytes)}")
         ref.putBytes(imageBytes)
             .addOnSuccessListener {
                 onSuccess(ref.path)
@@ -25,7 +25,7 @@ object StorageUtil {
 
     fun uploadMessageImage(imageBytes: ByteArray,
                            onSuccess: (imagePath: String) -> Unit) {
-        val ref = currentUserRef.child("messages/${UUID.nameUUIDFromBytes(imageBytes)}")
+        val ref = currentUserRef.child("Chat/${UUID.nameUUIDFromBytes(imageBytes)}")
         ref.putBytes(imageBytes)
             .addOnSuccessListener {
                 onSuccess(ref.path)
