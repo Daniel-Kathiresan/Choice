@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.choice.model.User
 import com.example.choice.recycleview.UserItem
 import com.example.choice.utils.FirestoreUtil
@@ -26,6 +27,12 @@ import kotlinx.android.synthetic.main.fragment_friends.*
 
 class FriendsFragment : Fragment() {
 
+    private lateinit var userRecyclerView: RecyclerView
+    private lateinit var userList: ArrayList<User>
+    private lateinit var adapter: UserAdapter
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var mDbRef: DatabaseReference
+
     private lateinit var userListenerRegistration: ListenerRegistration
 
     private var shouldInitRecyclerView = true
@@ -40,6 +47,33 @@ class FriendsFragment : Fragment() {
 
 
         var view = inflater.inflate(R.layout.fragment_friends, container, false)
+
+        mAuth = FirebaseAuth.getInstance()
+        mDbRef = FirebaseDatabase.getInstance().getReference()
+
+        userList = ArrayList()
+        adapter = UserAdapter(this.requireContext(),userList)
+
+        userRecyclerView = view.findViewById(R.id.recyclerViewFriends)
+        userRecyclerView.layoutManager = LinearLayoutManager(this.requireContext())
+        userRecyclerView.adapter = adapter
+
+        mDbRef.child("Users").addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                userList.clear()
+                for(postSnapshot in snapshot.children){
+                    val currentUser = postSnapshot.getValue(User::class.java)
+                    userList.add(currentUser!!)
+                }
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
 
         userListenerRegistration = FirestoreUtil.addUsersListener(this.requireActivity(), this::updateRecyclerView)
 
