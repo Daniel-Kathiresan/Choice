@@ -91,8 +91,10 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                     if (snapshot.child("first_name").value != null) {
                         name = snapshot.child("first_name").value.toString()
                     }
+                    val bio = snapshot.child("bio").toString()
+                    val profilePic = snapshot.child("profile_picture").toString()
 
-                    cardItems.add(CardItem(userId, name))
+                    cardItems.add(CardItem(userId, name, bio, profilePic))
                     adapter.submitList(cardItems)
                     adapter.notifyDataSetChanged()
                 }
@@ -139,7 +141,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         val currentUserDb = userDB.child(userId)
         val user = mutableMapOf<String, Any>()
         user["uid"] = userId
-        user["firsT_name"] = name
+        user["first_name"] = name
         currentUserDb.updateChildren(user)
         getUnSelectedUsers()
     }
@@ -164,7 +166,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
 
         saveMatchIfOtherUserLikeMe(card.userId)
 
-        Toast.makeText(this, "${card.name}Like.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "${card.name} has been like.", Toast.LENGTH_SHORT).show()
     }
 
     private fun disLike() {
@@ -177,7 +179,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
             .child(getCurrentUserID())
             .setValue(true)
 
-        Toast.makeText(this, "${card.name}DisLike.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "${card.name} has been disLike.", Toast.LENGTH_SHORT).show()
     }
 
     private fun saveMatchIfOtherUserLikeMe(otherUserId: String) {
