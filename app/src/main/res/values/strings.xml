@@ -93,4 +93,5 @@
     <string name="view_match_list">View Match List</string>
     <string name="dislike">DisLike</string>
     <string name="no_users_remaining">No users remaining</string>
+    <string name="bio">bio</string>
 </resources>

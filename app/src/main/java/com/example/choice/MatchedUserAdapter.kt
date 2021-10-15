@@ -14,6 +14,7 @@ class MatchedUserAdapter: ListAdapter<CardItem, MatchedUserAdapter.ViewHolder>(d
 
         fun bind(cardItem: CardItem) {
             view.findViewById<TextView>(R.id.userNameTextView).text = cardItem.name
+
         }
 
     }

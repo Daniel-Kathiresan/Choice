@@ -59,6 +59,9 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".MatchedUserActivity">
+
+        </activity>
     </application>
 
 </manifest>

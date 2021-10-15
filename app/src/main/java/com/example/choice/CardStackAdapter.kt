@@ -7,13 +7,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.makeramen.roundedimageview.RoundedImageView
+import com.squareup.picasso.Picasso
 
 class CardStackAdapter: ListAdapter<CardItem, CardStackAdapter.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(cardItem: CardItem) {
-            view.findViewById<TextView>(R.id.nameTextView).text = cardItem.name
+            view.findViewById<TextView>(R.id.item_name).text = cardItem.name
+            view.findViewById<TextView>(R.id.item_bio).text = cardItem.bio
+            Glide.with(view.findViewById<RoundedImageView>(R.id.item_image))
+                .load(cardItem.profilePic)
+                .into(view.findViewById<RoundedImageView>(R.id.item_image));
         }
 
     }

@@ -91,8 +91,8 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                     if (snapshot.child("first_name").value != null) {
                         name = snapshot.child("first_name").value.toString()
                     }
-                    val bio = snapshot.child("bio").toString()
-                    val profilePic = snapshot.child("profile_picture").toString()
+                    val bio = snapshot.child("bio").value.toString()
+                    val profilePic = snapshot.child("profile_picture").value.toString()
 
                     cardItems.add(CardItem(userId, name, bio, profilePic))
                     adapter.submitList(cardItems)

@@ -55,10 +55,10 @@ class MatchedUserActivity : AppCompatActivity() {
         })
     }
 
-    private fun getUserKey(userId: String) {
-        userDB.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+    private fun getUserKey(uid: String) {
+        userDB.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                cardItems.add(CardItem(userId, snapshot.child("name").value.toString()))
+                cardItems.add(CardItem(uid, snapshot.child("first_name").value.toString(), snapshot.child("bio").value.toString(), snapshot.child("profile_picture").value.toString()))
                 adapter.submitList(cardItems)
             }
 
@@ -68,7 +68,7 @@ class MatchedUserActivity : AppCompatActivity() {
 
     private fun getCurrentUserID(): String {
         if (auth.currentUser == null) {
-            Toast.makeText(this, "로그인이 되어있지 않습니다", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "You are not logged in", Toast.LENGTH_SHORT).show()
             finish()
         }
         return auth.currentUser?.uid.orEmpty()
