@@ -120,7 +120,7 @@ class RegisterFragment : Fragment() {
                                 val intent = Intent(activity, BottomNavigationBar::class.java)
                                 startActivity(intent)
                                 val navHome = activity as FragmentNavigation
-                                navHome.navigateFrag(MatchFragment(),addToStack = true)
+                                navHome.navigateFrag(SettingFragment(),addToStack = true)
                             }else{
                                 Toast.makeText(context,"Unable to save user information",Toast.LENGTH_SHORT).show()
                             }
