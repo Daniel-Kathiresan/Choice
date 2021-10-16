@@ -6,9 +6,14 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil.setContentView
+import androidx.fragment.app.Fragment
 import com.example.choice.utils.DeviceId
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -28,7 +33,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_map.*
 import java.util.*
 
-class MapScreen : AppCompatActivity() , OnMapReadyCallback {
+class MapFragment : Fragment() {
 
     companion object {
         private const val TAG = "MapsActivity"
@@ -39,10 +44,15 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
 
     private val db = Firebase.firestore
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Places.initialize(this, getString(R.string.google_maps_key))
-        setContentView(R.layout.fragment_map)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_map, container, false)
+
+        Places.initialize(this.requireContext(), getString(R.string.google_maps_key))
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -68,8 +78,10 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
             }
         })
         btnNearby.setOnClickListener {
-            startActivity(Intent(this, NearbyActivity::class.java))
+            val intent = Intent(activity, NearbyActivity::class.java)
         }
+
+        return view
     }
 
     /**
@@ -133,16 +145,16 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
     private val REQUEST_LOCATION_PERMISSION = 1
     private fun isPermissionGranted() : Boolean {
         return ContextCompat.checkSelfPermission(
-            this,
+            this.requireContext(),
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
     private fun enableMyLocation() {
         if (isPermissionGranted()) {
             if (ActivityCompat.checkSelfPermission(
-                    this,
+                    this.requireContext(),
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
+                    this.requireContext(),
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
@@ -159,7 +171,7 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
         }
         else {
             ActivityCompat.requestPermissions(
-                this,
+                this.requireActivity(),
                 arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_LOCATION_PERMISSION
             )
@@ -209,7 +221,7 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
 
     private fun saveLocation(latitude:Double, longitude:Double) {
         val location = mapOf(
-            "id" to DeviceId.id(this),
+            "id" to DeviceId.id(this.requireContext()),
             "latitude" to latitude,
             "longitude" to longitude,
             "ts" to System.currentTimeMillis()
@@ -226,7 +238,7 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
 
     private fun addMarkFromFireStore() {
         db.collection("location")
-            .whereEqualTo("id", DeviceId.id(this))
+            .whereEqualTo("id", DeviceId.id(this.requireContext()))
             .orderBy("ts", Query.Direction.DESCENDING)
             .limit(1)
             .get()

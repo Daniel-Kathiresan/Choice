@@ -28,7 +28,7 @@ class BottomNav : AppCompatActivity() {
                     fragment = HomeFragment()
                 }
                 R.id.btnMap -> {
-                    fragment = FriendsFragment()
+                    fragment = MapFragment()
                 }
                 R.id.btnFriends -> {
                     fragment = FriendsFragment()
