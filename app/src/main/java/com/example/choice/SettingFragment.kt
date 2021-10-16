@@ -46,7 +46,6 @@ class SettingFragment : Fragment() {
         //set button function -- go to the Logout Activity
         view.findViewById<Button>(R.id.setting_button).setOnClickListener {
 
-            Log.d("Setting Fragment", "Go to Logout Fragment")
             val intent = Intent(activity, LogoutActivity::class.java)
             startActivity(intent)
         }
