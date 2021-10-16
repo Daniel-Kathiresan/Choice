@@ -1,385 +1,227 @@
 package com.example.choice
 
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.LinearInterpolator
-import android.widget.TextView
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DiffUtil
-import com.google.android.material.navigation.NavigationView
-import com.google.common.reflect.TypeToken
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
-import com.yuyakaido.android.cardstackview.*
-import java.util.*
-import java.util.concurrent.TimeUnit
+import com.yuyakaido.android.cardstackview.CardStackLayoutManager
+import com.yuyakaido.android.cardstackview.CardStackListener
+import com.yuyakaido.android.cardstackview.CardStackView
+import com.yuyakaido.android.cardstackview.Direction
 
 class MatchActivity : AppCompatActivity(), CardStackListener {
-    private lateinit var fAuth: FirebaseAuth
-    private lateinit var ref: DatabaseReference
-    private val drawerLayout by lazy { findViewById<DrawerLayout>(R.id.drawer_layout) }
-    private val cardStackView by lazy { findViewById<CardStackView>(R.id.card_stack_view) }
-    private val manager by lazy { CardStackLayoutManager(this, this) }
-    private val adapter by lazy { CardStackAdapter(createSpots()) }
-    private var firebaseUserID: String = ""
+
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var userDB: DatabaseReference
+
+    private val adapter = CardStackAdapter()
+    private val cardItems = mutableListOf<CardItem>()
+
+    private val manager by lazy {
+        CardStackLayoutManager(this, this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_match)
-        fAuth = Firebase.auth
-        setupNavigation()
-        setupCardStackView()
-        setupButton()
-    }
 
+        userDB = Firebase.database.reference.child("Users")
 
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawers()
-        } else {
-            super.onBackPressed()
-        }
-    }
+        val currentUserDB = userDB.child(getCurrentUserID())
 
-    override fun onCardDragging(direction: Direction, ratio: Float) {
-        Log.d("CardStackView", "onCardDragging: d = ${direction.name}, r = $ratio")
-    }
-
-    override fun onCardSwiped(direction: Direction) {
-        Log.d("CardStackView", "onCardSwiped: p = ${manager.topPosition}, d = $direction")
-        if (manager.topPosition == adapter.itemCount - 5) {
-            paginate()
-        }
-    }
-
-    override fun onCardRewound() {
-        Log.d("CardStackView", "onCardRewound: ${manager.topPosition}")
-    }
-
-    override fun onCardCanceled() {
-        Log.d("CardStackView", "onCardCanceled: ${manager.topPosition}")
-    }
-
-    override fun onCardAppeared(view: View, position: Int) {
-        val textView = view.findViewById<TextView>(R.id.item_name)
-        Log.d("CardStackView", "onCardAppeared: ($position) ${textView.text}")
-    }
-
-    override fun onCardDisappeared(view: View, position: Int) {
-        val textView = view.findViewById<TextView>(R.id.item_name)
-        Log.d("CardStackView", "onCardDisappeared: ($position) ${textView.text}")
-    }
-
-    private fun setupNavigation() {
-        // Toolbar
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
-        // DrawerLayout
-        val actionBarDrawerToggle = ActionBarDrawerToggle(
-            this,
-            drawerLayout,
-            toolbar,
-            R.string.open_drawer,
-            R.string.close_drawer
-        )
-        actionBarDrawerToggle.syncState()
-        drawerLayout.addDrawerListener(actionBarDrawerToggle)
-
-        // NavigationView
-        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.reload -> reload()
-                R.id.add_spot_to_first -> addFirst(1)
-                R.id.add_spot_to_last -> addLast(1)
-                R.id.remove_spot_from_first -> removeFirst(1)
-                R.id.remove_spot_from_last -> removeLast(1)
-                R.id.replace_first_spot -> replace()
-                R.id.swap_first_for_last -> swap()
-                R.id.logout -> logout()
+        currentUserDB.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.child("first_name").value == null) {
+                    showNameInputPopup()
+                    return
+                }
+                getUnSelectedUsers()
             }
-            drawerLayout.closeDrawers()
-            true
-        }
-    }
 
-    private fun setupCardStackView() {
-        initialize()
-    }
+            override fun onCancelled(error: DatabaseError) {
 
-    private fun setupButton() {
-        val skip = findViewById<View>(R.id.skip_button)
-        skip.setOnClickListener {
-            val setting = SwipeAnimationSetting.Builder()
-                .setDirection(Direction.Left)
-                .setDuration(Duration.Normal.duration)
-                .setInterpolator(AccelerateInterpolator())
-                .build()
-            manager.setSwipeAnimationSetting(setting)
-            cardStackView.swipe()
-        }
-
-        val rewind = findViewById<View>(R.id.rewind_button)
-        rewind.setOnClickListener {
-            val setting = RewindAnimationSetting.Builder()
-                .setDirection(Direction.Bottom)
-                .setDuration(Duration.Normal.duration)
-                .setInterpolator(DecelerateInterpolator())
-                .build()
-            manager.setRewindAnimationSetting(setting)
-            cardStackView.rewind()
-        }
-
-        val like = findViewById<View>(R.id.like_button)
-        like.setOnClickListener {
-            val setting = SwipeAnimationSetting.Builder()
-                .setDirection(Direction.Right)
-                .setDuration(Duration.Normal.duration)
-                .setInterpolator(AccelerateInterpolator())
-                .build()
-            manager.setSwipeAnimationSetting(setting)
-            cardStackView.swipe()
-        }
-    }
-
-    private fun initialize() {
-        manager.setStackFrom(StackFrom.None)
-        manager.setVisibleCount(3)
-        manager.setTranslationInterval(8.0f)
-        manager.setScaleInterval(0.95f)
-        manager.setSwipeThreshold(0.3f)
-        manager.setMaxDegree(20.0f)
-        manager.setDirections(Direction.HORIZONTAL)
-        manager.setCanScrollHorizontal(true)
-        manager.setCanScrollVertical(true)
-        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
-        manager.setOverlayInterpolator(LinearInterpolator())
-        cardStackView.layoutManager = manager
-        cardStackView.adapter = adapter
-        cardStackView.itemAnimator.apply {
-            if (this is DefaultItemAnimator) {
-                supportsChangeAnimations = false
             }
+
+        })
+        initCardStackView()
+        initSignOutButton()
+        initMatchedListButton()
+    }
+
+    private fun initCardStackView() {
+        val stackView = findViewById<CardStackView>(R.id.cardStackView)
+
+        stackView.layoutManager = manager
+        stackView.adapter = adapter
+    }
+
+    private fun initSignOutButton() {
+        val signOutButton = findViewById<Button>(R.id.signOutButton)
+        signOutButton.setOnClickListener {
+            auth.signOut()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
-        reload()
-
     }
 
-    private fun paginate() {
-        val old = adapter.getSpots()
-        val new = old.plus(createSpots())
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun reload() {
-        val old = adapter.getSpots()
-        val new = createSpots()
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-        //addLast(1)
-    }
-
-    private fun addFirst(size: Int) {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            for (i in 0 until size) {
-                add(manager.topPosition, createSpot())
-            }
+    private fun initMatchedListButton() {
+        val matchListButton = findViewById<Button>(R.id.matchListButton)
+        matchListButton.setOnClickListener {
+            startActivity(Intent(this, MatchedUserActivity::class.java))
         }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
     }
 
-    private fun addLast(size: Int) {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            addAll(List(size) { createSpot() })
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
+    private fun getUnSelectedUsers() {
+        userDB.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                if (snapshot.child("userId").value != getCurrentUserID() &&
+                    snapshot.child("likedBy").child("like").hasChild(getCurrentUserID()).not() &&
+                    snapshot.child("likedBy").child("disLike").hasChild(getCurrentUserID()).not()
+                ) {
+                    val userId = snapshot.child("uid").value.toString()
+                    var name = "undecided"
+                    if (snapshot.child("first_name").value != null) {
+                        name = snapshot.child("first_name").value.toString()
+                    }
+                    val bio = snapshot.child("bio").value.toString()
+                    val profilePic = snapshot.child("profile_picture").value.toString()
 
-    private fun removeFirst(size: Int) {
-        if (adapter.getSpots().isEmpty()) {
-            return
-        }
-
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            for (i in 0 until size) {
-                removeAt(manager.topPosition)
-            }
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun removeLast(size: Int) {
-        if (adapter.getSpots().isEmpty()) {
-            return
-        }
-
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            for (i in 0 until size) {
-                removeAt(this.size - 1)
-            }
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun replace() {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            removeAt(manager.topPosition)
-            add(manager.topPosition, createSpot())
-        }
-        adapter.setSpots(new)
-        adapter.notifyItemChanged(manager.topPosition)
-    }
-
-    private fun swap() {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            val first = removeAt(manager.topPosition)
-            val last = removeAt(this.size - 1)
-            add(manager.topPosition, last)
-            add(first)
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    //TEMPORARY
-    //TODO: Remove this once navbar works
-    private fun logout() {
-        Firebase.auth.signOut()
-//        var loginFragment = LoginFragment()
-//        supportFragmentManager.beginTransaction().add(R.id.container, loginFragment)
-//            .commit()
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun createSpot(): Spot {
-        return Spot(
-            first_name = "END",
-            bio = "No more available users!",
-            last_name = "OF LIST",
-            gender = "NULL",
-            gender_pref = "Everyone",
-            profile_picture = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711",
-            uid = "LASTUSER"
-        )
-    }
-
-    private fun createSpots(): List<Spot> {
-        //Create lists for storing user data, uses spot data class
-        val spots = ArrayList<Spot>()
-//        val currUser = ArrayList<Spot>()
-
-        //WARNING: Will crash if not fully loaded + when loading from auto login the app will crash
-        //Fix: Change way auto login works or add a loading / intermittent screen between login / matching
-        //TODO: add error checking or loading screen
-        //Finds current user first + stores information (used for filtering)
-//        firebaseUserID = fAuth.currentUser!!.uid
-        ref = FirebaseDatabase.getInstance().getReference("Users")
-//        ref.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                for (userSnapshot in dataSnapshot.children) {
-//                    val getcurrUser = userSnapshot.getValue(Spot::class.java)
-//                    if (getcurrUser!!.uid == firebaseUserID) {
-//                        currUser.add(getcurrUser)
-//                        println("CURRENT USER CHECK DETECTED: $currUser")
-//                    }
-//
-//                }
-//                println(spots)
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                throw databaseError.toException()
-//            }
-//        })
-        //Pulls rest of information to store on cards, checks against current user for filtering
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (userSnapshot in dataSnapshot.children) {
-                    val user = userSnapshot.getValue(Spot::class.java)
-                    //Check matching uid
-//                    if (user!!.uid !== currUser[0].uid) {
-//                        spots.add(user!!)
-//                    }
-                    spots.add(user!!)
+                    cardItems.add(CardItem(userId, name, bio, profilePic))
+                    adapter.submitList(cardItems)
+                    adapter.notifyDataSetChanged()
                 }
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                throw databaseError.toException()
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                cardItems.find { it.userId == snapshot.key }?.let {
+                    it.name = snapshot.child("first_name").value.toString()
+                }
+
+                adapter.submitList(cardItems)
+                adapter.notifyDataSetChanged()
             }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onCancelled(error: DatabaseError) {}
+
         })
-        //Put refreshed spots into list
-//        putListSpot(spots)
-        //TODO: REMOVE AFTER TESTING
-        println("To be returned Spots: $spots")
-        //Return spot array for program
-        //var oldSpots: ArrayList<Spot> = loadListSpot()
-//        println("Spots retrieved from list spots: ${loadListSpot()}")
-        return spots
     }
 
-//    private fun putListSpot(spotList: ArrayList<Spot>) {
-//        val preferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
-//        val gson = Gson()
-//        val json = gson.toJson(spotList)
-//        preferences.edit().putString("UserList", json).apply()
-//        preferences.edit().apply()
-//        println("Spots getting put into userlist: $spotList")
-//    }
-//
-//    private fun loadListSpot(): ArrayList<Spot> {
-//        val preferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
-//        val tempSpot: ArrayList<Spot>
-//        val gson = Gson()
-//        val json: String = preferences.getString("UserList", null).toString()
-//        val type = object : TypeToken<ArrayList<Spot?>?>() {}.type
-//        tempSpot = gson.fromJson(json, type)
-//        println("Test Spots:$tempSpot")
-//        return tempSpot
-//    }
+    private fun showNameInputPopup() {
+        val editText = EditText(this)
+
+        AlertDialog.Builder(this)
+            .setTitle("No name detected: Please enter your name")
+            .setView(editText)
+            .setPositiveButton("Confirm") { _, _ ->
+                if (editText.text.isEmpty()) {
+                    showNameInputPopup()
+                } else {
+                    saveUserName(editText.text.toString())
+                }
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun saveUserName(name: String) {
+
+        val userId: String = getCurrentUserID()
+        val currentUserDb = userDB.child(userId)
+        val user = mutableMapOf<String, Any>()
+        user["uid"] = userId
+        user["first_name"] = name
+        currentUserDb.updateChildren(user)
+        getUnSelectedUsers()
+    }
+
+    private fun getCurrentUserID(): String {
+        if (auth.currentUser == null) {
+            Toast.makeText(this, "You are not logged in", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+        return auth.currentUser?.uid.orEmpty()
+    }
+
+    private fun like() {
+        val card = cardItems[manager.topPosition - 1]
+        cardItems.removeFirst()
+
+        userDB.child(card.userId)
+            .child("likedBy")
+            .child("like")
+            .child(getCurrentUserID())
+            .setValue(true)
+
+        saveMatchIfOtherUserLikeMe(card.userId)
+
+        Toast.makeText(this, "${card.name} has been like.", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun disLike() {
+        val card = cardItems[manager.topPosition - 1]
+        cardItems.removeFirst()
+
+        userDB.child(card.userId)
+            .child("likedBy")
+            .child("disLike")
+            .child(getCurrentUserID())
+            .setValue(true)
+
+        Toast.makeText(this, "${card.name} has been disLike.", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun saveMatchIfOtherUserLikeMe(otherUserId: String) {
+        val otherUserDB =
+            userDB.child(getCurrentUserID()).child("likedBy").child("like").child(otherUserId)
+        otherUserDB.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.value == true) {
+                    userDB.child(getCurrentUserID())
+                        .child("likedBy")
+                        .child("match")
+                        .child(otherUserId)
+                        .setValue(true)
+
+                    userDB.child(otherUserId)
+                        .child("likedBy")
+                        .child("match")
+                        .child(getCurrentUserID())
+                        .setValue(true)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
+    }
+
+    override fun onCardDragging(direction: Direction?, ratio: Float) {}
+
+    override fun onCardSwiped(direction: Direction?) {
+        when (direction) {
+            Direction.Right -> like()
+            Direction.Left -> disLike()
+            else -> {}
+        }
+    }
+
+    override fun onCardRewound() {}
+
+    override fun onCardCanceled() {}
+
+    override fun onCardAppeared(view: View?, position: Int) {}
+
+    override fun onCardDisappeared(view: View?, position: Int) {}
 }

@@ -111,12 +111,12 @@ dependencies {
 
     implementation 'com.android.volley:volley:1.2.0'
 
-    //Matching
+    //Matching card API
     implementation 'com.github.yuyakaido:cardstackview:2.3.4'
 
     //Circle image for matching
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    //Load image from URL into matching
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
-    //Tinydb for saving information permanently
-    implementation 'com.google.code.gson:gson:2.8.8'
 }
