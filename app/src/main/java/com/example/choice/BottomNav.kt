@@ -28,7 +28,7 @@ class BottomNav : AppCompatActivity() {
         bottomChip.setOnItemSelectedListener { id ->
             when (id){
                 R.id.btnHome -> {
-                    fragment = HomeFragment()
+                    fragment = SettingFragment()
                 }
                 R.id.btnMap -> {
                     activity = MapFragment()
