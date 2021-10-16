@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
         fAuth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener{
             task ->
             if(task.isSuccessful){
-                val intent = Intent (activity, MatchActivity::class.java)
+                val intent = Intent (activity, BottomNav::class.java)
                 activity?.startActivity(intent)
 //                var navHome = activity as FragmentNavigation
 //                navHome.navigateFrag(MatchFragment(), addToStack = true)

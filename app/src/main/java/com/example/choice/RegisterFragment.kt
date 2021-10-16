@@ -30,6 +30,7 @@ class RegisterFragment : Fragment() {
     private lateinit var refUsers: DatabaseReference
     private var firebaseUserID : String = ""
     private lateinit var usergndr: Spinner
+    private lateinit var prefgndr: Spinner
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +38,7 @@ class RegisterFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_register, container, false)
-        //Variables for User info
+        //Variables for user info
         email = view.findViewById(R.id.reg_email)
         fname = view.findViewById(R.id.reg_fname)
         lname = view.findViewById(R.id.reg_lname)
@@ -46,6 +47,7 @@ class RegisterFragment : Fragment() {
         fAuth = Firebase.auth
         regBtn = view.findViewById(R.id.create_account_btn)
         usergndr = view.findViewById(R.id.gender_spinner)
+        prefgndr = view.findViewById(R.id.preference_spinner)
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -56,6 +58,17 @@ class RegisterFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
             usergndr.adapter = adapter
+        }
+        //Same array adapter but for gender preference
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.preference_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            prefgndr.adapter = adapter
         }
 
 
@@ -85,7 +98,7 @@ class RegisterFragment : Fragment() {
             // Another interface callback
         }
     }
-    //Function to provide connectivity and signup to firebase, sends the stored User data
+    //Function to provide connectivity and signup to firebase, sends the stored user data
     private fun firebaseSignUp() {
         regBtn.isEnabled = false
         regBtn.alpha = 0.5f
@@ -94,10 +107,11 @@ class RegisterFragment : Fragment() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(context, "Sign-up Successful", Toast.LENGTH_SHORT).show()
-                    //Save User info as string
+                    //Save user info as string
                     val firstName = fname.text.toString()
                     val lastName = lname.text.toString()
                     val gender = usergndr.selectedItem.toString()
+                    val preference = prefgndr.selectedItem.toString()
 
                     //Get UID, create DB reference with UID, Add to DB
                     firebaseUserID = fAuth.currentUser!!.uid
@@ -110,7 +124,8 @@ class RegisterFragment : Fragment() {
                     userHashMap["gender"] = gender
                     userHashMap["profile_picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
                     userHashMap["bio"] = " "
-                    //TODO: Add search value? (value to find User, for matching)
+                    userHashMap["gender_pref"] = preference
+                    //TODO: Add search value? (value to find user, for matching)
 
                     refUsers.updateChildren(userHashMap)
                         .addOnCompleteListener{ task ->
@@ -119,10 +134,10 @@ class RegisterFragment : Fragment() {
                                 //Navigate to home fragment
 //                                val navHome = activity as FragmentNavigation
 //                                navHome.navigateFrag(MatchFragment(),addToStack = true)
-                                val intent = Intent (activity, MatchActivity::class.java)
+                                val intent = Intent (activity, BottomNav::class.java)
                                 activity?.startActivity(intent)
                             }else{
-                                Toast.makeText(context,"Unable to save User information",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context,"Unable to save user information",Toast.LENGTH_SHORT).show()
                             }
                         }
 
@@ -142,7 +157,7 @@ class RegisterFragment : Fragment() {
         )
 
         icon?.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
-        //check string User has entered is not empty
+        //check string user has entered is not empty
         when {
             TextUtils.isEmpty((email.text.toString().trim())) -> {
 
@@ -179,7 +194,7 @@ class RegisterFragment : Fragment() {
                                 //If more than 5 characters check confirm password
                                 if (password.text.toString() == cnfrmPassword.text.toString()) {
 
-                                    //Firebase signup to register User
+                                    //Firebase signup to register user
                                     firebaseSignUp()
                                     //Toast.makeText(context,"Account Creation Successful",Toast.LENGTH_SHORT).show()
                                 } else {
