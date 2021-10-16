@@ -45,6 +45,10 @@ class LoginFragment : Fragment() {
 
         }
 
+        view.findViewById<Button>(R.id.ForgotPw_text).setOnClickListener {
+
+        }
+
         return view
     }
 
