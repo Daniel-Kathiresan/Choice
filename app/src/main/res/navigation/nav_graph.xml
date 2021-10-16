@@ -25,4 +25,9 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <activity
+        android:id="@+id/mapScreen"
+        android:name="com.example.choice.MapScreen"
+        android:label="MapFragment" />
+
 </navigation>
