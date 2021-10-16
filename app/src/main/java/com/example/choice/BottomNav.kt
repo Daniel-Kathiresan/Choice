@@ -1,9 +1,11 @@
 package com.example.choice
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.annotation.ContentView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -31,7 +33,8 @@ class BottomNav : AppCompatActivity() {
                     fragment = SettingFragment()
                 }
                 R.id.btnMap -> {
-                    activity = MapFragment()
+                    val intent = Intent(activity, MapFragment::class.java)
+                    startActivity(intent)
                 }
                 R.id.btnFriends -> {
                     fragment = FriendsFragment()
