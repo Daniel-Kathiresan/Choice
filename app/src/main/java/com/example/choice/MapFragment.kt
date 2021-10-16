@@ -6,14 +6,9 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.fragment.app.Fragment
 import com.example.choice.utils.DeviceId
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -33,7 +28,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_map.*
 import java.util.*
 
-class MapFragment : Fragment() {
+class MapScreen : AppCompatActivity() , OnMapReadyCallback {
 
     companion object {
         private const val TAG = "MapsActivity"
@@ -44,15 +39,10 @@ class MapFragment : Fragment() {
 
     private val db = Firebase.firestore
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_map, container, false)
-
-        Places.initialize(this.requireContext(), getString(R.string.google_maps_key))
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Places.initialize(this, getString(R.string.google_maps_key))
+        setContentView(R.layout.fragment_map)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -78,10 +68,8 @@ class MapFragment : Fragment() {
             }
         })
         btnNearby.setOnClickListener {
-            val intent = Intent(activity, NearbyActivity::class.java)
+            startActivity(Intent(this, NearbyActivity::class.java))
         }
-
-        return view
     }
 
     /**
@@ -145,16 +133,16 @@ class MapFragment : Fragment() {
     private val REQUEST_LOCATION_PERMISSION = 1
     private fun isPermissionGranted() : Boolean {
         return ContextCompat.checkSelfPermission(
-            this.requireContext(),
+            this,
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
     private fun enableMyLocation() {
         if (isPermissionGranted()) {
             if (ActivityCompat.checkSelfPermission(
-                    this.requireContext(),
+                    this,
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this.requireContext(),
+                    this,
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
@@ -171,7 +159,7 @@ class MapFragment : Fragment() {
         }
         else {
             ActivityCompat.requestPermissions(
-                this.requireActivity(),
+                this,
                 arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_LOCATION_PERMISSION
             )
@@ -221,7 +209,7 @@ class MapFragment : Fragment() {
 
     private fun saveLocation(latitude:Double, longitude:Double) {
         val location = mapOf(
-            "id" to DeviceId.id(this.requireContext()),
+            "id" to DeviceId.id(this),
             "latitude" to latitude,
             "longitude" to longitude,
             "ts" to System.currentTimeMillis()
@@ -238,7 +226,7 @@ class MapFragment : Fragment() {
 
     private fun addMarkFromFireStore() {
         db.collection("location")
-            .whereEqualTo("id", DeviceId.id(this.requireContext()))
+            .whereEqualTo("id", DeviceId.id(this))
             .orderBy("ts", Query.Direction.DESCENDING)
             .limit(1)
             .get()
