@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9FC0EC"
+    android:background="#738E8B"
     tools:context=".FeedbackActivity">
 
     <EditText
         android:id="@+id/Feedback_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button_image"
         android:ems="10"
         android:hint="Feedback Here"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -28,6 +30,7 @@
         android:layout_height="wrap_content"
         android:text="Send"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/rounded_button_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,10 +39,11 @@
 
     <ImageView
         android:id="@+id/Feedback_back_iamge"
-        android:layout_width="45dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_button_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/quantum_ic_arrow_back_grey600_24" />

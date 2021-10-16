@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F46969"
+    android:background="#738E8B"
     tools:context=".NotificationActivity">
 
     <ImageView
         android:id="@+id/back_image11"
         android:layout_width="55dp"
-        android:layout_height="57dp"
+        android:layout_height="55dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_button_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/quantum_ic_arrow_back_grey600_24" />
@@ -24,6 +25,7 @@
         android:text="Send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_button_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
