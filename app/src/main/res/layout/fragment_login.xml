@@ -98,8 +98,18 @@
 
         </RelativeLayout>
 
-        
-        
+        <TextView
+            android:id="@+id/ForgotPw_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:layout_marginTop="25dp"/>
+
+
     </LinearLayout>
 
 </ScrollView>
