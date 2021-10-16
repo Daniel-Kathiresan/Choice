@@ -1,123 +1,83 @@
 package com.example.choice
 
-import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.choice.model.ImageMessage
-import com.example.choice.model.TextMessage
-import com.example.choice.model.User
-import com.example.choice.utils.FirestoreUtil
-import com.example.choice.utils.StorageUtil
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.ListenerRegistration
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.Section
-import com.xwray.groupie.kotlinandroidextensions.Item
-import com.xwray.groupie.viewbinding.GroupieViewHolder
-import kotlinx.android.synthetic.main.activity_chat.*
-import java.io.ByteArrayOutputStream
-import java.util.*
-
-private const val RC_SELECT_IMAGE = 2
+import com.google.firebase.database.*
 
 class ChatActivity : AppCompatActivity() {
 
-    private lateinit var currentChannelId: String
-    private lateinit var currentUser: User
-    private lateinit var otherUserId: String
+    private lateinit var recycler_view_messages: RecyclerView
+    private lateinit var editText_message: EditText
+    private lateinit var imageView_send: ImageView
+    private lateinit var messageAdapter: MessageAdapter
+    private lateinit var messageList: ArrayList<Message>
+    private lateinit var mDbRef: DatabaseReference
 
-    private lateinit var messagesListenerRegistration: ListenerRegistration
-    private var shouldInitRecyclerView = true
-    private lateinit var messagesSection: Section
-
+    var receiverRoom: String? = null
+    var senderRoom: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = intent.getStringExtra(AppConstants.USER_NAME)
+        val name = intent.getStringExtra("first_name"+" "+"last_name")
+        val receiverUid = intent.getStringExtra("uid")
+        val senderUid = FirebaseAuth.getInstance().currentUser?.uid
+        mDbRef = FirebaseDatabase.getInstance().getReference()
 
-        FirestoreUtil.getCurrentUser {
-            currentUser = it
-        }
+        senderRoom = receiverUid + senderUid
+        receiverRoom = senderUid + receiverUid
 
-        otherUserId = intent.getStringExtra(AppConstants.USER_ID).toString()
+        supportActionBar?.title = name
 
-        FirestoreUtil.getOrCreateChatChannel(otherUserId) { channelId ->
-            currentChannelId = channelId
+        recycler_view_messages = findViewById(R.id.recycler_view_messages)
+        editText_message = findViewById(R.id.editText_message)
+        imageView_send = findViewById(R.id.imageView_send)
+        messageList = ArrayList()
+        messageAdapter = MessageAdapter(this, messageList)
 
-            messagesListenerRegistration =
-                FirestoreUtil.addChatMessagesListener(channelId, this, this::updateRecyclerView)
 
-            imageView_send.setOnClickListener {
-                val messageToSend =
-                    TextMessage(editText_message.text.toString(), Calendar.getInstance().time,
-                        FirebaseAuth.getInstance().currentUser!!.uid,
-                        otherUserId, currentUser.first_name+currentUser.last_name)
-                editText_message.setText("")
-                FirestoreUtil.sendMessage(messageToSend, channelId)
-            }
+        recycler_view_messages.layoutManager = LinearLayoutManager(this)
+        recycler_view_messages.adapter = messageAdapter
 
-            fab_send_image.setOnClickListener {
-                val intent = Intent().apply {
-                    type = "image/*"
-                    action = Intent.ACTION_GET_CONTENT
-                    putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
+
+        // logic for adding data to recyclerView
+        mDbRef.child("Chat").child(senderRoom!!).child("messages").addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                messageList.clear()
+
+                for(postSnapshot in snapshot.children){
+                    val message = postSnapshot.getValue(Message::class.java)
+                    messageList.add(message!!)
                 }
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), RC_SELECT_IMAGE)
+                messageAdapter.notifyDataSetChanged()
             }
-        }
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SELECT_IMAGE && resultCode == Activity.RESULT_OK &&
-            data != null && data.data != null) {
-            val selectedImagePath = data.data
+            override fun onCancelled(error: DatabaseError) {
 
-            val selectedImageBmp = MediaStore.Images.Media.getBitmap(contentResolver, selectedImagePath)
-
-            val outputStream = ByteArrayOutputStream()
-
-            selectedImageBmp.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
-            val selectedImageBytes = outputStream.toByteArray()
-
-            StorageUtil.uploadMessageImage(selectedImageBytes) { imagePath ->
-                val messageToSend =
-                    ImageMessage(imagePath, Calendar.getInstance().time,
-                        FirebaseAuth.getInstance().currentUser!!.uid,
-                        otherUserId, currentUser.first_name+currentUser.last_name)
-                FirestoreUtil.sendMessage(messageToSend, currentChannelId)
             }
-        }
-    }
 
-    private fun updateRecyclerView(messages: List<Item>) {
-        fun init() {
-            recycler_view_messages.apply {
-                layoutManager = LinearLayoutManager(this@ChatActivity)
-                adapter = GroupAdapter<com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder>().apply {
-                    messagesSection = Section(messages)
-                    this.add(messagesSection)
-                }
+        })
+
+
+
+        // Adding the message to database
+        imageView_send.setOnClickListener{
+            val message = editText_message.text.toString()
+            val messageObject = Message(message, senderUid)
+
+            mDbRef.child("Chat").child(senderRoom!!).child("messages").push().setValue(messageObject).addOnSuccessListener{
+                mDbRef.child("Chat").child(receiverRoom!!).child("messages").push().setValue(messageObject)
             }
-            shouldInitRecyclerView = false
+            editText_message.setText("")
         }
-
-        fun updateItems() = messagesSection.update(messages)
-
-        if (shouldInitRecyclerView)
-            init()
-        else
-            updateItems()
-
-        recycler_view_messages.scrollToPosition(recycler_view_messages.adapter!!.itemCount - 1)
     }
 }

@@ -9,7 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.choice.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 
 class UserAdapter(val context: Context, val userList: ArrayList<User>): RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
 
@@ -26,7 +27,8 @@ class UserAdapter(val context: Context, val userList: ArrayList<User>): Recycler
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         var currentUser = userList[position]
-        holder.textName.text = currentUser.first_name+currentUser.last_name
+        Glide.with(context).load(currentUser.image).placeholder(R.drawable.profile_image).into(holder.image)
+        holder.textName.text = currentUser.first_name + currentUser.last_name
         holder.textBio.text = currentUser.bio
 
         holder.itemView.setOnClickListener{
