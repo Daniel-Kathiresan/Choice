@@ -18,14 +18,14 @@ class BottomNav : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_nav)
 
-        replaceFragment(FriendsFragment())
+        replaceFragment(MainScreen())
 
 
 
         bottomChip.setOnItemSelectedListener { id ->
             when (id){
                 R.id.btnHome -> {
-                    fragment = HomeFragment()
+                    fragment = MainScreen()
                 }
                 R.id.btnMap -> {
                     fragment = FriendsFragment()

@@ -95,4 +95,5 @@
     <string name="dislike">DisLike</string>
     <string name="no_users_remaining">No users remaining</string>
     <string name="bio">bio</string>
+    <string name="return_to_main_screen">Return to Main Screen</string>
 </resources>

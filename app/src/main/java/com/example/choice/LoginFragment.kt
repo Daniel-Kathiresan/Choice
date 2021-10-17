@@ -14,7 +14,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-
+//Daniel Kathiresan
 class LoginFragment : Fragment() {
     private lateinit var email: EditText
     private lateinit var password: EditText

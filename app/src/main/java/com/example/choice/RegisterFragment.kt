@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-
+//Daniel Kathiresan
 class RegisterFragment : Fragment() {
     //Init variables
     private lateinit var email: EditText
