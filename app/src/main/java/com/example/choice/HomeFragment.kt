@@ -20,7 +20,7 @@ class HomeFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_home, container, false)
 
         view.findViewById<ImageView>(R.id.imageViewMatching).setOnClickListener{
-            var intent = Intent(activity, MatchedUserActivity::class.java)
+            var intent = Intent(activity, MatchActivity::class.java)
             startActivity(intent)
         }
 
