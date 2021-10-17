@@ -67,9 +67,14 @@ class FriendsFragment : Fragment() {
         // add users to user list
         userDB.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                cardItems.add(CardItem(uid, snapshot.child("first_name").value.toString(), snapshot.child("bio").value.toString(), snapshot.child("profile_picture").value.toString()) )
-                adapter.submitList(cardItems)
-                adapter.notifyDataSetChanged()
+                if(uid != getCurrentUserID()){
+                    cardItems.add(CardItem(uid, snapshot.child("first_name").value.toString(), snapshot.child("bio").value.toString(), snapshot.child("profile_picture").value.toString()) )
+                    adapter.submitList(cardItems)
+                    adapter.notifyDataSetChanged()
+                }
+                else{
+                    println("Current UID matching, not including")
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {}
