@@ -30,7 +30,9 @@
                 android:value=".BottomNav" />
 
         </activity>
-
+        <activity
+            android:name=".MatchActivity"
+            android:exported="true"/>
         <activity
             android:name=".BottomNav"
             android:exported="true">
