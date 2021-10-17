@@ -15,12 +15,13 @@ class CardStackAdapter: ListAdapter<CardItem, CardStackAdapter.ViewHolder>(diffU
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
+        //Put into recycleview
         fun bind(cardItem: CardItem) {
             view.findViewById<TextView>(R.id.item_name).text = cardItem.name
             view.findViewById<TextView>(R.id.item_bio).text = cardItem.bio
             Glide.with(view.findViewById<RoundedImageView>(R.id.item_image))
                 .load(cardItem.profilePic)
-                .into(view.findViewById<RoundedImageView>(R.id.item_image));
+                .into(view.findViewById<RoundedImageView>(R.id.item_image))
         }
 
     }

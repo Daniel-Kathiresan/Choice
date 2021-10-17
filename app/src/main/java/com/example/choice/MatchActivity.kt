@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.protobuf.Value
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.CardStackView
@@ -21,6 +22,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
     //Init variables
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var userDB: DatabaseReference
+    private lateinit var currUserDB: DatabaseReference
 
     private val adapter = CardStackAdapter()
     private val cardItems = mutableListOf<CardItem>()
@@ -34,6 +36,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         setContentView(R.layout.activity_match)
         //Set references
         userDB = Firebase.database.reference.child("Users")
+        currUserDB = FirebaseDatabase.getInstance().getReference("Users")
 
         val currentUserDB = userDB.child(getCurrentUserID())
         //Listen for current user first name, if there is one force input, error prevention
@@ -81,10 +84,11 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         }
     }
     //Get users that havent been liked or disliked
+    //Also do UID
     private fun getUnSelectedUsers() {
         userDB.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                if (snapshot.child("userId").value != getCurrentUserID() &&
+                if (snapshot.child("uid").value != getCurrentUserID() &&
                     snapshot.child("likedBy").child("like").hasChild(getCurrentUserID()).not() &&
                     snapshot.child("likedBy").child("disLike").hasChild(getCurrentUserID()).not()
                 ) {
@@ -100,6 +104,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                     adapter.submitList(cardItems)
                     //Notify data set changed to adapter
                     adapter.notifyDataSetChanged()
+
                 }
             }
 
@@ -155,6 +160,34 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         }
         return auth.currentUser?.uid.orEmpty()
     }
+
+//    private fun getUserGender(): String {
+//        var userGender = ""
+//        currUserDB.orderByChild("uid").equalTo(getCurrentUserID()).addListenerForSingleValueEvent(object: ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                userGender = snapshot.child("gender").value.toString()
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//            }
+//
+//        })
+//        return userGender
+//    }
+//
+//    private fun getUserGenderPref(): String {
+//        var userGenderPref = ""
+//        currUserDB.orderByChild("uid").equalTo(getCurrentUserID()).addListenerForSingleValueEvent(object: ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                userGenderPref = snapshot.child("gender_pref").value.toString()
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//            }
+//
+//        })
+//        return userGenderPref
+//    }
 
 
     //Function for liking user

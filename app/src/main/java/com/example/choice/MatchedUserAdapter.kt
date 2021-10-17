@@ -5,21 +5,30 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.makeramen.roundedimageview.RoundedImageView
 
 //Daniel Kathiresan
 //Adapter to display matched users, uses cardItem (same as match screen)
 //TODO: Remove once friends list works
-class MatchedUserAdapter(): ListAdapter<CardItem, MatchedUserAdapter.ViewHolder>(diffUtil) {
+class MatchedUserAdapter: ListAdapter<CardItem, MatchedUserAdapter.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
+        //Set content on recycleviewer
         fun bind(cardItem: CardItem) {
             view.findViewById<TextView>(R.id.user_name).text = cardItem.name
-
+            view.findViewById<TextView>(R.id.user_bio).text = cardItem.bio
+            view.findViewById<ImageView>(R.id.user_image)
+            //Add image from url with glide
+            Glide.with(view.findViewById<ImageView>(R.id.user_image))
+                .load(cardItem.profilePic)
+                .into(view.findViewById(R.id.user_image))
         }
 
     }
