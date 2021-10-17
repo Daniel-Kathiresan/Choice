@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rect_round_light"
+    android:background="#627C79"
     tools:context=".HomeFragment">
 
     <ImageView
@@ -13,7 +13,7 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:contentDescription="Start Matching"
-        android:src="@drawable/rect_round_primary_color"
+        android:src="@drawable/rounded_edittext_intro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Start Matching"
-        android:textColor="@color/white"
+        android:textColor="@color/dark_grey"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewMatching"
         app:layout_constraintEnd_toEndOf="@+id/imageViewMatching"
