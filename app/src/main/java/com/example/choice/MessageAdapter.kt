@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MessageAdapter(val context: Context, val messageList: ArrayList<Message>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    // distinguish send and receive
     val ITEM_RECEIVE = 1
     val ITEM_SENT = 2
 
@@ -24,6 +25,7 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
 
     }
 
+    // set send and receive layout or position
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         if(viewType == 1){
@@ -53,6 +55,7 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
         }
     }
 
+    // return the message list
     override fun getItemCount(): Int {
         return messageList.size
     }
