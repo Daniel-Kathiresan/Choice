@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -16,6 +17,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var recycler_view_messages: RecyclerView
     private lateinit var editText_message: EditText
     private lateinit var imageView_send: ImageView
+    private lateinit var fab_send_image: FloatingActionButton
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var messageList: ArrayList<Message>
     private lateinit var mDbRef: DatabaseReference
@@ -40,6 +42,7 @@ class ChatActivity : AppCompatActivity() {
         recycler_view_messages = findViewById(R.id.recycler_view_messages)
         editText_message = findViewById(R.id.editText_message)
         imageView_send = findViewById(R.id.imageView_send)
+        fab_send_image = findViewById(R.id.fab_send_image)
         messageList = ArrayList()
         messageAdapter = MessageAdapter(this, messageList)
 
@@ -67,7 +70,11 @@ class ChatActivity : AppCompatActivity() {
 
         })
 
-
+        fab_send_image.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 0)
+        }
 
         // Adding the message to database
         imageView_send.setOnClickListener{
