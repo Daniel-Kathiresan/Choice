@@ -30,7 +30,9 @@
                 android:value=".BottomNav" />
 
         </activity>
-
+        <activity
+            android:name=".MatchActivity"
+            android:exported="true"/>
         <activity
             android:name=".BottomNav"
             android:exported="true">
@@ -58,7 +60,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LogoutActivity"></activity>
+
     </application>
 
 
