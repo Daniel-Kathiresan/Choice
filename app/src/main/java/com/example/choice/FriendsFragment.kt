@@ -1,73 +1,90 @@
 package com.example.choice
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.ContentView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
-
+//Daniel Kathiresan Rewrite
 class FriendsFragment : Fragment() {
 
-    private lateinit var userRecyclerView: RecyclerView
-    private lateinit var userList: ArrayList<User>
-    private lateinit var adapter: UserAdapter
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var mDbRef: DatabaseReference
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var userDB: DatabaseReference
+    private val adapter = MatchedUserAdapter()
+    private val cardItems = mutableListOf<CardItem>()
 
+    //On view creation
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-
-        mAuth = FirebaseAuth.getInstance()
-        mDbRef = FirebaseDatabase.getInstance().getReference()
-
+        //Define references
+        userDB = Firebase.database.reference.child("Users")
+        //Create arraylist
         var view =  inflater.inflate(R.layout.fragment_friends, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.userRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
 
-
-
-        userList = ArrayList()
-        adapter = UserAdapter(this.requireContext(),userList)
-
-        userRecyclerView = view.findViewById(R.id.userRecyclerView)
-        userRecyclerView.layoutManager = LinearLayoutManager(this.requireContext())
-        userRecyclerView.adapter = adapter
-
-        // add users to user list
-        mDbRef.child("Users").addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                userList.clear()
-                for(postSnapshot in snapshot.children){
-                    val currentUser = postSnapshot.getValue(User::class.java)
-                    if(mAuth.currentUser?.uid != currentUser?.uid){
-                        userList.add(currentUser!!)
-                    }
-                }
-                adapter.notifyDataSetChanged()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-        })
-
+        getMatchUsers()
         return view
     }
 
-    private fun getCurrentUserID(): String {
-        if (mAuth.currentUser == null) {
-            //Toast.makeText(this, "You are not logged in", Toast.LENGTH_SHORT).show()
-            //finish()
-        }
-        return mAuth.currentUser?.uid.orEmpty()
+    private fun getMatchUsers() {
+        val matchedDB = userDB.child(getCurrentUserID()).child("likedBy").child("match")
+
+        matchedDB.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                if (snapshot.key?.isNotEmpty() == true) {
+                    getUserKey(snapshot.key.orEmpty())
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+
+            override fun onCancelled(error: DatabaseError) {}
+
+        })
     }
 
+    private fun getUserKey(uid: String) {
+        // add users to user list
+        userDB.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(uid != getCurrentUserID()){
+                    cardItems.add(CardItem(uid, snapshot.child("first_name").value.toString(), snapshot.child("bio").value.toString(), snapshot.child("profile_picture").value.toString()) )
+                    adapter.submitList(cardItems)
+                    adapter.notifyDataSetChanged()
+                }
+                else{
+                    println("Current UID matching, not including")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
+    private fun getCurrentUserID(): String {
+        if (auth.currentUser == null) {
+            println("Null user")
+        }
+        return auth.currentUser?.uid.orEmpty()
+    }
 }

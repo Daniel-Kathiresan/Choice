@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-
+//Daniel Kathiresan
 class RegisterFragment : Fragment() {
     //Init variables
     private lateinit var email: EditText
@@ -113,6 +113,7 @@ class RegisterFragment : Fragment() {
                     val gender = usergndr.selectedItem.toString()
                     val preference = prefgndr.selectedItem.toString()
 
+
                     //Get UID, create DB reference with UID, Add to DB
                     firebaseUserID = fAuth.currentUser!!.uid
                     refUsers = FirebaseDatabase.getInstance().reference.child("Users").child(firebaseUserID)
@@ -125,6 +126,7 @@ class RegisterFragment : Fragment() {
                     userHashMap["profile_picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
                     userHashMap["bio"] = " "
                     userHashMap["gender_pref"] = preference
+                    userHashMap["gender_flag"] =
                     //TODO: Add search value? (value to find user, for matching)
 
                     refUsers.updateChildren(userHashMap)
@@ -215,4 +217,27 @@ class RegisterFragment : Fragment() {
             }//Checks if all fields are valid for registration. Email: Base on format, last and first name: letters only, password: more than 5 chars, confirm password: must match password
         }
     }
+
+//    private fun gndrflag(): Int{
+//        var gndrFlag = 0
+//        val gender = usergndr.selectedItem.toString()
+//        val preference = prefgndr.selectedItem.toString()
+//        if (gender == "Male"){
+//            if(preference == "Female"){
+//
+//            }
+//            if(preference == "Male"){
+//
+//            }
+//        }
+//        else if (gender == "Female"){
+//
+//        }
+//        else{
+//
+//        }
+//
+//
+//        return gndrFlag
+//    }
 }

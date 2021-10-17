@@ -9,14 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import org.w3c.dom.Text
-
+//Daniel Kathiresan
 class LoginFragment : Fragment() {
     private lateinit var email: EditText
     private lateinit var password: EditText
@@ -44,12 +42,6 @@ class LoginFragment : Fragment() {
         view.findViewById<Button>(R.id.loginButton).setOnClickListener {
             //Run validation function when called
             validateForm()
-
-        }
-
-        view.findViewById<TextView>(R.id.ForgotPw_text).setOnClickListener {
-            val intent = Intent(activity, ForgotPwActivity::class.java)
-            startActivity(intent)
 
         }
 
