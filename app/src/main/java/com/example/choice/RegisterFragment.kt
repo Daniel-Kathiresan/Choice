@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-
+//Daniel Kathiresan
 class RegisterFragment : Fragment() {
     //Init variables
     private lateinit var email: EditText
@@ -31,6 +31,7 @@ class RegisterFragment : Fragment() {
     private var firebaseUserID : String = ""
     private lateinit var usergndr: Spinner
     private lateinit var prefgndr: Spinner
+    private var genPref: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -111,7 +112,9 @@ class RegisterFragment : Fragment() {
                     val firstName = fname.text.toString()
                     val lastName = lname.text.toString()
                     val gender = usergndr.selectedItem.toString()
-                    val preference = prefgndr.selectedItem.toString()
+                    genderTranslate()
+//                    val preference = prefgndr.selectedItem.toString()
+
 
                     //Get UID, create DB reference with UID, Add to DB
                     firebaseUserID = fAuth.currentUser!!.uid
@@ -124,8 +127,7 @@ class RegisterFragment : Fragment() {
                     userHashMap["gender"] = gender
                     userHashMap["profile_picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
                     userHashMap["bio"] = " "
-                    userHashMap["gender_pref"] = preference
-                    //TODO: Add search value? (value to find user, for matching)
+                    userHashMap["gender_pref"] = genPref
 
                     refUsers.updateChildren(userHashMap)
                         .addOnCompleteListener{ task ->
@@ -213,6 +215,14 @@ class RegisterFragment : Fragment() {
                     email.setError("Please Enter Valid Email Address", icon)
                 }
             }//Checks if all fields are valid for registration. Email: Base on format, last and first name: letters only, password: more than 5 chars, confirm password: must match password
+        }
+    }
+
+    fun genderTranslate(){
+        when(prefgndr.selectedItem.toString()) {
+            "Men" -> genPref = "Male"
+            "Women" -> genPref = "Female"
+            "Everyone" -> genPref = "Everyone"
         }
     }
 }

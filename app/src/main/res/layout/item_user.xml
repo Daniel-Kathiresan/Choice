@@ -8,7 +8,8 @@
     
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/top_ui">
 
 
         <ImageView
@@ -23,11 +24,12 @@
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/user_image"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:textSize="25sp"
-            android:text="Scott" />
+            android:layout_toEndOf="@id/user_image"
+            android:text="Scott"
+            android:textColor="@color/dark_grey"
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/user_bio"
@@ -38,6 +40,7 @@
             android:layout_marginStart="2dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textColor="@color/dark_grey"
             android:text="Hello World" />
 
 

@@ -18,14 +18,14 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
-    private lateinit var fAuth: FirebaseAuth
-    private var firebaseUserID : String = ""
-    private lateinit var database: DatabaseReference
-    private lateinit var biofield : EditText
-    private lateinit var FirstNamefield : EditText
-    private lateinit var LastNamefield : EditText
-    private lateinit var Userimage : ImageView
-    private var selectedPhotoUri: Uri? = null
+private lateinit var fAuth: FirebaseAuth
+private var firebaseUserID : String = ""
+private lateinit var database: DatabaseReference
+private lateinit var biofield : EditText
+private lateinit var FirstNamefield : EditText
+private lateinit var LastNamefield : EditText
+private lateinit var Userimage : ImageView
+private var selectedPhotoUri: Uri? = null
 
 class SettingFragment : Fragment() {
 

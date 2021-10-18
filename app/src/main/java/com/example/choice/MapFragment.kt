@@ -6,10 +6,11 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.choice.utils.DeviceId
+import androidx.fragment.app.Fragment
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -28,7 +29,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_map.*
 import java.util.*
 
-class MapScreen : AppCompatActivity() , OnMapReadyCallback {
+class MapScreen : Fragment(R.layout.fragment_map) , OnMapReadyCallback {
 
     companion object {
         private const val TAG = "MapsActivity"
@@ -41,16 +42,19 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Places.initialize(this, getString(R.string.google_maps_key))
-        setContentView(R.layout.fragment_map)
+        Places.initialize(requireContext(), getString(R.string.google_maps_key))
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager
+        val mapFragment = childFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         val autocompleteFragment =
-            supportFragmentManager.findFragmentById(R.id.autocomplete_fragment)
+            childFragmentManager.findFragmentById(R.id.autocomplete_fragment)
                     as AutocompleteSupportFragment
 
         // Specify the types of place data to return.
@@ -68,7 +72,7 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
             }
         })
         btnNearby.setOnClickListener {
-            startActivity(Intent(this, NearbyActivity::class.java))
+            startActivity(Intent(requireContext(), NearbyActivity::class.java))
         }
     }
 
@@ -133,16 +137,16 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
     private val REQUEST_LOCATION_PERMISSION = 1
     private fun isPermissionGranted() : Boolean {
         return ContextCompat.checkSelfPermission(
-            this,
+            requireContext(),
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
     private fun enableMyLocation() {
         if (isPermissionGranted()) {
             if (ActivityCompat.checkSelfPermission(
-                    this,
+                    requireContext(),
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this,
+                    requireContext(),
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
@@ -159,7 +163,7 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
         }
         else {
             ActivityCompat.requestPermissions(
-                this,
+                requireActivity(),
                 arrayOf<String>(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_LOCATION_PERMISSION
             )
@@ -209,7 +213,7 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
 
     private fun saveLocation(latitude:Double, longitude:Double) {
         val location = mapOf(
-            "id" to DeviceId.id(this),
+            "id" to DeviceId.id(requireContext()),
             "latitude" to latitude,
             "longitude" to longitude,
             "ts" to System.currentTimeMillis()
@@ -226,7 +230,7 @@ class MapScreen : AppCompatActivity() , OnMapReadyCallback {
 
     private fun addMarkFromFireStore() {
         db.collection("location")
-            .whereEqualTo("id", DeviceId.id(this))
+            .whereEqualTo("id", DeviceId.id(requireContext()))
             .orderBy("ts", Query.Direction.DESCENDING)
             .limit(1)
             .get()
