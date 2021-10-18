@@ -1,8 +1,10 @@
 package com.example.choice
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -11,13 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_chat.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ChatActivity : AppCompatActivity() {
 
     private lateinit var recycler_view_messages: RecyclerView
     private lateinit var editText_message: EditText
     private lateinit var imageView_send: ImageView
-    private lateinit var fab_send_image: FloatingActionButton
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var messageList: ArrayList<Message>
     private lateinit var mDbRef: DatabaseReference
@@ -42,7 +47,6 @@ class ChatActivity : AppCompatActivity() {
         recycler_view_messages = findViewById(R.id.recycler_view_messages)
         editText_message = findViewById(R.id.editText_message)
         imageView_send = findViewById(R.id.imageView_send)
-        fab_send_image = findViewById(R.id.fab_send_image)
         messageList = ArrayList()
         messageAdapter = MessageAdapter(this, messageList)
 
@@ -50,6 +54,11 @@ class ChatActivity : AppCompatActivity() {
         recycler_view_messages.layoutManager = LinearLayoutManager(this)
         recycler_view_messages.adapter = messageAdapter
 
+        imgBack.setOnClickListener {
+            onBackPressed()
+        }
+
+        displayUserName.setText(name)
 
         // logic for adding data to recyclerView
         mDbRef.child("Chat").child(senderRoom!!).child("messages").addValueEventListener(object: ValueEventListener{
@@ -70,12 +79,6 @@ class ChatActivity : AppCompatActivity() {
 
         })
 
-        fab_send_image.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, 0)
-        }
-
         // Adding the message to database
         imageView_send.setOnClickListener{
             val message = editText_message.text.toString()
@@ -87,4 +90,5 @@ class ChatActivity : AppCompatActivity() {
             editText_message.setText("")
         }
     }
+
 }
