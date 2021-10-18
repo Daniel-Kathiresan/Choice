@@ -69,6 +69,7 @@
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_match.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_matched_user.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_nearby.xml" value="0.35989583333333336" />
+        <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_notification.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_settings_fragment_edit_profile.xml" value="0.33125" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_settings_screen.xml" value="0.33125" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_view_page.xml" value="0.5536458333333333" />
@@ -111,6 +112,7 @@
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/item_text_message.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/item_user.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/nav_header_bottom_navigation_bar.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/poi_click_demo.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/receive.xml" value="0.33229166666666665" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/receive_image.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/Scott Atlas/AndroidStudioProjects/Choice/app/src/main/res/layout/sent.xml" value="0.33229166666666665" />
