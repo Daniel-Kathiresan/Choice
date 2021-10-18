@@ -1,8 +1,11 @@
 package com.example.choice
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -11,7 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_chat.*
+import java.util.*
+import kotlin.collections.ArrayList
+
+private const val RC_SELECT_IMAGE = 2
 
 class ChatActivity : AppCompatActivity() {
 
@@ -29,20 +37,20 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        val name = intent.getStringExtra("first_name"+" "+"last_name")
+        val name = intent.getStringExtra("first_name" + " " + "last_name")
         val receiverUid = intent.getStringExtra("uid")
         val isNearby = intent.getBooleanExtra("isNearby", false)
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
         mDbRef = FirebaseDatabase.getInstance().getReference()
 
-        if(receiverUid == senderUid) {
+        if (receiverUid == senderUid) {
             finish()
             return
         }
         senderRoom = receiverUid + senderUid
         receiverRoom = senderUid + receiverUid
 
-        if(isNearby) {
+        if (isNearby) {
             val ts = System.currentTimeMillis()
             senderRoom += ts
             receiverRoom += ts
@@ -64,11 +72,12 @@ class ChatActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+
         displayUserName.setText(name)
 
         // logic for adding data to recyclerView
 
-            mDbRef.child("Chat").child(senderRoom!!).child("messages")
+        mDbRef.child("Chat").child(senderRoom!!).child("messages")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -87,14 +96,15 @@ class ChatActivity : AppCompatActivity() {
                 })
 
         // Adding the message to database
-        imageView_send.setOnClickListener{
+        imageView_send.setOnClickListener {
             val message = editText_message.text.toString()
             val messageObject = Message(message, senderUid)
 
-            mDbRef.child("Chat").child(senderRoom!!).child("messages").push().setValue(messageObject).addOnSuccessListener{
+            mDbRef.child("Chat").child(senderRoom!!).child("messages").push().setValue(messageObject).addOnSuccessListener {
                 mDbRef.child("Chat").child(receiverRoom!!).child("messages").push().setValue(messageObject)
             }
             editText_message.setText("")
         }
     }
+
 }
