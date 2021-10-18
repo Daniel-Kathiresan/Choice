@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AccelerateInterpolator
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -13,17 +14,14 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.protobuf.Value
-import com.yuyakaido.android.cardstackview.CardStackLayoutManager
-import com.yuyakaido.android.cardstackview.CardStackListener
-import com.yuyakaido.android.cardstackview.CardStackView
-import com.yuyakaido.android.cardstackview.Direction
+import com.yuyakaido.android.cardstackview.*
+
 //Daniel matching
 class MatchActivity : AppCompatActivity(), CardStackListener {
     //Init variables
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var userDB: DatabaseReference
     private lateinit var currUserDB: DatabaseReference
-
     private val adapter = CardStackAdapter()
     private val cardItems = mutableListOf<CardItem>()
     //Call card manager API
@@ -46,7 +44,10 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                     showNameInputPopup()
                     return
                 }
+                //Call all setup methods, moved from main body
                 getUnSelectedUsers()
+                initCardStackView()
+                initButtons()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -54,10 +55,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
             }
 
         })
-        //Call all setup methods, moved from main body
-        initCardStackView()
-        initSignOutButton()
-        initReturnButton()
+
     }
 
     private fun initCardStackView() {
@@ -65,23 +63,8 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         //Find card stack (api) and set adapter
         stackView.layoutManager = manager
         stackView.adapter = adapter
-    }
-    //SIGN OUT BUTTON ON HOME SCREEN
-    //TODO: Remove once settings fully implemented
-    private fun initSignOutButton() {
-        val signOutButton = findViewById<Button>(R.id.signOutButton)
-        signOutButton.setOnClickListener {
-            auth.signOut()
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
-    }
-    //Returns user to the main screen, opens nav bar
-    private fun initReturnButton() {
-        val returnMainButton = findViewById<Button>(R.id.returnToMain)
-        returnMainButton.setOnClickListener {
-            startActivity(Intent(this, BottomNav::class.java))
-        }
+        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
+
     }
     //Get users that havent been liked or disliked
     //Also do UID
@@ -142,7 +125,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
             .setCancelable(false)
             .show()
     }
-    //Savves username into firebase
+    //Saves username into firebase
     private fun saveUserName(name: String) {
 
         val userId: String = getCurrentUserID()
@@ -249,6 +232,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
 
     //Ovveride for card adapter, set right and left actions
     override fun onCardSwiped(direction: Direction?) {
+        println("Function activated")
         when (direction) {
             Direction.Right -> like()
             Direction.Left -> disLike()
@@ -265,4 +249,20 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
     //Set view on card disappear
 
     override fun onCardDisappeared(view: View?, position: Int) {}
+
+    private fun initButtons(){
+        val returnMainButton = findViewById<Button>(R.id.returnToMain)
+        returnMainButton.setOnClickListener {
+            startActivity(Intent(this, BottomNav::class.java))
+        }
+        //TODO: Not working, remove at end if still broken
+//        val likeButton = findViewById<View>(R.id.like_button)
+//        likeButton.setOnClickListener{
+//            like()
+//        }
+//        val skipButton = findViewById<View>(R.id.skip_button)
+//        skipButton.setOnClickListener{
+//            onCardSwiped(Direction.Left)
+//        }
+    }
 }

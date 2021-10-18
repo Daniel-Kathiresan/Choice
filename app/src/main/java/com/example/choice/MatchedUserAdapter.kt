@@ -14,8 +14,7 @@ import com.bumptech.glide.Glide
 import com.makeramen.roundedimageview.RoundedImageView
 
 //Daniel Kathiresan
-//Adapter to display matched users, uses cardItem (same as match screen)
-//TODO: Remove once friends list works
+//Adapter to display matched users, uses cardItem, used for FriendsFragment
 class MatchedUserAdapter: ListAdapter<CardItem, MatchedUserAdapter.ViewHolder>(diffUtil) {
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LoginFragment"
-    android:background="@drawable/choicebg"
+    android:background="@drawable/choicebgnew"
     >
     <!--^Contains XML data and custom background implementation-->
 
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:layout_marginTop="20dp"
-            android:src="@drawable/placeholderlogo"
+            android:src="@drawable/choicelogonew">
             android:contentDescription="@string/choice_logo">
 
         </ImageView>
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/choice"
-            android:textColor="#000"
+            android:textColor="@color/white"
             android:textSize="15sp"
             android:layout_marginTop="11dp"/>
         <!-- Email field -->
@@ -45,9 +45,12 @@
             android:layout_marginTop="40dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:textColor="@color/white"
                 android:id="@+id/reg_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -62,9 +65,12 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:textColor="@color/white"
                 android:id="@+id/reg_fname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -78,6 +84,8 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -95,9 +103,12 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:textColor="@color/white"
                 android:id="@+id/reg_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -114,9 +125,12 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:textColor="@color/white"
                 android:id="@+id/reg_cnfrm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,13 +139,15 @@
 
         </com.google.android.material.textfield.TextInputLayout>
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/your_gender"
-            android:textColor="#000"
+            android:textColor="@color/white"
             android:textSize="15sp"
             android:layout_marginTop="5dp"/>
         <Spinner
+            android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:id="@+id/gender_spinner"
             android:layout_width="match_parent"
@@ -140,10 +156,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/i_want_to_match_with"
-            android:textColor="#000"
+            android:textColor="@color/white"
             android:textSize="15sp"
             android:layout_marginTop="5dp"/>
         <Spinner
+            android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:id="@+id/preference_spinner"
             android:layout_width="match_parent"
@@ -161,7 +178,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="42dp"
                 android:layout_marginEnd="40dp"
-                android:text="@string/create_account" />
+                android:background="@drawable/rounded_button_image_bordered"
+                android:text="@string/create_account"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/return_login_btn"
@@ -170,8 +189,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="40dp"
                 android:layout_toEndOf="@id/create_account_btn"
+                android:background="@drawable/rounded_button_image_bordered"
                 android:text="@string/login"
-                app:backgroundTint="#673AB7" />
+                android:textColor="@color/white" />
 
         </RelativeLayout>
 

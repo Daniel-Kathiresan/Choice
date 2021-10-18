@@ -93,8 +93,8 @@ class SettingFragment : Fragment() {
         if (firebaseUserID != null){
             database.child(firebaseUserID).get().addOnSuccessListener {
                 if (it.exists()){
-                    val fname = it.child("first name").value
-                    val lname = it.child("last name").value
+//                    val fname = it.child("first name").value
+//                    val lname = it.child("last name").value
                     val gender = it.child("gender").value
                     val bio = it.child("bio").value
                     val firstname = it.child("first_name").value
