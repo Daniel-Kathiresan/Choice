@@ -1,14 +1,24 @@
 package com.example.choice
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.sent.*
+import kotlinx.android.synthetic.main.sent_image.*
+import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -20,6 +30,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var messageList: ArrayList<Message>
     private lateinit var mDbRef: DatabaseReference
+    private lateinit var storageReference: StorageReference
 
     var receiverRoom: String? = null
     var senderRoom: String? = null
@@ -64,11 +75,9 @@ class ChatActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-
         displayUserName.setText(name)
 
         // logic for adding data to recyclerView
-
         mDbRef.child("Chat").child(senderRoom!!).child("messages")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
