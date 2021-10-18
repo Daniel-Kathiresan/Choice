@@ -18,7 +18,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 //Daniel Kathiresan Rewrite
-//Uses MatchedUserAdapter and CardItem
 class FriendsFragment : Fragment() {
 
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
