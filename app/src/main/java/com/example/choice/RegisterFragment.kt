@@ -31,6 +31,7 @@ class RegisterFragment : Fragment() {
     private var firebaseUserID : String = ""
     private lateinit var usergndr: Spinner
     private lateinit var prefgndr: Spinner
+    private var genPref: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -111,7 +112,8 @@ class RegisterFragment : Fragment() {
                     val firstName = fname.text.toString()
                     val lastName = lname.text.toString()
                     val gender = usergndr.selectedItem.toString()
-                    val preference = prefgndr.selectedItem.toString()
+                    genderTranslate()
+//                    val preference = prefgndr.selectedItem.toString()
 
 
                     //Get UID, create DB reference with UID, Add to DB
@@ -125,9 +127,7 @@ class RegisterFragment : Fragment() {
                     userHashMap["gender"] = gender
                     userHashMap["profile_picture"] = "https://firebasestorage.googleapis.com/v0/b/choice-23fc3.appspot.com/o/images%2Fdefaultpfp.png?alt=media&token=7fce8ca7-f830-45f7-a19a-acde736d7711"
                     userHashMap["bio"] = " "
-                    userHashMap["gender_pref"] = preference
-                    userHashMap["gender_flag"] =
-                    //TODO: Add search value? (value to find user, for matching)
+                    userHashMap["gender_pref"] = genPref
 
                     refUsers.updateChildren(userHashMap)
                         .addOnCompleteListener{ task ->
@@ -218,26 +218,11 @@ class RegisterFragment : Fragment() {
         }
     }
 
-//    private fun gndrflag(): Int{
-//        var gndrFlag = 0
-//        val gender = usergndr.selectedItem.toString()
-//        val preference = prefgndr.selectedItem.toString()
-//        if (gender == "Male"){
-//            if(preference == "Female"){
-//
-//            }
-//            if(preference == "Male"){
-//
-//            }
-//        }
-//        else if (gender == "Female"){
-//
-//        }
-//        else{
-//
-//        }
-//
-//
-//        return gndrFlag
-//    }
+    fun genderTranslate(){
+        when(prefgndr.selectedItem.toString()) {
+            "Men" -> genPref = "Male"
+            "Women" -> genPref = "Female"
+            "Everyone" -> genPref = "Everyone"
+        }
+    }
 }

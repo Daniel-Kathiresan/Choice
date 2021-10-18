@@ -1,10 +1,8 @@
 package com.example.choice
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -13,10 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_chat.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class ChatActivity : AppCompatActivity() {
 
@@ -36,11 +31,22 @@ class ChatActivity : AppCompatActivity() {
 
         val name = intent.getStringExtra("first_name"+" "+"last_name")
         val receiverUid = intent.getStringExtra("uid")
+        val isNearby = intent.getBooleanExtra("isNearby", false)
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
         mDbRef = FirebaseDatabase.getInstance().getReference()
 
+        if(receiverUid == senderUid) {
+            finish()
+            return
+        }
         senderRoom = receiverUid + senderUid
         receiverRoom = senderUid + receiverUid
+
+        if(isNearby) {
+            val ts = System.currentTimeMillis()
+            senderRoom += ts
+            receiverRoom += ts
+        }
 
         supportActionBar?.title = name
 
@@ -61,23 +67,24 @@ class ChatActivity : AppCompatActivity() {
         displayUserName.setText(name)
 
         // logic for adding data to recyclerView
-        mDbRef.child("Chat").child(senderRoom!!).child("messages").addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
 
-                messageList.clear()
+            mDbRef.child("Chat").child(senderRoom!!).child("messages")
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
 
-                for(postSnapshot in snapshot.children){
-                    val message = postSnapshot.getValue(Message::class.java)
-                    messageList.add(message!!)
-                }
-                messageAdapter.notifyDataSetChanged()
-            }
+                        messageList.clear()
+                        for (postSnapshot in snapshot.children) {
+                            val message = postSnapshot.getValue(Message::class.java)
+                            messageList.add(message!!)
+                        }
+                        messageAdapter.notifyDataSetChanged()
+                    }
 
-            override fun onCancelled(error: DatabaseError) {
+                    override fun onCancelled(error: DatabaseError) {
 
-            }
+                    }
 
-        })
+                })
 
         // Adding the message to database
         imageView_send.setOnClickListener{
@@ -90,5 +97,4 @@ class ChatActivity : AppCompatActivity() {
             editText_message.setText("")
         }
     }
-
 }
