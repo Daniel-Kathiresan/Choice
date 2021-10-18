@@ -1,25 +1,16 @@
 package com.example.choice
 
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_chat.*
-import java.util.*
 import kotlin.collections.ArrayList
 
-private const val RC_SELECT_IMAGE = 2
 
 class ChatActivity : AppCompatActivity() {
 
@@ -58,6 +49,7 @@ class ChatActivity : AppCompatActivity() {
 
         supportActionBar?.title = name
 
+        //assign variable
         recycler_view_messages = findViewById(R.id.recycler_view_messages)
         editText_message = findViewById(R.id.editText_message)
         imageView_send = findViewById(R.id.imageView_send)
