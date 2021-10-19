@@ -142,14 +142,7 @@ class SettingFragment : Fragment() {
                 result.addOnSuccessListener {
                     val picUrl = it.toString()
                     imageUpdateMap["profile_picture"] = picUrl
-                    pRef.updateChildren(imageUpdateMap).addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Toast.makeText(context, "Updated Image", Toast.LENGTH_SHORT)
-                        } else {
-                            Toast.makeText(context, "Unable to update image", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    }
+                    pRef.updateChildren(imageUpdateMap)
                 }
             }
 
