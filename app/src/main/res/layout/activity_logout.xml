@@ -22,33 +22,22 @@
         android:id="@+id/Feedbacj_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:text="Feedback"
+        android:layout_marginTop="250dp"
         android:background="@drawable/rounded_button_image"
+        android:text="Feedback"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/Notify_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:background="@drawable/rounded_button_image"
-        android:text="Notify"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Feedbacj_button" />
-
-    <Button
         android:id="@+id/Logout2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/rounded_button_image"
         android:text="Logout"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/rounded_button_image"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Notify_button" />
+        app:layout_constraintTop_toBottomOf="@+id/Feedbacj_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
