@@ -26,11 +26,6 @@ class LogoutActivity : AppCompatActivity(){
             startActivity(intent)
         }
 
-        Notify_button.setOnClickListener {
-            val intent = Intent(this, NotificationActivity::class.java)
-            startActivity(intent)
-        }
-
         Logout2_button.setOnClickListener {
             Firebase.auth.signOut()
 
