@@ -160,7 +160,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                     adapter.notifyDataSetChanged()
 
                 }
-                //Check "other" gender, snapshot
+                //Check "other" gender, user
                 if (snapshot.child("uid").value != getCurrentUserID()&&
                     snapshot.child("likedBy").child("like").hasChild(getCurrentUserID()).not() &&
                     snapshot.child("likedBy").child("disLike").hasChild(getCurrentUserID()).not()
