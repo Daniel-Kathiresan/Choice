@@ -7,21 +7,19 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AccelerateInterpolator
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.protobuf.Value
 import com.yuyakaido.android.cardstackview.*
 
 //Daniel matching
@@ -37,8 +35,8 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
     private val CHANNEL_ID = "channel_id_example_01"
     private val notificationID = 101
 
-    private var userGender: String = ""
-    private var userGenderPref: String = ""
+    var userGender: String = ""
+    var userGenderPref: String = ""
     //Call card manager API
     private val manager by lazy {
         CardStackLayoutManager(this, this)
@@ -61,10 +59,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                 }
                 //Call all setup methods, moved from main body
                 getUserGender()
-                println("User Gender = $userGender")
-                getUserGenderPref()
-                println("User Pref = $userGenderPref")
-                getUnSelectedUsers()
+
                 initCardStackView()
                 initButtons()
             }
@@ -73,6 +68,35 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
 
             }
 
+        })
+
+    }
+    fun getUserGender(){
+        val user = auth.currentUser
+        userDB.child(user!!.uid).addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.child("gender").value != null){
+                    userGender = snapshot.child("gender").value.toString()
+                    getUserGenderPref()
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+
+    }
+
+    fun getUserGenderPref(){
+        val user = auth.currentUser
+        userDB.child(user!!.uid).addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.child("gender_pref").value != null){
+                    userGenderPref = snapshot.child("gender_pref").value.toString()
+                    getUnSelectedUsers()
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
         })
 
     }
@@ -88,16 +112,19 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
     //Get users that havent been liked or disliked
     //Also do UID
     private fun getUnSelectedUsers() {
+        println("User Gender = $userGender")
+        println("User Pref = $userGenderPref")
         userDB.addChildEventListener(object : ChildEventListener {
+            //Ladder IF Statements for Gender Matching
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                if (snapshot.child("uid").value != getCurrentUserID()
-//                    snapshot.child("likedBy").child("like").hasChild(getCurrentUserID()).not() &&
-//                    snapshot.child("likedBy").child("disLike").hasChild(getCurrentUserID()).not()
-////                    &&
-////                            snapshot.child("gender").value == userGenderPref &&
-////                            snapshot.child("gender_pref").value == userGender
+                //Basic match check (M->F, F->M)
+                if (snapshot.child("uid").value != getCurrentUserID()&&
+                    snapshot.child("likedBy").child("like").hasChild(getCurrentUserID()).not() &&
+                    snapshot.child("likedBy").child("disLike").hasChild(getCurrentUserID()).not()
+                    &&
+                            snapshot.child("gender").value == userGenderPref &&
+                            snapshot.child("gender_pref").value == userGender
                 ) {
-                    println("Match Checking Passed")
                     val userId = snapshot.child("uid").value.toString()
                     var name = "undecided"
                     if (snapshot.child("first_name").value != null) {
@@ -111,7 +138,78 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                     //Notify data set changed to adapter
                     adapter.notifyDataSetChanged()
 
-                }else if (userGender == "Everyone"){
+                }
+                //Check "other" gender, snapshot
+                if (snapshot.child("uid").value != getCurrentUserID()&&
+                    snapshot.child("likedBy").child("like").hasChild(getCurrentUserID()).not() &&
+                    snapshot.child("likedBy").child("disLike").hasChild(getCurrentUserID()).not()
+                    &&
+                    snapshot.child("gender").value.toString() == "Other" &&
+                            userGender == snapshot.child("gender_pref").value.toString()
+                ) {
+                    val userId = snapshot.child("uid").value.toString()
+                    var name = "undecided"
+                    if (snapshot.child("first_name").value != null) {
+                        name = snapshot.child("first_name").value.toString()
+                    }
+                    val bio = snapshot.child("bio").value.toString()
+                    val profilePic = snapshot.child("profile_picture").value.toString()
+                    //Add to card items
+                    cardItems.add(CardItem(userId, name, bio, profilePic))
+                    adapter.submitList(cardItems)
+                    //Notify data set changed to adapter
+                    adapter.notifyDataSetChanged()
+
+                }
+                //Check "other" gender, snapshot
+                if (snapshot.child("uid").value != getCurrentUserID()&&
+                    snapshot.child("likedBy").child("like").hasChild(getCurrentUserID()).not() &&
+                    snapshot.child("likedBy").child("disLike").hasChild(getCurrentUserID()).not()
+                    &&
+                    userGender == "Other" &&
+                            snapshot.child("gender").value.toString() == userGenderPref
+                ) {
+                    val userId = snapshot.child("uid").value.toString()
+                    var name = "undecided"
+                    if (snapshot.child("first_name").value != null) {
+                        name = snapshot.child("first_name").value.toString()
+                    }
+                    val bio = snapshot.child("bio").value.toString()
+                    val profilePic = snapshot.child("profile_picture").value.toString()
+                    //Add to card items
+                    cardItems.add(CardItem(userId, name, bio, profilePic))
+                    adapter.submitList(cardItems)
+                    //Notify data set changed to adapter
+                    adapter.notifyDataSetChanged()
+
+                }
+                //Everyone check 1 (Snapshot gender everyone)
+                if (snapshot.child("uid").value != getCurrentUserID()&&
+                    snapshot.child("likedBy").child("like").hasChild(getCurrentUserID()).not() &&
+                    snapshot.child("likedBy").child("disLike").hasChild(getCurrentUserID()).not()
+                    &&
+                    snapshot.child("gender_pref").value == "Everyone" &&
+                    snapshot.child("gender").value == userGenderPref){
+                    val userId = snapshot.child("uid").value.toString()
+                    var name = "undecided"
+                    if (snapshot.child("first_name").value != null) {
+                        name = snapshot.child("first_name").value.toString()
+                    }
+                    val bio = snapshot.child("bio").value.toString()
+                    val profilePic = snapshot.child("profile_picture").value.toString()
+                    //Add to card items
+                    cardItems.add(CardItem(userId, name, bio, profilePic))
+                    adapter.submitList(cardItems)
+                    //Notify data set changed to adapter
+                    adapter.notifyDataSetChanged()
+                }
+                //Everyone Check 2 (User Gender Everyone)
+                if (snapshot.child("uid").value != getCurrentUserID()&&
+                    snapshot.child("likedBy").child("like").hasChild(getCurrentUserID()).not() &&
+                    snapshot.child("likedBy").child("disLike").hasChild(getCurrentUserID()).not()
+                    &&
+                    snapshot.child("gender_pref").value == userGender &&
+                    "Everyone" == userGenderPref){
                     val userId = snapshot.child("uid").value.toString()
                     var name = "undecided"
                     if (snapshot.child("first_name").value != null) {
@@ -180,33 +278,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         return auth.currentUser?.uid.orEmpty()
     }
 
-    fun getUserGender(){
-        val user = auth.currentUser
-        userDB.child(user!!.uid).addListenerForSingleValueEvent(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.child("gender").value != null){
-                    userGender = snapshot.child("gender").value.toString()
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
 
-    }
-
-    fun getUserGenderPref(){
-        val user = auth.currentUser
-        userDB.child(user!!.uid).addListenerForSingleValueEvent(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.child("gender_pref").value != null){
-                    userGender = snapshot.child("gender_pref").value.toString()
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
-
-    }
 
     //Function for liking user
     private fun like() {

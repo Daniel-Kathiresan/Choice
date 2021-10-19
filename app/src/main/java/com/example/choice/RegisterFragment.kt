@@ -133,9 +133,6 @@ class RegisterFragment : Fragment() {
                         .addOnCompleteListener{ task ->
                             if (task.isSuccessful)
                             {
-                                //Navigate to home fragment
-//                                val navHome = activity as FragmentNavigation
-//                                navHome.navigateFrag(MatchFragment(),addToStack = true)
                                 val intent = Intent (activity, BottomNav::class.java)
                                 activity?.startActivity(intent)
                             }else{
