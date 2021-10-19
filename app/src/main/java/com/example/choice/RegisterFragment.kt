@@ -152,7 +152,7 @@ class RegisterFragment : Fragment() {
         //Show warning icon (currently placeholder) when a criteria is met
         val icon = AppCompatResources.getDrawable(
             requireContext(),//icon from resources
-            R.drawable.warningph
+            R.drawable.warningsmall
         )
 
         icon?.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)

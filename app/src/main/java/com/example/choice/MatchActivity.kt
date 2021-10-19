@@ -21,6 +21,10 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.yuyakaido.android.cardstackview.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
+import kotlin.random.Random
 
 //Daniel matching
 class MatchActivity : AppCompatActivity(), CardStackListener {
@@ -30,7 +34,15 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
     private lateinit var currUserDB: DatabaseReference
     private val adapter = CardStackAdapter()
     private val cardItems = mutableListOf<CardItem>()
-
+    //Date
+    private var currentDate: Date = Date()
+    private var newDate: Date = Date()
+    //Random variables
+    private var randVarDate = 0
+    private var randVarTime = 0
+    //Date variabled randomised
+    private var Date = ""
+    private var Time = ""
     //Notification
     private val CHANNEL_ID = "channel_id_example_01"
     private val notificationID = 101
@@ -49,6 +61,8 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         userDB = Firebase.database.reference.child("Users")
         currUserDB = FirebaseDatabase.getInstance().getReference("Users")
 
+
+
         val currentUserDB = userDB.child(getCurrentUserID())
         //Listen for current user first name, if there is one force input, error prevention
         currentUserDB.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -59,7 +73,7 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                 }
                 //Call all setup methods, moved from main body
                 getUserGender()
-
+                randomDateTime()
                 initCardStackView()
                 initButtons()
             }
@@ -70,6 +84,31 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
 
         })
 
+    }
+
+    private fun randomDateTime(){
+        //Get a random number
+        randVarDate = Random.nextInt(1,8)
+        randVarTime = Random.nextInt(-10,10)
+        //Get current date and time
+        val currDate = Calendar.getInstance()
+        currDate.time = currentDate
+        println("Current Date:  $currDate")
+        currDate.add(Calendar.DAY_OF_WEEK, randVarDate)
+        println("Adding random day: $currDate")
+        currDate.add(Calendar.HOUR, randVarTime)
+        println("Adding random time: $currDate")
+        //Change new date to changed date
+        newDate = currDate.time
+        println("New Date: $newDate")
+        //Create date format
+        val df = SimpleDateFormat("dd-MM-yyyy")
+        val tf = SimpleDateFormat("HH")
+        //Change date + time variable
+        Date = (df.format(newDate)).toString()
+        println("New Date: $Date")
+        Time = (tf.format(newDate)).toString()
+        println("New Time: $Time")
     }
     fun getUserGender(){
         val user = auth.currentUser
@@ -310,11 +349,16 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
 
     //Save match in firebase like tree, viewable on firebase data
     private fun saveMatchIfOtherUserLikeMe(otherUserId: String) {
+        //Call random date time
+        randomDateTime()
+
         val otherUserDB =
             userDB.child(getCurrentUserID()).child("likedBy").child("like").child(otherUserId)
         otherUserDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.value == true) {
+
+                    //Automatic matching added
                     userDB.child(getCurrentUserID())
                         .child("likedBy")
                         .child("match")
@@ -326,6 +370,34 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                         .child("match")
                         .child(getCurrentUserID())
                         .setValue(true)
+                    //Create date and time for other user
+                    userDB.child(otherUserId)
+                        .child("date")
+                        .child("with")
+                        .child(getCurrentUserID())
+                        .child("day")
+                        .setValue(Date)
+
+                    userDB.child(otherUserId)
+                        .child("date")
+                        .child("with")
+                        .child(getCurrentUserID())
+                        .child("time")
+                        .setValue(Time)
+                    //Create date and time for current user
+                    userDB.child(getCurrentUserID())
+                        .child("date")
+                        .child("with")
+                        .child(otherUserId)
+                        .child("day")
+                        .setValue(Date)
+
+                    userDB.child(getCurrentUserID())
+                        .child("date")
+                        .child("with")
+                        .child(otherUserId)
+                        .child("time")
+                        .setValue(Time)
 
                     //Send the notification
                     createNotificationChannel()
@@ -396,15 +468,15 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
         }
 
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this,0,intent,0)
-        val bitmap = BitmapFactory.decodeResource(applicationContext.resources,R.drawable.profile_image)
-        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources,R.drawable.choicepfp)
+        val bitmap = BitmapFactory.decodeResource(applicationContext.resources,R.drawable.randomuser)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources,R.drawable.randomuser)
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.placeholderlogo)
-            .setContentTitle("You got Match!!!")
-            .setContentText("Example Descirption")
+            .setSmallIcon(R.drawable.choicelogonew)
+            .setContentTitle("You got Match!!")
+            .setContentText("")
             .setLargeIcon(bitmapLargeIcon)
-            .setStyle(NotificationCompat.BigTextStyle().bigText("Match!!!!!!!!!WOW!!!!!!!"))
+            .setStyle(NotificationCompat.BigTextStyle().bigText("Check your match page now!"))
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
@@ -412,4 +484,6 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
             notify(notificationID,builder.build())
         }
     }
+
+
 }

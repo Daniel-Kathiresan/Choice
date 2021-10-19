@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+
 //Daniel Kathiresan Main Screen
 class MainScreen : Fragment() {
 
@@ -23,7 +26,12 @@ class MainScreen : Fragment() {
             val intent = Intent (activity, MatchActivity::class.java)
             activity?.startActivity(intent)
         }
+        //Show matches / get matched users
 
         return view
+    }
+
+    fun showDates(){
+
     }
 }

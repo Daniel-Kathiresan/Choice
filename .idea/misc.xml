@@ -131,14 +131,15 @@
         <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/activity_settings_screen.xml" value="0.490036231884058" />
         <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/fragment_login.xml" value="0.490036231884058" />
         <entry key="..\:/Users/Scott Atlas/StudioProjects/Choice/app/src/main/res/layout/fragment_register.xml" value="0.490036231884058" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/drawable/like_green_24dp.xml" value="0.3828125" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_bottom_menu.xml" value="0.3068535825545171" />
-        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_logout.xml" value="0.1" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_match.xml" value="0.2" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/activity_nearby.xml" value="0.2578125" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_chat.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_friends.xml" value="0.656984785615491" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_login.xml" value="0.10277777777777777" />
-        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_main_screen.xml" value="0.25" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_login.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_main_screen.xml" value="0.3037974683544304" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_map.xml" value="0.225" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_maps.xml" value="0.2015625" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/Choice/app/src/main/res/layout/fragment_register.xml" value="0.22" />
