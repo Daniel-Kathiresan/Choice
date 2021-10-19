@@ -137,7 +137,6 @@ class MatchActivity : AppCompatActivity(), CardStackListener {
                     adapter.submitList(cardItems)
                     //Notify data set changed to adapter
                     adapter.notifyDataSetChanged()
-
                 }
                 //Check "other" gender, snapshot
                 if (snapshot.child("uid").value != getCurrentUserID()&&
