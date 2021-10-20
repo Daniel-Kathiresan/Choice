@@ -53,7 +53,7 @@ class ChatActivity : AppCompatActivity() {
         receiverRoom = senderUid + receiverUid
 
         if (isNearby) {
-            val ts = System.currentTimeMillis()
+            val ts ="nearby"
             senderRoom += ts
             receiverRoom += ts
         }
